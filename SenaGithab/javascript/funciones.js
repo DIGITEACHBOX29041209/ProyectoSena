@@ -65,5 +65,15 @@ function valida_registroEmpleado() {
 
     document.getElementById('formRegistro').submit();
 }
+function valida_registroProducto() {
+    if ( isNaN(document.getElementById('prodPrecioNeto').value)){
+       alert("Debe ser valores numericos"); 
+       return(false);
+    }
+        if ( isNaN(document.getElementById('prodPrecioProducto').value)){
+       alert("Debe ser valores numericos"); 
+       return(false);
+    }
+}
 
 
