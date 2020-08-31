@@ -1,6 +1,6 @@
 <?php
 
-require_once PATH . 'modelos/ModeloEmpleado/Empleado_Dao.php';
+require_once '../modelos/ModeloEmpleado/Empleado_Dao.php';
 
 class EmpleadoControlador {
 

@@ -1,7 +1,7 @@
 <?php
 
-include_once PATH . 'modelos/ModeloEmpleado/ValidadorEmpleado.php';
-include_once PATH . 'controladores/EmpleadoControlador.php';
+include_once '../modelos/ModeloEmpleado/ValidadorEmpleado.php';
+include_once 'EmpleadoControlador.php';
 
 class ControladorPrincipal {
 
