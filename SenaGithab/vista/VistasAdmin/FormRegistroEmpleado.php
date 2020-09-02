@@ -41,7 +41,6 @@ if (isset($_SESSION['erroresValidacion'])) {
                                     <h1 class="h4 text-gray-900 mb-4">Crear cuenta empleado!</h1>
                                 </div>
                                 <form class="user" method="GET" action="../Controlador.php" id="formRegistro">
-
                                     <div>
                                         <input placeholder="Documento" name="documento" type="number" required="required" autofocus
                                                value=<?php
