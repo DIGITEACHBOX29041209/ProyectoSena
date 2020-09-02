@@ -2,7 +2,7 @@
 
 class ValidadorEmpleado {
 
-    public function ValidadorFormualrioEmpleado($datos) {
+    public function ValidadorFormularioEmpleado($datos) {
         $mensajesError = NULL;
         $datosViejos = NULL;
         $marcaCampo = NULL;

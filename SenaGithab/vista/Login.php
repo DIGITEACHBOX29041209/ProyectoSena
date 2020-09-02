@@ -51,7 +51,7 @@ if (isset($_SESSION['mensaje'])) {
                                         <form role="form" method="POST" action="Controlador.php" name="formLogin" class="user">
                                             <input id="InputCorreo" class="form-control" placeholder="Correo Electrónico" name="email" type="email" autofocus>
                                             <input id="InputPassword" class="form-control" placeholder="Password" name="password" type="password" value="">
-                                            <input type="hidden" name="ruta" value="gestionDeAcceso">
+                                            <input type="hidden" name="rutaSena" value="gestionDeAcceso">
                                             <input type="button" class="btn btn-lg btn-success btn-block" onclick="validar_logueo();" value="Ingresar">
                                         </form>
                                         <hr>

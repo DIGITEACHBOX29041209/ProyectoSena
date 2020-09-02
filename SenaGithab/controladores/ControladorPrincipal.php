@@ -20,15 +20,32 @@ class ControladorPrincipal {
     public function control() {
         switch ($this->datos['rutaSena']) {
             /* Registro del empleado tabla empleado*/
+            
             case "gestionDeRegistro": 
                 if ($this->datos['rutaSena'] === "gestionDeRegistro") {
                     $validarRegistro = new ValidadorEmpleado();
-                    $erroresValidacion = $validarRegistro->ValidadorFormualrioEmpleado($this->datos);
+                    $erroresValidacion = $validarRegistro->ValidadorFormularioEmpleado($this->datos);
                 }
                 if (isset($erroresValidacion) && $erroresValidacion != FALSE) {
                     session_start();
                     $_SESSION['erroresValidacion'] = $erroresValidacion;
                     if ($this->datos['rutaSena'] == "gestionDeRegistro") {
+                        header("location:vista/VistasAdmin/FormRegistroEmpleado.php");
+                    }
+                } else {
+                    $EmpleadoControlador = new EmpleadoControlador($this->datos);
+                }
+                break;
+        
+            case "gestionDeAcceso": 
+                if ($this->datos['rutaSena'] === "gestionDeAcceso") {
+                    $validarRegistro = new ValidarLogin();
+                    $erroresValidacion = $validarRegistro->ValidarFormularioLogeo($this->datos);
+                }
+                if (isset($erroresValidacion) && $erroresValidacion != FALSE) {
+                    session_start();
+                    $_SESSION['erroresValidacion'] = $erroresValidacion;
+                    if ($this->datos['rutaSena'] == "gestionDeAcceso") {
                         header("location:vista/VistasAdmin/FormRegistroEmpleado.php");
                     }
                 } else {
