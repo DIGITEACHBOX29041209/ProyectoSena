@@ -10,9 +10,7 @@ class Proveedor_Dao extends ConBdMySql {
     }
 
     public function seleccionarTodos() {
-        echo "<pre>";
-        print_r("holaaaaaaa");
-        echo "</pre>";
+
 
         $planConsulta = "SELECT P.provIdProvedores, P.provNombreProvedor, P.provDireccionProvedor, P.provTelefonoProvedor, P.prov_Estado, P.prov_created_at, P.prov_updated_at 
                   FROM provedores P " ;
@@ -26,9 +24,9 @@ class Proveedor_Dao extends ConBdMySql {
         }
 
         $this->cierreBd();
-        echo "<pre>";
-        print_r("holaaaaaaa");
-        echo "</pre>";
+//        echo "<pre>";
+//        print_r("holaaaaaaa");
+//        echo "</pre>";
     }
     
         public function Insertarproveedor($IdProvedores,$NombreProvedor,$DireccionProvedor,$TelefonoProvedor) {
@@ -53,6 +51,6 @@ class Proveedor_Dao extends ConBdMySql {
 
         $registrosLibros = $this->conexion->prepare($planborrar);
         $registrosLibros->execute(); //Ejecución de la consulta 
-
+        $this->cierreBd();
         }
 }

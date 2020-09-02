@@ -1,6 +1,6 @@
 <?php
 
-include_once  'ConBdMySql.php';
+include_once 'ConBdMySql.php';
 
 class Empleado_Dao extends ConBdMySql {
 
@@ -8,20 +8,45 @@ class Empleado_Dao extends ConBdMySql {
         parent::__construct($servidor, $base, $loginBD, $passwordBD);
     }
 
-    public function seleccionarId($sId) {//llega como parametro un array con datos a consultar
-        if (!isset($sId[2])) { //si la consulta no viene con el password (PARA REGISTRARSE)
-            $planConsulta = "SELECT * FROM `empleado` WHERE empDocumentoEmpleado = $sId[0] or empCorreo = '$sId[1]' ";
+    public function seleccionarId($sId) {
+        try {
+            if (!isset($sId[2])) {
+                $planConsulta = "SELECT * FROM `empleado` WHERE empDocumentoEmpleado = $sId[0] or empCorreo = '$sId[1]' ";
+                $listar = $this->conexion->prepare($planConsulta);
+                $listar->execute();
+            }
+            $registroEncontrado = array();
+            while ($registro = $listar->fetch(PDO::FETCH_OBJ)) {
+                $registroEncontrado[] = $registro;
+            }
+            if (count($registroEncontrado) == 0) {
+                return ['exitoSeleccionId' => 1, 'registroEncontrado' => $registroEncontrado];
+            } else {
+                return ['exitoSeleccionId' => 0, 'registroEncontrado' => $registroEncontrado];
+            }
+        } catch (Exception $exc) {
+            return ['exitoSeleccionId' => 2, 'registroEncontrado' => $exc->getTraceAsString()];
+        }
+    }
+
+    public function seleccionarTodos() {
+        try {
+
+            $planConsulta = "SELECT * FROM empleado";
             $listar = $this->conexion->prepare($planConsulta);
             $listar->execute();
-        }
-        $registroEncontrado = array();
-        while ($registro = $listar->fetch(PDO::FETCH_OBJ)) {
-            $registroEncontrado[] = $registro;
-        }
-        if (count($registroEncontrado) == 0) {
-            return ['exitoSeleccionId' => 1, 'registroEncontrado' => $registroEncontrado];
-        } else {
-            return ['exitoSeleccionId' => 0, 'registroEncontrado' => $registroEncontrado];
+
+            $registroEncontrado = array();
+            while ($registro = $listar->fetch(PDO::FETCH_OBJ)) {
+                $registroEncontrado[] = $registro;
+            }
+            if (count($registroEncontrado) == 0) {
+                return ['exitoSeleccionId' => 1, 'registroEncontrado' => $registroEncontrado];
+            } else {
+                return ['exitoSeleccionId' => 0, 'registroEncontrado' => $registroEncontrado];
+            }
+        } catch (Exception $exc) {
+            return ['exitoSeleccionId' => 2, 'registroEncontrado' => $exc->getTraceAsString()];
         }
     }
 
@@ -35,31 +60,88 @@ class Empleado_Dao extends ConBdMySql {
             $telefono = $registro['telefono'];
             $tipoEmpleado = $registro['tipoEmpleado'];
             $inserta = $this->conexion->prepare("INSERT INTO `empleado`(empDocumentoEmpleado, empNombreEmpleado, empApellidoEmpleado, empPassword, empCorreo, empTelefonoEmpleado, empCargoEmpleado, emp_Estado) VALUES ($documento,'$nombre','$apellido', ':$clave','$email', '$telefono', '$tipoEmpleado','1')");
-            $insercion = $inserta->execute();
-            $clavePrimariaConQueInserto = $this->conexion->lastInsertId();
+            $inserta->execute();
+            $clavePrimariaConQueInserto = $this->ultimoInsertId();
             return ['inserto' => 1, 'resultado' => $clavePrimariaConQueInserto];
         } catch (Exception $exc) {
-            return ['inserto' => $exc, 'resultado' => $exc->getTraceAsString()];
+            return ['inserto' => 2, 'resultado' => $exc->getTraceAsString()];
+        }
+    }
+
+    public function actualizar($registro) {
+        try {
+            $Id = $registro['idEmpleado'];
+            $email = $registro['email'];
+            $clave = $registro['password'];
+            $documento = $registro['documento'];
+            $nombre = $registro['nombre'];
+            $apellido = $registro['apellidos'];
+            $telefono = $registro['telefono'];
+            $tipoEmpleado = $registro['tipoEmpleado'];
+            $inserta = $this->conexion->prepare("UPDATE empleado SET `empDocumentoEmpleado`='$documento',`empNombreEmpleado`='$nombre',`empApellidoEmpleado`='$apellido',`empTelefonoEmpleado`='$telefono',`empCargoEmpleado`='$tipoEmpleado',`empCorreo`='$email' WHERE  empIdEmpleado = '$Id' ");
+            $inserta->execute();
+            return ['inserto' => 1, 'resultado' => 'Actualizo correctamente'];
+        } catch (Exception $exc) {
+            return ['inserto' => 2, 'resultado' => $exc->getTraceAsString()];
         }
     }
 
     public function listarTipoEmpleado() {
-
         try {
             $planConsulta = "SELECT * FROM tipoempleado ";
             $listar = $this->conexion->prepare($planConsulta);
             $listar->execute();
             $registroEncontrado = array();
-
             while ($registro = $listar->fetch(PDO::FETCH_OBJ)) {
                 $registroEncontrado[] = $registro;
             }
-
-           return $registroEncontrado;
-           
-        } catch (Exception $ex) {
-            
+            return ['exitoListar' => 1, 'resultado' => $registroEncontrado];
+        } catch (Exception $exc) {
+            return ['exitoListar' => 2, 'resultado' => $exc->getTraceAsString()];
         }
     }
 
+    public function ultimoInsertId() {
+        try {
+            $planConsulta = "SELECT * FROM empleado ORDER BY empIdEmpleado DESC LIMIT 1";
+            $listar = $this->conexion->prepare($planConsulta);
+            $listar->execute();
+            $registroEncontrado = array();
+            while ($registro = $listar->fetch(PDO::FETCH_OBJ)) {
+                $registroEncontrado[] = $registro;
+            }
+            if (count($registroEncontrado) == 0) {
+                return ['exitoSeleccionId' => 1, 'registroEncontrado' => $registroEncontrado];
+            } else {
+                return ['exitoSeleccionId' => 0, 'registroEncontrado' => $registroEncontrado];
+            }
+        } catch (Exception $exc) {
+            return ['exitoSeleccionId' => 2, 'registroEncontrado' => $exc->getTraceAsString()];
+        }
+    }
+
+    public function EliminadoLogico($Id) {
+        try {
+            $inserta = $this->conexion->prepare("UPDATE empleado SET emp_Estado='3' where empIdEmpleado = '$Id'");
+            $inserta->execute();
+            return ['inserto' => 1, 'resultado' => 'Actualizo correctamente'];
+        } catch (Exception $exc) {
+            return ['inserto' => 2, 'resultado' => $exc->getTraceAsString()];
+        }
+    }
+    public function Eliminadobd($Id) {
+        try {
+            $inserta = $this->conexion->prepare("DELETE FROM `empleado` WHERE empIdEmpleado = '$Id'");
+            $inserta->execute();
+            return ['inserto' => 1, 'resultado' => 'Borro correctamente'];
+        } catch (Exception $exc) {
+            return ['inserto' => 2, 'resultado' => $exc->getTraceAsString()];
+        }
+    }
+    
 }
+
+//        echo "<pre>";
+//        print_r($clavePrimariaConQueInserto);
+//        echo "</pre>";
+//        exit();
