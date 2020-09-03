@@ -78,7 +78,7 @@ class Producto_Dao extends ConBdMySql {
         $cantidad = $registro['cantidad'];
         $precioNeto = $registro['precioNeto'];
         $precioProducto = $registro['precioProducto'];
-        $inserta = $this->conexion->prepare("UPDATE `producto`(prodNombreProducto, prodDescripcionProducto, prodCantidadProducto, prodPrecioNeto, prodPrecioProducto, prod_Estado) VALUES ('$nombre', '$descripcion', '$cantidad', '$precioNeto', '$precioProducto','1')");
+        $inserta = $this->conexion->prepare("UPDATE `producto` SET `prodNombreProducto`='$nombre',`prodDescripcionProducto`='$descripcion',`prodCantidadProducto`='$cantidad'`prodPrecioNeto`='$precioNeto',`prodPrecioProducto`='$precioProducto' WHERE prodidProducto = '$Id' ");
         $insercion = $inserta->execute();
         $clavePrimariaConQueInserto = "0";
         return ['inserto' => 1, 'resultado' => $clavePrimariaConQueInserto];
@@ -86,5 +86,35 @@ class Producto_Dao extends ConBdMySql {
         return ['inserto' => 0, 'resultado' => $exc->getTraceAsString()];
     }
 }
+
+    public function ultimoInsertId() {
+        try {
+            $planConsulta = "SELECT * FROM producto ORDER BY prodidProducto DESC LIMIT 1";
+            $listar = $this->conexion->prepare($planConsulta);
+            $listar->execute();
+            $registroEncontrado = array();
+            while ($registro = $listar->fetch(PDO::FETCH_OBJ)) {
+                $registroEncontrado[] = $registro;
+            }
+            if (count($registroEncontrado) == 0) {
+                return ['exitoSeleccionId' => 0, 'registroEncontrado' => $registroEncontrado]; /*Pailas */
+            } else {
+                return ['exitoSeleccionId' => 1, 'registroEncontrado' => $registroEncontrado];/* todo bien */
+            }
+        } catch (Exception $exc) {
+            return ['exitoSeleccionId' => 2, 'registroEncontrado' => $exc->getTraceAsString()];
+        }
+    }
+    
+    
+    public function EliminadoLogico($Id) {
+        try {
+            $inserta = $this->conexion->prepare("UPDATE producto SET prod_Estado='3' WHERE prodidProducto = '$Id'");
+            $inserta->execute();
+            return ['inserto' => 1, 'resultado' => 'Actualizo correctamente'];
+        } catch (Exception $exc) {
+            return ['inserto' => 2, 'resultado' => $exc->getTraceAsString()];
+        }
+    }
 }
 
