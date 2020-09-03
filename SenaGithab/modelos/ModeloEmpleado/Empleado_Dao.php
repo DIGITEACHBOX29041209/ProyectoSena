@@ -8,10 +8,10 @@ class Empleado_Dao extends ConBdMySql {
         parent::__construct($servidor, $base, $loginBD, $passwordBD);
     }
 
-    public function seleccionarId($sId) {
+    public function seleccionarId($Id) {
         try {
-            if (!isset($sId[2])) {
-                $planConsulta = "SELECT * FROM `empleado` WHERE empDocumentoEmpleado = $sId[0] or empCorreo = '$sId[1]' ";
+            if (!isset($Id[2])) {
+                $planConsulta = "SELECT * FROM `empleado` WHERE empDocumentoEmpleado = $Id[0] or empCorreo = '$Id[1]' ";
                 $listar = $this->conexion->prepare($planConsulta);
                 $listar->execute();
             }
@@ -20,9 +20,10 @@ class Empleado_Dao extends ConBdMySql {
                 $registroEncontrado[] = $registro;
             }
             if (count($registroEncontrado) == 0) {
-                return ['exitoSeleccionId' => 1, 'registroEncontrado' => $registroEncontrado];
+                
+                return ['exitoSeleccionId' => 1, 'registroEncontrado' => $registroEncontrado]; /* 1 exitoso */
             } else {
-                return ['exitoSeleccionId' => 0, 'registroEncontrado' => $registroEncontrado];
+                return ['exitoSeleccionId' => 0, 'registroEncontrado' => $registroEncontrado];/* 0 pailas */
             }
         } catch (Exception $exc) {
             return ['exitoSeleccionId' => 2, 'registroEncontrado' => $exc->getTraceAsString()];
@@ -41,9 +42,9 @@ class Empleado_Dao extends ConBdMySql {
                 $registroEncontrado[] = $registro;
             }
             if (count($registroEncontrado) == 0) {
-                return ['exitoSeleccionId' => 1, 'registroEncontrado' => $registroEncontrado];
+                return ['exitoSeleccionId' => 0, 'registroEncontrado' => $registroEncontrado]; /*0 pailas */
             } else {
-                return ['exitoSeleccionId' => 0, 'registroEncontrado' => $registroEncontrado];
+                return ['exitoSeleccionId' => 1, 'registroEncontrado' => $registroEncontrado]; /* todo bien*/
             }
         } catch (Exception $exc) {
             return ['exitoSeleccionId' => 2, 'registroEncontrado' => $exc->getTraceAsString()];
@@ -52,16 +53,17 @@ class Empleado_Dao extends ConBdMySql {
 
     public function insertar($registro) {
         try {
-            $email = $registro['email'];
-            $clave = $registro['password'];
-            $documento = $registro['documento'];
-            $nombre = $registro['nombre'];
             $apellido = $registro['apellidos'];
             $telefono = $registro['telefono'];
+            $clave = $registro['password'];
+            $email = $registro['email'];
+            $documento = $registro['documento'];
+            $nombre = $registro['nombre'];
             $tipoEmpleado = $registro['tipoEmpleado'];
             $inserta = $this->conexion->prepare("INSERT INTO `empleado`(empDocumentoEmpleado, empNombreEmpleado, empApellidoEmpleado, empPassword, empCorreo, empTelefonoEmpleado, empCargoEmpleado, emp_Estado) VALUES ($documento,'$nombre','$apellido', ':$clave','$email', '$telefono', '$tipoEmpleado','1')");
             $inserta->execute();
             $clavePrimariaConQueInserto = $this->ultimoInsertId();
+        exit();
             return ['inserto' => 1, 'resultado' => $clavePrimariaConQueInserto];
         } catch (Exception $exc) {
             return ['inserto' => 2, 'resultado' => $exc->getTraceAsString()];
@@ -111,9 +113,9 @@ class Empleado_Dao extends ConBdMySql {
                 $registroEncontrado[] = $registro;
             }
             if (count($registroEncontrado) == 0) {
-                return ['exitoSeleccionId' => 1, 'registroEncontrado' => $registroEncontrado];
+                return ['exitoSeleccionId' => 0, 'registroEncontrado' => $registroEncontrado]; /*Pailas */
             } else {
-                return ['exitoSeleccionId' => 0, 'registroEncontrado' => $registroEncontrado];
+                return ['exitoSeleccionId' => 1, 'registroEncontrado' => $registroEncontrado];/* todo bien */
             }
         } catch (Exception $exc) {
             return ['exitoSeleccionId' => 2, 'registroEncontrado' => $exc->getTraceAsString()];
@@ -129,6 +131,7 @@ class Empleado_Dao extends ConBdMySql {
             return ['inserto' => 2, 'resultado' => $exc->getTraceAsString()];
         }
     }
+    
     public function Eliminadobd($Id) {
         try {
             $inserta = $this->conexion->prepare("DELETE FROM `empleado` WHERE empIdEmpleado = '$Id'");
