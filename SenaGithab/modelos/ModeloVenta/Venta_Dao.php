@@ -114,23 +114,21 @@ class Factura_Dao extends ConBdMySql {
     }
     
 
-//    public function actualizar($registro) {
-//        try {
-//            $Id = $registro['idFactura'];
-//            $email = $registro['email'];
-//            $clave = $registro['password'];
-//            $documento = $registro['documento'];
-//            $nombre = $registro['nombre'];
-//            $apellido = $registro['apellidos'];
-//            $telefono = $registro['telefono'];
-//            $tipoEmpleado = $registro['tipoEmpleado'];
-//            $inserta = $this->conexion->prepare("UPDATE empleado SET `empDocumentoEmpleado`='$documento',`empNombreEmpleado`='$nombre',`empApellidoEmpleado`='$apellido',`empTelefonoEmpleado`='$telefono',`empCargoEmpleado`='$tipoEmpleado',`empCorreo`='$email' WHERE  empIdEmpleado = '$Id' ");
-//            $inserta->execute();
-//            return ['inserto' => 1, 'resultado' => 'Actualizo correctamente'];
-//        } catch (Exception $exc) {
-//            return ['inserto' => 2, 'resultado' => $exc->getTraceAsString()];
-//        }
-//    }
+   public function actualizar($registro) {
+        try {
+           $Id = $registro['Venta'];
+           $IdFactura = $registro['IdFactura'];
+           $CantidadProd = $registro['CantidadProd'];
+           $PrecioUn = $registro['PrecioUn'];
+           $DescuentoReal = $registro['DescuentoReal'];
+           $PrecioFinal = $registro['PrecioFinal'];
+           $inserta = $this->conexion->prepare("UPDATE venta SET `facIdFactura`='$IdFactura',`venCantidadProducto`='$CantidadProd',`venPrecioUnidad`='$PrecioUn',`venDescuentoRealizado`='$DescuentoReal',`venPrecioFinal`='$$PrecioFinal', WHERE  venIdVenta = '$Id' ");
+           $inserta->execute();
+           return ['inserto' => 1, 'resultado' => 'Actualizo correctamente'];
+           } catch (Exception $exc) {
+           return ['inserto' => 2, 'resultado' => $exc->getTraceAsString()];
+           }      
+        }
     
 
 }
