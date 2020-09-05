@@ -19,7 +19,7 @@ class Producto_Dao extends ConBdMySql {
             $registroEncontrado[] = $registro;
         }
             return $registroEncontrado;
-        }
+    }
     
 
     public function insertar($registro) {

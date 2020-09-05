@@ -60,7 +60,7 @@ class Empleado_Dao extends ConBdMySql {
             $documento = $registro['documento'];
             $nombre = $registro['nombre'];
             $tipoEmpleado = $registro['tipoEmpleado'];
-            $inserta = $this->conexion->prepare("INSERT INTO `empleado`(empDocumentoEmpleado, empNombreEmpleado, empApellidoEmpleado, empPassword, empCorreo, empTelefonoEmpleado, empCargoEmpleado, emp_Estado) VALUES ($documento,'$nombre','$apellido', ':$clave','$email', '$telefono', '$tipoEmpleado','1')");
+            $inserta = $this-> conexion->prepare("INSERT INTO `empleado`(empDocumentoEmpleado, empNombreEmpleado, empApellidoEmpleado, empPassword, empCorreo, empTelefonoEmpleado, empCargoEmpleado, emp_Estado) VALUES ('$documento','$nombre','$apellido', ':$clave','$email', '$telefono', '$tipoEmpleado','1')");
             $inserta->execute();
             $clavePrimariaConQueInserto = $this->ultimoInsertId();
         exit();

@@ -8,58 +8,129 @@ class Factura_Dao extends ConBdMySql {
 
         parent::__construct($servidor, $base, $loginBD, $passwordBD);
     }
-
-    public function seleccionarTodos() {
-
-        $planConsulta = "SELECT * FROM venta ";
-        $registrosLibros = $this->conexion->prepare($planConsulta);
-        $registrosLibros->execute(); //Ejecución de la consulta 
-
-        $listadoProveedores = array();
-
-        while ($registro = $registrosLibros->fetch(PDO::FETCH_OBJ)) {
-            $listadoProveedores[] = $registro;
+    
+    public function seleccionarId($Id) {
+        try {
+            if (!isset($Id)) {
+                $planConsulta = "SELECT * FROM `venta` WHERE venIdVenta = $Id";
+                $listar = $this->conexion->prepare($planConsulta);
+                $listar->execute();
+            }
+            $registroEncontrado = array();
+            while ($registro = $listar->fetch(PDO::FETCH_OBJ)) {
+                $registroEncontrado[] = $registro;
+            }
+            if (count($registroEncontrado) == 0) {               
+                return ['exitoSeleccionId' => 1, 'registroEncontrado' => $registroEncontrado]; /* 1 exitoso */
+            } 
+            else {
+                return ['exitoSeleccionId' => 0, 'registroEncontrado' => $registroEncontrado];/* 0 pailas */
+            }
+        } catch (Exception $exc) {
+            return ['exitoSeleccionId' => 2, 'registroEncontrado' => $exc->getTraceAsString()];
         }
+    }
+    
+    public function seleccionarTodos() {
+        try {
 
-        $this->cierreBd();
+            $planConsulta = "SELECT * FROM venta ";
+            $registrosLibros = $this->conexion->prepare($planConsulta);
+            $registrosLibros->execute(); //Ejecución de la consulta 
+
+            $listadoProveedores = array();
+
+            while ($registro = $registrosLibros->fetch(PDO::FETCH_OBJ)) {
+                $listadoProveedores[] = $registro;
+            }
+            $this->cierreBd(); //Que es esto???
+
+            if (count($registroEncontrado) == 0) {
+                return ['exitoSeleccionId' => 0, 'registroEncontrado' => $registroEncontrado]; /* 0 pailas */
+            } else {
+                return ['exitoSeleccionId' => 1, 'registroEncontrado' => $registroEncontrado]; /* todo bien */
+            }
+        } catch (Exception $exc) {
+            return ['exitoSeleccionId' => 2, 'registroEncontrado' => $exc->getTraceAsString()];
+        }
     }
 
     public function insertar($registro) {
         try {
-            $facIdFactura= $registro['facIdFactura'];
+            $facIdFactura = $registro['facIdFactura'];
             $venCantidadProducto = $registro['venCantidadProducto'];
-            $venPrecioUnidad= $registro['venPrecioUnidad'];
+            $venPrecioUnidad = $registro['venPrecioUnidad'];
             $venDescuentoRealizado = $registro['venDescuentoRealizado'];
             $venPrecioFinal = $registro['venPrecioFinal'];
             $prodidProducto = $registro['prodidProducto'];
             $inserta = $this->conexion->prepare("INSERT INTO venta (facIdFactura, venCantidadProducto, venPrecioUnidad, venDescuentoRealizado, venPrecioFinal, ven_Estado ,prodidProducto) "
-                    . "VALUES ('$facIdFactura', '$venCantidadProducto' , '$venPrecioUnidad' , '$venDescuentoRealizado' , $venPrecioFinal , '1' , '$prodidProducto')");
+                    . "VALUES ('$facIdFactura', '$venCantidadProducto' , '$venPrecioUnidad' , '$venDescuentoRealizado' , '$venPrecioFinal' , '1' , '$prodidProducto')");
             $insercion = $inserta->execute();
-            $clavePrimariaConQueInserto = "0";
+            $clavePrimariaConQueInserto = $this->ultimoInsertId();
+        exit();
             return ['inserto' => 1, 'resultado' => $clavePrimariaConQueInserto];
         } catch (Exception $exc) {
-            return ['inserto' => 0, 'resultado' => $exc->getTraceAsString()];
+            return ['inserto' => 2, 'resultado' => $exc->getTraceAsString()];
         }
-    }
-
-    public function borrar($Id) {
-
-        $planborrar = "DELETE * FROM `venta` WHERE venIdVenta = $Id";
-        $registrosLibros = $this->conexion->prepare($planborrar);
-        $registrosLibros->execute(); //Ejecución de la consulta 
-        $this->cierreBd();
     }
     
-    public function actualizar($registro) {
+    public function ultimoInsertId() {
         try {
-            $empIdEmpleado = $registro['empIdEmpleado'];
-            $facTotalFactura = $registro['facTotalFactura'];
-            $inserta = $this->conexion->prepare("UPDATE factura ( empIdEmpleado, facFechaFactura, facTotalFactura, fac_Estado) VALUES ('$empIdEmpleado','$facTotalFactura','1') where venIdVenta = $empIdEmpleado");
-            $insercion = $inserta->execute();
-            $clavePrimariaConQueInserto = "0";
-            return ['inserto' => 1, 'resultado' => $clavePrimariaConQueInserto];
+            $planConsulta = "SELECT * FROM venta ORDER BY venIdVenta DESC LIMIT 1";
+            $listar = $this->conexion->prepare($planConsulta);
+            $listar->execute();
+            $registroEncontrado = array();
+            while ($registro = $listar->fetch(PDO::FETCH_OBJ)) {
+                $registroEncontrado[] = $registro;
+            }
+            if (count($registroEncontrado) == 0) {
+                return ['exitoSeleccionId' => 0, 'registroEncontrado' => $registroEncontrado]; /*Pailas */
+            } else {
+                return ['exitoSeleccionId' => 1, 'registroEncontrado' => $registroEncontrado];/* todo bien */
+            }
         } catch (Exception $exc) {
-            return ['inserto' => 0, 'resultado' => $exc->getTraceAsString()];
+            return ['exitoSeleccionId' => 2, 'registroEncontrado' => $exc->getTraceAsString()];
         }
     }
+
+    public function EliminadoLogico($Id) {
+        try {
+            $inserta = $this->conexion->prepare("UPDATE venta SET emp_Estado='3' WHERE venIdVenta = '$Id'");
+            $inserta->execute();
+            return ['inserto' => 1, 'resultado' => 'Actualizo correctamente'];
+        } catch (Exception $exc) {
+            return ['inserto' => 2, 'resultado' => $exc->getTraceAsString()];
+        }
+    }
+
+    public function Eliminadobd($Id) {
+        try {
+            $inserta = $this->conexion->prepare("DELETE FROM `venta` WHERE venIdVenta = '$Id'");
+            $inserta->execute();
+            return ['inserto' => 1, 'resultado' => 'Borro correctamente'];
+        } catch (Exception $exc) {
+            return ['inserto' => 2, 'resultado' => $exc->getTraceAsString()];
+        }
+    }
+    
+
+//    public function actualizar($registro) {
+//        try {
+//            $Id = $registro['idFactura'];
+//            $email = $registro['email'];
+//            $clave = $registro['password'];
+//            $documento = $registro['documento'];
+//            $nombre = $registro['nombre'];
+//            $apellido = $registro['apellidos'];
+//            $telefono = $registro['telefono'];
+//            $tipoEmpleado = $registro['tipoEmpleado'];
+//            $inserta = $this->conexion->prepare("UPDATE empleado SET `empDocumentoEmpleado`='$documento',`empNombreEmpleado`='$nombre',`empApellidoEmpleado`='$apellido',`empTelefonoEmpleado`='$telefono',`empCargoEmpleado`='$tipoEmpleado',`empCorreo`='$email' WHERE  empIdEmpleado = '$Id' ");
+//            $inserta->execute();
+//            return ['inserto' => 1, 'resultado' => 'Actualizo correctamente'];
+//        } catch (Exception $exc) {
+//            return ['inserto' => 2, 'resultado' => $exc->getTraceAsString()];
+//        }
+//    }
+    
+
 }
