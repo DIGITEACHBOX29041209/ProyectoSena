@@ -134,3 +134,6 @@ class Factura_Dao extends ConBdMySql {
     
 
 }
+//        print_r($clavePrimariaConQueInserto);
+//        echo "</pre>";
+//        exit();
