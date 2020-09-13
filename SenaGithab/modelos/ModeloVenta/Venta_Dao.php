@@ -1,8 +1,8 @@
-<?php
+ <?php
 
-include_once PATH . 'modelos/ConBdMysql.php';
+include_once PATH . 'modelos/ModeloEmpleado/ConBdMysql.php';
 
-class Factura_Dao extends ConBdMySql {
+class Venta_Dao extends ConBdMySql {
 
     public function __construct($servidor, $base, $loginBD, $passwordBD) {
 
@@ -43,7 +43,7 @@ class Factura_Dao extends ConBdMySql {
                 $listadoProveedores[] = $registro;
             }
             $this->cierreBd(); //Que es esto???
-
+            $registroEncontrado = array();
             if (count($registroEncontrado) == 0) {
                 return ['exitoSeleccionId' => 0, 'registroEncontrado' => $registroEncontrado]; /* 0 pailas */
             } else {
@@ -55,18 +55,17 @@ class Factura_Dao extends ConBdMySql {
     }
 
     public function insertar($registro) {
-        try {
-            $facIdFactura = $registro['facIdFactura'];
+        try {          
+            $IdFactura = $registro['IdFactura'];
             $venCantidadProducto = $registro['venCantidadProducto'];
             $venPrecioUnidad = $registro['venPrecioUnidad'];
             $venDescuentoRealizado = $registro['venDescuentoRealizado'];
             $venPrecioFinal = $registro['venPrecioFinal'];
             $prodidProducto = $registro['prodidProducto'];
-            $inserta = $this->conexion->prepare("INSERT INTO venta (facIdFactura, venCantidadProducto, venPrecioUnidad, venDescuentoRealizado, venPrecioFinal, ven_Estado ,prodidProducto) "
-                    . "VALUES ('$facIdFactura', '$venCantidadProducto' , '$venPrecioUnidad' , '$venDescuentoRealizado' , '$venPrecioFinal' , '1' , '$prodidProducto')");
+            $inserta = $this->conexion->prepare("INSERT INTO `venta`( `facIdFactura`, `venCantidadProducto`, `venPrecioUnidad`, `venDescuentoRealizado`, `venPrecioFinal`, `ven_Estado`, `prodidProducto`) "
+                    . "VALUES ($IdFactura,$venCantidadProducto,$venPrecioUnidad,$venDescuentoRealizado,$venPrecioFinal,'1',$prodidProducto)");
             $inserta->execute();
             $clavePrimariaConQueInserto = $this->ultimoInsertId();
-            exit();
             return ['inserto' => 1, 'resultado' => $clavePrimariaConQueInserto];
         } catch (Exception $exc) {
             return ['inserto' => 2, 'resultado' => $exc->getTraceAsString()];
@@ -114,13 +113,13 @@ class Factura_Dao extends ConBdMySql {
 
     public function actualizar($registro) {
         try {
-            $Id = $registro['Venta'];
+            $Id = $registro['IdVenta'];
             $IdFactura = $registro['IdFactura'];
             $CantidadProd = $registro['CantidadProd'];
             $PrecioUn = $registro['PrecioUn'];
             $DescuentoReal = $registro['DescuentoReal'];
             $PrecioFinal = $registro['PrecioFinal'];
-            $inserta = $this->conexion->prepare("UPDATE venta SET `facIdFactura`='$IdFactura',`venCantidadProducto`='$CantidadProd',`venPrecioUnidad`='$PrecioUn',`venDescuentoRealizado`='$DescuentoReal',`venPrecioFinal`='$$PrecioFinal', WHERE  venIdVenta = '$Id' ");
+            $inserta = $this->conexion->prepare("UPDATE venta SET `venCantidadProducto`='$CantidadProd',`venPrecioUnidad`='$PrecioUn',`venDescuentoRealizado`='$DescuentoReal',`venPrecioFinal`='$$PrecioFinal', WHERE  venIdVenta = '$Id' ");
             $inserta->execute();
             return ['inserto' => 1, 'resultado' => 'Actualizo correctamente'];
         } catch (Exception $exc) {
