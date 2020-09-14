@@ -3,8 +3,8 @@
 include_once '../modelos/ModeloEmpleado/ValidadorEmpleado.php';
 include_once 'EmpleadoControlador.php';
 include_once 'ProvedorControlador.php';
+include_once 'VentaControlador.php';
 include_once '../modelos/ModeloProvedor/ValidadorProvedor.php';
-
 
 class ControladorPrincipal {
 
@@ -56,7 +56,7 @@ class ControladorPrincipal {
                 }
                 break;
             case "gestionDeRegistroProvedor":
-                                if ($this->datos['rutaSena'] === "gestionDeRegistroProvedor") {
+                if ($this->datos['rutaSena'] === "gestionDeRegistroProvedor") {
                     $validarRegistroProvedor = new ValidadorProvedor();
                     $erroresValidacion = $validarRegistroProvedor->ValidadorFormularioProvedor($this->datos);
                 }
@@ -69,6 +69,10 @@ class ControladorPrincipal {
                 } else {
                     $ProvedorControlador = new ProvedorControlador($this->datos);
                 }
+                break;
+
+            case "gestionDeRegistroVenta":
+                $VentaControlador = new VentaControlador($this->datos);
                 break;
 
 
