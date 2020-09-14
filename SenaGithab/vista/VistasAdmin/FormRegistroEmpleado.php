@@ -127,14 +127,7 @@ if (isset($_SESSION['erroresValidacion'])) {
                                                 echo "<font color='red'>" . $erroresValidacion['mensajesError']['email'] . "</font>";
                                             ?>
                                         </div>
-                                        <div>
-                                            <select id="tipoEmpleado"   name="tipoEmpleado" required="required">
-                                                <option value="">Tipo Empleado</option>
-                                                <option value="1">Administrador</option>
-                                                <option value="2">Gerente</option>
-                                                <option value="3">Vendedor</option>
-                                            </select>
-                                        </div>
+                                        
                                     </div>
                                     <div>
                                         <input placeholder="Telefono" name="telefono" type="number"   required="required"

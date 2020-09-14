@@ -65,14 +65,15 @@ function valida_registroEmpleado() {
     document.getElementById('formRegistro').submit();
 }
 function valida_registroProducto() {
-    if (isNaN(document.getElementById('prodPrecioNeto').value)) {
+    if (/^([0-9])*$/.test(document.getElementById('prodPrecioNeto').value)) {
         alert("Debe ser valores numericos");
         return(false);
     }
-    if (isNaN(document.getElementById('prodPrecioProducto').value)) {
+    if (/^([0-9])*$/.test(document.getElementById('prodPrecioProducto').value)) {
         alert("Debe ser valores numericos");
         return(false);
     }
+    document.getElementById('formRegistroProducto').submit();
 }
 
 function valida_registroProveedor() {
@@ -80,12 +81,13 @@ function valida_registroProveedor() {
         alert("Debe ingresar telefono");
         return(false);
     }
+    document.formLogin.submit();    
 }
 
 function validar_registroventa() {
-
     if (/^([0-9])*$/.test(document.getElementById('InputPrecio').value)) {
         alert("Debe ingresar el precio del producto");
         return(false);
+        document.getElementById('formRegistroVenta').submit();
     }
 }
