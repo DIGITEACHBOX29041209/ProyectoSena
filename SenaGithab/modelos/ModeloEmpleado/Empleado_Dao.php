@@ -20,10 +20,10 @@ class Empleado_Dao extends ConBdMySql {
                 $registroEncontrado[] = $registro;
             }
             if (count($registroEncontrado) == 0) {
-                
+
                 return ['exitoSeleccionId' => 1, 'registroEncontrado' => $registroEncontrado]; /* 1 exitoso */
             } else {
-                return ['exitoSeleccionId' => 0, 'registroEncontrado' => $registroEncontrado];/* 0 pailas */
+                return ['exitoSeleccionId' => 0, 'registroEncontrado' => $registroEncontrado]; /* 0 pailas */
             }
         } catch (Exception $exc) {
             return ['exitoSeleccionId' => 2, 'registroEncontrado' => $exc->getTraceAsString()];
@@ -41,11 +41,10 @@ class Empleado_Dao extends ConBdMySql {
             while ($registro = $listar->fetch(PDO::FETCH_OBJ)) {
                 $registroEncontrado[] = $registro;
             }
-            if (count($registroEncontrado) == 0) {
-                return ['exitoSeleccionId' => 0, 'registroEncontrado' => $registroEncontrado]; /*0 pailas */
-            } else {
-                return ['exitoSeleccionId' => 1, 'registroEncontrado' => $registroEncontrado]; /* todo bien*/
-            }
+            echo 'hola';
+            exit();
+            
+           return $registroEncontrado;
         } catch (Exception $exc) {
             return ['exitoSeleccionId' => 2, 'registroEncontrado' => $exc->getTraceAsString()];
         }
@@ -60,7 +59,7 @@ class Empleado_Dao extends ConBdMySql {
             $documento = $registro['documento'];
             $nombre = $registro['nombre'];
             $tipoEmpleado = $registro['tipoEmpleado'];
-            $inserta = $this-> conexion->prepare("INSERT INTO `empleado`(empDocumentoEmpleado, empNombreEmpleado, empApellidoEmpleado, empPassword, empCorreo, empTelefonoEmpleado, empCargoEmpleado, emp_Estado) VALUES ('$documento','$nombre','$apellido', ':$clave','$email', '$telefono', '$tipoEmpleado','1')");
+            $inserta = $this->conexion->prepare("INSERT INTO `empleado`(empDocumentoEmpleado, empNombreEmpleado, empApellidoEmpleado, empPassword, empCorreo, empTelefonoEmpleado, empCargoEmpleado, emp_Estado) VALUES ('$documento','$nombre','$apellido', ':$clave','$email', '$telefono', '$tipoEmpleado','1')");
             $inserta->execute();
             $clavePrimariaConQueInserto = $this->ultimoInsertId();
             return ['inserto' => 1, 'resultado' => $clavePrimariaConQueInserto];
@@ -112,9 +111,9 @@ class Empleado_Dao extends ConBdMySql {
                 $registroEncontrado[] = $registro;
             }
             if (count($registroEncontrado) == 0) {
-                return ['exitoSeleccionId' => 0, 'registroEncontrado' => $registroEncontrado]; /*Pailas */
+                return ['exitoSeleccionId' => 0, 'registroEncontrado' => $registroEncontrado]; /* Pailas */
             } else {
-                return ['exitoSeleccionId' => 1, 'registroEncontrado' => $registroEncontrado];/* todo bien */
+                return ['exitoSeleccionId' => 1, 'registroEncontrado' => $registroEncontrado]; /* todo bien */
             }
         } catch (Exception $exc) {
             return ['exitoSeleccionId' => 2, 'registroEncontrado' => $exc->getTraceAsString()];
@@ -130,7 +129,7 @@ class Empleado_Dao extends ConBdMySql {
             return ['inserto' => 2, 'resultado' => $exc->getTraceAsString()];
         }
     }
-    
+
     public function Eliminadobd($Id) {
         try {
             $inserta = $this->conexion->prepare("DELETE FROM `empleado` WHERE empIdEmpleado = '$Id'");
@@ -140,7 +139,7 @@ class Empleado_Dao extends ConBdMySql {
             return ['inserto' => 2, 'resultado' => $exc->getTraceAsString()];
         }
     }
-    
+
 }
 
 //        echo "<pre>";

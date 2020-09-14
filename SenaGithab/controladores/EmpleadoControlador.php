@@ -50,12 +50,22 @@ class EmpleadoControlador {
                     $_SESSION['nombre'] = $this->datos['nombre'];
                     $_SESSION['apellidos'] = $this->datos['apellidos'];
                     $_SESSION['email'] = $this->datos['email'];
-                      $_SESSION['telefono'] = $this->datos['telefono'];
+                    $_SESSION['telefono'] = $this->datos['telefono'];
                     $_SESSION['mensaje'] = "El usuario ya existe en el sistema.";
                     if ($this->datos['rutaSena'] == 'gestionDeRegistro') {//si al insertar un usuario en el formulario de registrarse y éste ya existe a registro.php
                         header("location:vistasAdmin/FormRegistroEmpleado.php");
                     }
                 }
+                break;
+            case "gestionDeTablasEmpleado":
+                $gestarTablas_s = new Empleado_Dao(SERVIDOR, BASE, USUARIO_BD, CONTRASENIA_BD);
+                $insertoUsuario_s = $gestarTablas_s->seleccionarTodos();
+                
+                    session_start(); //se abre sesión para almacenar en ella el mensaje de inserción
+                    $_SESSION['mensaje'] = "Se entontraron datos para esta tabla";
+                    $_SESSION['datos'] = $insertoUsuario_s;
+                    header("location:vistasAdmin/visaEmpleado.php");
+                
                 break;
             default :
                 break;
@@ -63,4 +73,3 @@ class EmpleadoControlador {
     }
 
 }
-
