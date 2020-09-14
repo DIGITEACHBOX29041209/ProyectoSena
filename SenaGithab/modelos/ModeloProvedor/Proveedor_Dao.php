@@ -1,8 +1,8 @@
 <?php
 
-include_once PATH . 'modelos/ConBdMysql.php';
+include_once 'ConBdMysql.php';
 
-class Proveedor_Dao extends ConBdMySql {
+class Proveedor_Dao extends ConBdMySql1 {
 
     public function __construct($servidor, $base, $loginBD, $passwordBD) {
 
@@ -53,12 +53,11 @@ class Proveedor_Dao extends ConBdMySql {
     }
 
     public function insertar($registro) {
-        try {
-            $IdProvedores = $registro['IdProvedores'];
+        try {   
             $NombreProvedor = $registro['NombreProvedor'];
             $DireccionProvedor = $registro['DireccionProvedor'];
             $TelefonoProvedor = $registro['TelefonoProvedor'];
-            $inserta = $this->conexion->prepare("INSERT INTO `provedores` (`provIdProvedores`, `provNombreProvedor`, `provDireccionProvedor`, `provTelefonoProvedor`, `prov_Estado`, `prov_created_at`, `prov_updated_at`) VALUES ($IdProvedores, $NombreProvedor, $DireccionProvedor, $TelefonoProvedor,'1')");
+            $inserta = $this->conexion->prepare("INSERT INTO `provedores` ( `provNombreProvedor`, `provDireccionProvedor`, `provTelefonoProvedor`, `prov_Estado`) VALUES ($NombreProvedor, $DireccionProvedor, $TelefonoProvedor,'1')");
             $inserta->execute();
             $clavePrimariaConQueInserto = $this->ultimoInsertId();
         exit();

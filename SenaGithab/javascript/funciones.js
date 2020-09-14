@@ -80,6 +80,7 @@ function valida_registroProveedor() {
         alert("Debe ingresar telefono");
         return(false);
     }
+    document.formLogin.submit();    
 }
 
 function validar_registroventa() {
