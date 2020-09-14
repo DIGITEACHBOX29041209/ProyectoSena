@@ -65,14 +65,15 @@ function valida_registroEmpleado() {
     document.getElementById('formRegistro').submit();
 }
 function valida_registroProducto() {
-    if (isNaN(document.getElementById('prodPrecioNeto').value)) {
+    if (/^([0-9])*$/.test(document.getElementById('prodPrecioNeto').value)) {
         alert("Debe ser valores numericos");
         return(false);
     }
-    if (isNaN(document.getElementById('prodPrecioProducto').value)) {
+    if (/^([0-9])*$/.test(document.getElementById('prodPrecioProducto').value)) {
         alert("Debe ser valores numericos");
         return(false);
     }
+    document.getElementById('formRegistroProducto').submit();
 }
 
 function valida_registroProveedor() {

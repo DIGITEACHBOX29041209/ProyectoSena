@@ -5,6 +5,7 @@ include_once 'EmpleadoControlador.php';
 include_once 'ProvedorControlador.php';
 include_once 'VentaControlador.php';
 include_once '../modelos/ModeloProvedor/ValidadorProvedor.php';
+include_once 'ProductoControlador.php';
 
 class ControladorPrincipal {
 
@@ -73,6 +74,11 @@ class ControladorPrincipal {
 
             case "gestionDeRegistroVenta":
                 $VentaControlador = new VentaControlador($this->datos);
+                break;
+            
+            case "gestionarRegistroProducto": 
+                $ProductoControlador = new ProductoControlador($this->datos);
+       
                 break;
 
 
