@@ -80,12 +80,13 @@ function valida_registroProveedor() {
         alert("Debe ingresar telefono");
         return(false);
     }
+    document.formLogin.submit();    
 }
 
 function validar_registroventa() {
-
     if (/^([0-9])*$/.test(document.getElementById('InputPrecio').value)) {
         alert("Debe ingresar el precio del producto");
         return(false);
+        document.getElementById('formRegistroVenta').submit();
     }
 }
