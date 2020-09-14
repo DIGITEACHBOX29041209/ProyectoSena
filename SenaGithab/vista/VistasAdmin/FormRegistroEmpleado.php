@@ -127,14 +127,7 @@ if (isset($_SESSION['erroresValidacion'])) {
                                                 echo "<font color='red'>" . $erroresValidacion['mensajesError']['email'] . "</font>";
                                             ?>
                                         </div>
-                                        <div>
-                                            <select id="tipoEmpleado"   name="tipoEmpleado" required="required">
-                                                <option value="">Tipo Empleado</option>
-                                                <option value="1">Administrador</option>
-                                                <option value="2">Gerente</option>
-                                                <option value="3">Vendedor</option>
-                                            </select>
-                                        </div>
+                                        
                                     </div>
                                     <div>
                                         <input placeholder="Telefono" name="telefono" type="number"   required="required"
@@ -158,12 +151,7 @@ if (isset($_SESSION['erroresValidacion'])) {
                                             ?>
                                         </div>
                                     </div>
-                                    <div>
-                                        <input id="InputPassword" placeholder="Password" name="password" type="password" value=""  required="required">
-                                    </div>
-                                    <div>
-                                        <input id="InputPassword2"  placeholder="Confirmar Password" name="password2" type="password" value="" required="required">
-                                    </div>
+                                
                                     <input type="hidden" name="rutaSena" value="gestionDeRegistro">
                                     <button onclick="valida_registroEmpleado()" class="btn btn-primary btn-user btn-block">Registrar Empleado</button>
                                 </form>

@@ -1,6 +1,6 @@
 <?php
 
-include_once  'ConBdMySql.php';
+include_once  PATH.'modelos/ModeloEmpleado/ConBdMySql.php';
 
 class Producto_Dao extends ConBdMySql {
 
@@ -33,17 +33,22 @@ class Producto_Dao extends ConBdMySql {
 
     public function insertar($registro) {
         try {
+            $clavePrimariaConQueInserto = $this->ultimoInsertId();
+            
+            $idProducto = $clavePrimariaConQueInserto[0]->prodidProducto;
+            $idProducto2 = $idProducto+1;
             $nombre = $registro['nombre'];
             $descripcion = $registro['descripcion'];
             $cantidad = $registro['cantidad'];
             $precioNeto = $registro['precioNeto'];
             $precioProducto = $registro['precioProducto'];
-            $inserta = $this->conexion->prepare("INSERT INTO `producto`(prodNombreProducto, prodDescripcionProducto, prodCantidadProducto, prodPrecioNeto, prodPrecioProducto, prod_Estado) VALUES ('$nombre', '$descripcion', '$cantidad', '$precioNeto', '$precioProducto','1')");
+            $inserta = $this->conexion->prepare("INSERT INTO `producto`(prodidProducto, prodNombreProducto, prodDescripcionProducto, prodCantidadProducto, prodPrecioNeto, prodPrecioProducto, prod_Estado) VALUES ('$idProducto2', '$nombre', '$descripcion', '$cantidad', '$precioNeto', '$precioProducto','1')");
             $inserta->execute();
             $clavePrimariaConQueInserto = $this->ultimoInsertId();
-        exit();
+            
             return ['inserto' => 1, 'resultado' => $clavePrimariaConQueInserto];
         } catch (Exception $exc) {
+            
             return ['inserto' => 2, 'resultado' => $exc->getTraceAsString()];
         }
     }
@@ -100,12 +105,7 @@ class Producto_Dao extends ConBdMySql {
             while ($registro = $listar->fetch(PDO::FETCH_OBJ)) {
                 $registroEncontrado[] = $registro;
             }
-            if (count($registroEncontrado) == 0) {
-                return ['exitoSeleccionId' => 0, 'registroEncontrado' => $registroEncontrado]; /*Pailas */
-            } else {
-                return ['exitoSeleccionId' => 1, 'registroEncontrado' => $registroEncontrado];/* todo bien */
-            }
-        } catch (Exception $exc) {
+            return $registroEncontrado;        } catch (Exception $exc) {
             return ['exitoSeleccionId' => 2, 'registroEncontrado' => $exc->getTraceAsString()];
         }
     }
