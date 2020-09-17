@@ -1,8 +1,8 @@
 <?php
 
-include_once 'ConBdMysql.php';
+include_once PATH . 'modelos/ConBdMySql.php';
 
-class Proveedor_Dao extends ConBdMySql1 {
+class Proveedor_Dao extends ConBdMySql {
 
     public function __construct($servidor, $base, $loginBD, $passwordBD) {
 

@@ -1,6 +1,6 @@
 <?php
 
-include_once PATH . 'modelos/ConBdMysql.php';
+include_once PATH . 'modelos/ConBdMySql.php';
 
 class Factura_Dao extends ConBdMySql {
 

@@ -1,6 +1,6 @@
 <?php
 
-include_once 'ConBdMySql.php';
+include_once PATH . 'modelos/ConBdMySql.php';
 
 class Empleado_Dao extends ConBdMySql {
 
