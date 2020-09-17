@@ -58,7 +58,7 @@ if (isset($_SESSION['mensaje'])) {
                                         <div class="text-center">
                                             <a class="small" href="forgot-password.html">Forgot Password?</a>
                                         </div>
-                                        <a href="VistasAdmin/visaEmpleado.php">Vista Empleado</a>
+                                        <a href="VistasGenerales.php">Vista Generales</a>
                                     </div>
                                 </div>
                             </div>
