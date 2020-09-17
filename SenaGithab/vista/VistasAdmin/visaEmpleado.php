@@ -1,11 +1,12 @@
 <?php
 session_start();
 if (isset($_SESSION['datos'])) {
-    $listaDeEmpleado = $_SESSION['datos']['registroEncontrado'];
+    $listaDeEmpleado = $_SESSION['datos'];
 //    echo "<pre>";
-//    print_r($listaDeEmpleado);
+//    print_r($_SESSION['datos']);
 //    echo "</pre>";
-//    echo "Holitas";
+//    echo "Holitas6";
+//    exit();
 }
 ?>
 <html lang="en">

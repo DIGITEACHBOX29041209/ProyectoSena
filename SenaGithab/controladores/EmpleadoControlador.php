@@ -57,15 +57,14 @@ class EmpleadoControlador {
                     }
                 }
                 break;
-            case "gestionDeTablasEmpleado":
+            case "gestionDeTablasEmpeladoo":
                 $gestarTablas_s = new Empleado_Dao(SERVIDOR, BASE, USUARIO_BD, CONTRASENIA_BD);
                 $insertoUsuario_s = $gestarTablas_s->seleccionarTodos();
-                
-                    session_start(); //se abre sesión para almacenar en ella el mensaje de inserción
-                    $_SESSION['mensaje'] = "Se entontraron datos para esta tabla";
-                    $_SESSION['datos'] = $insertoUsuario_s;
-                    header("location:vistasAdmin/visaEmpleado.php");
-                
+                session_start(); //se abre sesión para almacenar en ella el mensaje de inserción
+                $_SESSION['mensaje'] = "Se entontraron datos para esta tabla";
+                $_SESSION['datos'] = $insertoUsuario_s;
+                header("location:vistasAdmin/visaEmpleado.php");
+
                 break;
             default :
                 break;

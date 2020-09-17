@@ -40,10 +40,7 @@ class Empleado_Dao extends ConBdMySql {
             $registroEncontrado = array();
             while ($registro = $listar->fetch(PDO::FETCH_OBJ)) {
                 $registroEncontrado[] = $registro;
-            }
-            echo 'hola';
-            exit();
-            
+            }            
            return $registroEncontrado;
         } catch (Exception $exc) {
             return ['exitoSeleccionId' => 2, 'registroEncontrado' => $exc->getTraceAsString()];

@@ -80,7 +80,7 @@ class ControladorPrincipal {
                 $ProductoControlador = new ProductoControlador($this->datos);
        
                 break;
-            case "gestionDeTablasEmpleado":
+            case "gestionDeTablasEmpeladoo":
                 $EmpleadoControlador = new EmpleadoControlador($this->datos);
                 break;
 

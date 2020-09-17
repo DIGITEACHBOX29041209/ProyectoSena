@@ -6,7 +6,7 @@ define("USUARIO_BD", "root"); //se define una constante para el usuario de la ba
 define("CONTRASENIA_BD", ""); //se define una constante para la contraseña,de ahora en adelante CONTRASENIA_BD
 
 //constante
-define("PATH",$_SERVER['DOCUMENT_ROOT']."/"."ProyectoSena"."/"."SenaGithab"."/");
+define("PATH",$_SERVER['DOCUMENT_ROOT']."/"."ProyectoSena"."/"."ProyectoSena"."/"."SenaGithab"."/");
 
 
 

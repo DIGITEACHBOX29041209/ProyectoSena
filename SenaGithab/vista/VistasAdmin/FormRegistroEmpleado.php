@@ -157,7 +157,7 @@ if (isset($_SESSION['erroresValidacion'])) {
                                     <div>
                                         <input id="InputPassword2"  placeholder="Confirmar Password" name="password2" type="password" value="" required="required">
                                     </div>
-                                    <input type="hidden" name="rutaSena" value="gestionDeTablasEmpleado">
+                                    <input type="hidden" name="rutaSena" value="gestionDeRegistro">
                                     <button onclick="valida_registroEmpleado()" class="btn btn-primary btn-user btn-block">Registrar Empleado</button>
                                 </form>
                             </div>
