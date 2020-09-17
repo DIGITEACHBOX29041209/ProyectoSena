@@ -9,51 +9,41 @@ class Venta_Dao extends ConBdMySql {
         parent::__construct($servidor, $base, $loginBD, $passwordBD);
     }
 
-    public function seleccionarId($Id) {
+       public function seleccionarTodos() {
         try {
-            if (!isset($Id)) {
-                $planConsulta = "SELECT * FROM `venta` WHERE venIdVenta = $Id";
-                $listar = $this->conexion->prepare($planConsulta);
-                $listar->execute();
-            }
+
+            $planConsulta = "SELECT * FROM venta";
+            $listar = $this->conexion->prepare($planConsulta);
+            $listar->execute();
+
             $registroEncontrado = array();
             while ($registro = $listar->fetch(PDO::FETCH_OBJ)) {
                 $registroEncontrado[] = $registro;
-            }
-            if (count($registroEncontrado) == 0) {
-                return ['exitoSeleccionId' => 1, 'registroEncontrado' => $registroEncontrado]; /* 1 exitoso */
-            } else {
-                return ['exitoSeleccionId' => 0, 'registroEncontrado' => $registroEncontrado]; /* 0 pailas */
-            }
+            }            
+           return $registroEncontrado;
         } catch (Exception $exc) {
             return ['exitoSeleccionId' => 2, 'registroEncontrado' => $exc->getTraceAsString()];
         }
     }
 
-    public function seleccionarTodos() {
+     public function seleccionarIdProd($registro) {
         try {
+            $IdProducto = $registro['prodidProducto'];
+                
+            $planConsulta = "SELECT * FROM `producto` WHERE prodidProducto = $IdProducto ";
+            $listar = $this->conexion->prepare($planConsulta);
+            $listar->execute();
 
-            $planConsulta = "SELECT * FROM venta ";
-            $registrosLibros = $this->conexion->prepare($planConsulta);
-            $registrosLibros->execute(); //Ejecución de la consulta 
-
-            $listadoProveedores = array();
-
-            while ($registro = $registrosLibros->fetch(PDO::FETCH_OBJ)) {
-                $listadoProveedores[] = $registro;
-            }
-            $this->cierreBd(); //Que es esto???
             $registroEncontrado = array();
-            if (count($registroEncontrado) == 0) {
-                return ['exitoSeleccionId' => 0, 'registroEncontrado' => $registroEncontrado]; /* 0 pailas */
-            } else {
-                return ['exitoSeleccionId' => 1, 'registroEncontrado' => $registroEncontrado]; /* todo bien */
-            }
+            while ($registro = $listar->fetch(PDO::FETCH_OBJ)) {
+                $registroEncontrado[] = $registro;
+            }            
+           return $registroEncontrado;
         } catch (Exception $exc) {
             return ['exitoSeleccionId' => 2, 'registroEncontrado' => $exc->getTraceAsString()];
         }
     }
-
+    
     public function insertar($registro) {
         try {          
             $IdFactura = $registro['IdFactura'];

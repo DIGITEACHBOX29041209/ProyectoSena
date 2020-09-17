@@ -114,6 +114,14 @@ class ProvedorControlador {
                     }
                 }
                 break;
+            case "gestionDeTablasproveedor":
+                $gestarTablas_s = new Proveedor_Dao(SERVIDOR, BASE, USUARIO_BD, CONTRASENIA_BD);
+                $insertoUsuario_s = $gestarTablas_s->seleccionarTodos($this->datos);
+                session_start(); //se abre sesión para almacenar en ella el mensaje de inserción
+                $_SESSION['mensaje'] = "Se entontraron datos para esta tabla";
+                $_SESSION['datosProveedorTabla'] = $insertoUsuario_s;
+                header("location:vistasAdmin/FormRegistroVenta.php");
+                break;
 
             default:
                 break;

@@ -50,8 +50,8 @@ if (isset($_SESSION['datos'])) {
                             <td><?php echo $listaDeEmpleado[$i]->empNombreEmpleado; ?></td>  
                             <td><?php echo $listaDeEmpleado[$i]->empApellidoEmpleado; ?></td>  
                              <td><?php echo $listaDeEmpleado[$i]->empCorreo; ?></td>  
-                            <td><a href="Controlador.php?ruta=actualizarLibro&idAct=<?php echo $listaDeEmpleado[$i]->empIdEmpleado; ?>">Actualizar</a></td>  
-                            <td><a href="Controlador.php?ruta=eliminarLibro&idAct=<?php echo $listaDeEmpleado[$i]->empIdEmpleados; ?>" onclick="return confirm('Está seguro de eliminar el registro?')">Eliminar</a></td>  
+                            <td><a href="Controlador.php?rutaSena=actualizarLibro&idAct=<?php echo $listaDeEmpleado[$i]->empIdEmpleado; ?>">Actualizar</a></td>  
+                            <td><a href="Controlador.php?rutaSena=eliminarLibro&idAct=<?php echo $listaDeEmpleado[$i]->empIdEmpleados; ?>" onclick="return confirm('Está seguro de eliminar el registro?')">Eliminar</a></td>  
                         </tr>   
                         <?php $i++;
                     }

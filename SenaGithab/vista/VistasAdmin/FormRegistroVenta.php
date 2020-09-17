@@ -9,6 +9,12 @@ if (isset($_SESSION['erroresValidacion'])) {
     $erroresValidacion = $_SESSION['erroresValidacion'];
     unset($_SESSION['erroresValidacion']);
 }
+
+if (isset($_SESSION['datosProducto'])) {
+    $datosProducto = $_SESSION['datosProducto'];
+} else {
+    $datosProducto = array();
+}
 ?>
 
 <!DOCTYPE html>
@@ -40,36 +46,45 @@ if (isset($_SESSION['erroresValidacion'])) {
                                 <div class="text-center">
                                     <h1 class="h4 text-gray-900 mb-4">Crear Venta!</h1>
                                 </div>
-                                <form class="user" method="GET" action="../Controlador.php" id="formRegistroVenta">
+                                <form class="user" method="GET" action="../Controlador.php" id="formSeleccionarProducto">
                                     <div>
-                                        <input placeholder="ID Factura" name="IdFactura" type="number" required="required" autofocus
+                                        <input placeholder="ID Producto" name="prodidProducto" type="number"   required="required"
                                                value=<?php
-                                               if (isset($erroresValidacion['datosViejos']['IdFactura']))
-                                                   echo "\"" . $erroresValidacion['datosViejos']['IdFactura'] . "\"";
-                                               if (isset($_SESSION['IdFactura']))
-                                                   echo "\"" . $_SESSION['IdFactura'] . "\"";
-                                               unset($_SESSION['IdFactura']);
+                                               if (isset($erroresValidacion['datosViejos']['prodidProducto']))
+                                                   echo "\"" . $erroresValidacion['datosViejos']['prodidProducto'] . "\"";
+                                               if (isset($_SESSION['prodidProducto'])) {
+                                                   echo "\"" . $_SESSION['prodidProducto'] . "\"";
+                                                   unset($_SESSION['prodidProducto']);
+                                               }
                                                ?>
                                                >
                                         <div>
                                             <?php
-                                            if (isset($erroresValidacion['marcaCampo']['IdFactura']))
-                                                echo "<font color='red'>" . $erroresValidacion['marcaCampo']['IdFactura'] . "</font>";
-                                            ?>
+                                            if (isset($erroresValidacion['marcaCampo']['prodidProducto']))
+                                                echo "<font color='red'>" . $erroresValidacion['marcaCampo']['prodidProducto'] . "</font>";
+                                            ?>                                        
                                             <?php
-                                            if (isset($erroresValidacion['mensajesError']['IdFactura']))
-                                                echo "<font color='red'>" . $erroresValidacion['mensajesError']['IdFactura'] . "</font>";
-                                            ?>  
+                                            if (isset($erroresValidacion['mensajesError']['prodidProducto']))
+                                                echo "<font color='red'>" . $erroresValidacion['mensajesError']['prodidProducto'] . "</font>";
+                                            ?>
                                         </div>
                                     </div>
+                                    <input type="hidden" name="rutaSena" value="selectProductoInfo">
+                                    <button type="submit" class="btn btn-primary btn-user btn-block">Traer Producto</button>
+                                </form>
+                                <form class="user" method="GET" action="../Controlador.php" id="formRegistroVenta">
                                     <div>
-                                        <input placeholder="Cantidad Producto" name="venCantidadProducto" type="number"   required="required"
+                                        <input placeholder="Cantidad Producto" name="venCantidadProducto" type="text"   required="required"
                                                value=<?php
                                                if (isset($erroresValidacion['datosViejos']['venCantidadProducto']))
                                                    echo "\"" . $erroresValidacion['datosViejos']['venCantidadProducto'] . "\"";
                                                if (isset($_SESSION['venCantidadProductoe'])) {
                                                    echo "\"" . $_SESSION['venCantidadProducto'] . "\"";
                                                    unset($_SESSION['venCantidadProducto']);
+                                               }if($datosProducto != NULL){
+                                                   if(count($datosProducto) > 0){
+                                                       echo "\"" . $datosProducto['prodNombreProducto'] . "\"";
+                                                   }
                                                }
                                                ?>
                                                >
@@ -150,28 +165,7 @@ if (isset($_SESSION['erroresValidacion'])) {
                                             ?>
                                         </div>
                                     </div>
-                                    <div>
-                                        <input placeholder="ID Producto" name="prodidProducto" type="number"   required="required"
-                                               value=<?php
-                                               if (isset($erroresValidacion['datosViejos']['prodidProducto']))
-                                                   echo "\"" . $erroresValidacion['datosViejos']['prodidProducto'] . "\"";
-                                               if (isset($_SESSION['prodidProducto'])) {
-                                                   echo "\"" . $_SESSION['prodidProducto'] . "\"";
-                                                   unset($_SESSION['prodidProducto']);
-                                               }
-                                               ?>
-                                               >
-                                        <div>
-                                            <?php
-                                            if (isset($erroresValidacion['marcaCampo']['prodidProducto']))
-                                                echo "<font color='red'>" . $erroresValidacion['marcaCampo']['prodidProducto'] . "</font>";
-                                            ?>                                        
-                                            <?php
-                                            if (isset($erroresValidacion['mensajesError']['prodidProducto']))
-                                                echo "<font color='red'>" . $erroresValidacion['mensajesError']['prodidProducto'] . "</font>";
-                                            ?>
-                                        </div>
-                                    </div>
+
                                     <input type="hidden" name="rutaSena" value="gestionDeRegistroVenta">
                                     <button onclick="validar_registroventa()" class="btn btn-primary btn-user btn-block">Registrar Venta</button>
                                 </form>

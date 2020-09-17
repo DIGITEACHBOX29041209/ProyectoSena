@@ -75,15 +75,25 @@ class ControladorPrincipal {
             case "gestionDeRegistroVenta":
                 $VentaControlador = new VentaControlador($this->datos);
                 break;
-            
-            case "gestionarRegistroProducto": 
+
+            case "gestionarRegistroProducto":
                 $ProductoControlador = new ProductoControlador($this->datos);
-       
+
                 break;
             case "gestionDeTablasEmpeladoo":
                 $EmpleadoControlador = new EmpleadoControlador($this->datos);
                 break;
 
+            case "gestionDeTablasFacturaVenta":
+                $EmpleadoControlador = new VentaControlador($this->datos);
+                break;
+
+            case "selectProductoInfo":
+                $VentaControlador = new VentaControlador($this->datos);
+                break;
+            case "gestionDeTablasproveedor":
+                $ProvedorControlador = new ProductoControlador($this->datos);
+                break;
 
             default:
                 break;

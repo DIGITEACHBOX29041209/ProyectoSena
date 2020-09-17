@@ -42,11 +42,7 @@ class Proveedor_Dao extends ConBdMySql {
             while ($registro = $listar->fetch(PDO::FETCH_OBJ)) {
                 $registroEncontrado[] = $registro;
             }
-            if (count($registroEncontrado) == 0) {
-                return ['exitoSeleccionId' => 0, 'registroEncontrado' => $registroEncontrado]; /*0 pailas */
-            } else {
-                return ['exitoSeleccionId' => 1, 'registroEncontrado' => $registroEncontrado]; /* todo bien*/
-            }
+             return $registroEncontrado;
         } catch (Exception $exc) {
             return ['exitoSeleccionId' => 2, 'registroEncontrado' => $exc->getTraceAsString()];
         }
