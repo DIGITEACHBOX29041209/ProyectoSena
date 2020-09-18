@@ -23,5 +23,12 @@
             <input type="hidden" name="rutaSena" value="gestionDeTablasproveedor">
             <button Type="submit" class="btn btn-primary btn-user btn-block">Vista Proveedor</button>
         </form>
+         <br/>
+        <br/>
+        <br/>
+        <form class="user" method="GET" action="Controlador.php" id="formVistaProducto">
+            <input type="hidden" name="rutaSena" value="gestionDeTablasproducto">
+            <button Type="submit" class="btn btn-primary btn-user btn-block">Vista Producto</button>
+        </form>
     </body>
 </html>

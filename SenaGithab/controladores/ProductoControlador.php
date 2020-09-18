@@ -21,13 +21,13 @@ class ProductoControlador {
                 session_start();
                 $_SESSION['mensaje'] = "Registrado con èxito para ingreso al sistema";
                 header("location:Login.php");
-                
-               
-                
+
+
+
                 break;
-                
+
             case "gestionActualizar":
-                 $gestarActProducto_s = new Producto_Dao(SERVIDOR, BASE, USUARIO_BD, CONTRASENIA_BD); //Se puede llamar de la misma manera gestar?
+                $gestarActProducto_s = new Producto_Dao(SERVIDOR, BASE, USUARIO_BD, CONTRASENIA_BD); //Se puede llamar de la misma manera gestar?
 
                 $ActualizoProducto_s = $gestarActProducto_s->actualizar($registro);
                 $exitoActualizarProducto_s = $ActualizoProducto_s['inserto'];
@@ -52,7 +52,7 @@ class ProductoControlador {
                     }
                 }
                 break;
-                
+
             case "gestionDeEliminadoBd":
                 $gestarElimBdProducto_s = new Venta_Dao(SERVIDOR, BASE, USUARIO_BD, CONTRASENIA_BD);
 
@@ -106,7 +106,14 @@ class ProductoControlador {
                     }
                 }
                 break;
-                
+            case "gestionDeTablasproducto":
+                $gestarTablas_s = new Producto_Dao(SERVIDOR, BASE, USUARIO_BD, CONTRASENIA_BD);
+                $insertoUsuario_s = $gestarTablas_s->seleccionarTodos();
+                session_start(); //se abre sesión para almacenar en ella el mensaje de inserción
+                $_SESSION['mensaje'] = "Se entontraron datos para esta tabla";
+                $_SESSION['datos'] = $insertoUsuario_s;
+                header("location:vistasAdmin/visaEmpleado.php");
+                break;
             default :
                 break;
         }

@@ -91,13 +91,16 @@ class ControladorPrincipal {
             case "selectProductoInfo":
                 $VentaControlador = new VentaControlador($this->datos);
                 break;
+            
             case "gestionDeTablasproveedor":
-                $ProvedorControlador = new ProductoControlador($this->datos);
+                $ProvedorControlador = new ProvedorControlador($this->datos);
                 break;
-
+                
+            case "gestionDeTablasproducto":
+                $ProductoControlador = new ProductoControlador($this->datos);
+                break;
             default:
                 break;
         }
     }
-
 }
