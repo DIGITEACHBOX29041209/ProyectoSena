@@ -82,7 +82,7 @@ function valida_registroProveedor() {
         return(false);
         document.getElementById('formRegistroProvedor').submit();
     }
-        
+
 }
 
 function validar_registroventa() {
@@ -91,4 +91,13 @@ function validar_registroventa() {
         return(false);
         document.getElementById('formRegistroVenta').submit();
     }
+
 }
+function valida_ActualizarProveedor() {
+    if (/^([0-9])*$/.test(document.getElementById('InputTelefono').value)) {
+        alert("Debe ingresar telefono");
+        return(false);
+        document.getElementById('vistaActualizarProveedor').submit();
+    }
+}
+    

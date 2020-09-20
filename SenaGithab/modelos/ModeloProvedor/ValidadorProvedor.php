@@ -18,8 +18,17 @@ class ValidadorProvedor {
                         $mensajesError['TelefonoProvedor'] = "*1-Formato o valor del Dato incorrecto";
                         $marcaCampo['TelefonoProvedor'] = "*1";
                     }
+                    
                     break;
             }
+        }
+        if (!is_null($mensajesError)) {
+            $datosViejos['rutaSena'] = "";
+
+            return array('datosViejos' => $datosViejos, 'mensajesError' => $mensajesError, 'marcaCampo' => $marcaCampo);
+        } else {
+            $datosViejos = NULL;
+            return FALSE;
         }
     }
 

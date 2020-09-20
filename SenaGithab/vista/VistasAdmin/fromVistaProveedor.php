@@ -51,7 +51,7 @@ if (isset($_SESSION['datos'])) {
                             <td><?php echo $listaDeProvedores[$i]->provTelefonoProvedor; ?></td>  
                             <td><?php echo $listaDeProvedores[$i]->prov_created_at; ?></td>  
                             <td><a href="../Controlador.php?rutaSena=actualizarProvedor&idAct=<?php echo $listaDeProvedores[$i]->provIdProvedores; ?>">Actualizar</a></td>  
-                            <td><a href="Controlador.php?rutaSena=eliminarProvedor&idAct=<?php echo $listaDeProvedores[$i]->provIdProvedores; ?>" onclick="return confirm('Está seguro de eliminar el registro?')">Eliminar</a></td>  
+                            <td><a href="../Controlador.php?rutaSena=eliminarProvedor&idAct=<?php echo $listaDeProvedores[$i]->provIdProvedores; ?>" onclick="return confirm('Está seguro de eliminar el registro?')">Eliminar</a></td>  
                         </tr>   
                         <?php
                         $i++;

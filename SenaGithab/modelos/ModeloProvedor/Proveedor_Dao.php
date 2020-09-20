@@ -58,18 +58,18 @@ class Proveedor_Dao extends ConBdMySql {
     }
 
     public function actualizar($registro) {
-        try {
-            $IdProvedores = $registro['idAct'];
-            echo print_r($IdProvedores);
-            exit();
-            $NombreProvedor = $registro['nombre'];
-            $DireccionProvedor = $registro['direccion'];
-            $TelefonoProvedor = $registro['telefono'];
-            $inserta = $this->conexion->prepare("UPDATE provedores SET `provNombreProvedor`='$NombreProvedor',`provDireccionProvedor`='$DireccionProvedor',`provTelefonoProvedor`='$TelefonoProvedor' WHERE  provIdProvedores = '$IdProvedores' ");
-            $inserta->execute();
-            return ['inserto' => 1, 'resultado' => 'Actualizo correctamente'];
+                try {
+            $NombreProvedor = $registro[0]['NombreProvedor'];
+            $DireccionProvedor = $registro[0]['DireccionProvedor'];
+            $TelefonoProvedor = $registro[0]['TelefonoProvedor'];
+            $IdProvedores = $registro[0]['provIdProvedores'];
+            if (isset($IdProvedores)) {
+                $actualizacion = $this->conexion->prepare("UPDATE `provedores` SET `provNombreProvedor`='$NombreProvedor',`provDireccionProvedor`='$DireccionProvedor',`provTelefonoProvedor`=$TelefonoProvedor WHERE provIdProvedores = $IdProvedores ");
+                $actualizacion->execute();
+                return ['actualizacion' => 1, 'mensaje' => "Actualización realizada."];
+            }
         } catch (Exception $exc) {
-            return ['inserto' => 2, 'resultado' => $exc->getTraceAsString()];
+            return ['actualizacion' => 2, 'resultado' => $exc->getTraceAsString()];
         }
     }
 
@@ -102,13 +102,14 @@ class Proveedor_Dao extends ConBdMySql {
         }
     }
 
-    public function Eliminadobd($IdProvedores) {
+    public function Eliminadobd($registro) {
         try {
+            $IdProvedores = $registro[0]['provIdProvedores'];
             $inserta = $this->conexion->prepare("DELETE FROM `provedores` WHERE provIdProvedores = '$IdProvedores'");
             $inserta->execute();
-            return ['inserto' => 1, 'resultado' => 'Borro correctamente'];
+            return ['inserta' => 1, 'resultado' => 'Borro correctamente'];
         } catch (Exception $exc) {
-            return ['inserto' => 2, 'resultado' => $exc->getTraceAsString()];
+            return ['inserta' => 2, 'resultado' => $exc->getTraceAsString()];
         }
     }
 

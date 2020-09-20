@@ -98,6 +98,7 @@ class ProvedorControlador {
             case "actualizarProvedor":
                 $gestarProvedor = new Proveedor_Dao(SERVIDOR, BASE, USUARIO_BD, CONTRASENIA_BD);
                 $consultaDeProvedor = $gestarProvedor->seleccionarId(array($this->datos['idAct'])); //Se consulta el libro para traer los datos.
+
                 session_start();
 //                $_SESSION['actualizarDatosLibro'] = $actualizarDatosProvedor;
 //                $_SESSION['registroCategoriasLibros'] = $registroCategoriasLibros;
@@ -107,7 +108,7 @@ class ProvedorControlador {
                 header("location:vistasAdmin/vistaActualizarProveedor.php");
 
 //                header("location:principal.php?contenido=vistas/vistasLibros/vistaActualizarLibro.php");
-//                break;
+                break;
             case "confirmaActualizarProvedor":
                 $gestarProvedor = new Proveedor_Dao(SERVIDOR, BASE, USUARIO_BD, CONTRASENIA_BD);
                 $actualizarProvedor = $gestarProvedor->actualizar(array($this->datos)); //Se envía datos del libro para actualizar.                
@@ -116,8 +117,14 @@ class ProvedorControlador {
                 $_SESSION['mensaje'] = "Actualización realizada.";
                 header("location:Controlador.php?rutaSena=gestionDeTablasproveedor");
                 break;
+            case "eliminarProvedor":
+                $gestarProvedor = new Proveedor_Dao(SERVIDOR, BASE, USUARIO_BD, CONTRASENIA_BD);
+                $gestarProvedor->Eliminadobd(array($this->datos['idAct'])); // BORRADO FÍSICO
+//                $gestarLibros->eliminarLogico(array($this->datos['idAct']));// BORRADO LÓGICO
 
-            default:
+                session_start();
+                $_SESSION['mensaje'] = "   Borrado exitoso!!! ";
+                header("location:Controlador.php?rutaSena=gestionDeTablasproveedor");
                 break;
         }
     }

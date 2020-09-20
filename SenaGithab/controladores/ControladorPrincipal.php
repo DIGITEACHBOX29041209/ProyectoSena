@@ -117,6 +117,9 @@ class ControladorPrincipal {
                     $ProvedorControlador = new ProvedorControlador($this->datos);
                 }
                 break;
+            case "eliminarProvedor":
+                $ProvedorControlador = new ProvedorControlador($this->datos);
+                break;
             default:
                 break;
         }
