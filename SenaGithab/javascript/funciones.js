@@ -80,8 +80,9 @@ function valida_registroProveedor() {
     if (/^([0-9])*$/.test(document.getElementById('InputTelefono').value)) {
         alert("Debe ingresar telefono");
         return(false);
+        document.getElementById('formRegistroProvedor').submit();
     }
-    document.formLogin.submit();    
+        
 }
 
 function validar_registroventa() {

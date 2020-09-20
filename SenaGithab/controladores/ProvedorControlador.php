@@ -17,7 +17,6 @@ class ProvedorControlador {
 
             case "gestionDeRegistroProvedor":
                 $gestarProvedor_s = new Proveedor_Dao(SERVIDOR, BASE, USUARIO_BD, CONTRASENIA_BD);
-
                 $insertoProvedor_s = $gestarProvedor_s->insertar($this->datos);
                 $exitoInsercionProvedor_s = $insertoProvedor_s['inserto'];
 
@@ -29,37 +28,11 @@ class ProvedorControlador {
                     }
                 } else {
                     session_start();
-                    $_SESSION['IdProvedores'] = $this->datos['IdProvedores'];
                     $_SESSION['NombreProvedor'] = $this->datos['NombreProvedor'];
                     $_SESSION['DireccionProvedor'] = $this->datos['DireccionProvedor'];
                     $_SESSION['TelefonoProvedor'] = $this->datos['TelefonoProvedor'];
-                    $_SESSION['mensaje'] = "El registro de la venta no se pudo insertar";
+                    $_SESSION['mensaje'] = "El proveedor no se pudo insertar";
                     if ($this->datos['rutaSena'] == 'gestionDeRegistroProvedor') {//si al insertar un usuario en el formulario de registrarse y éste ya existe a registro.php
-                        header("location:Login.php");
-                    }
-                }
-                break;
-
-            case "gestionDeActualizarProvedor":
-                $gestarActProvedor_s = new Proveedor_Dao(SERVIDOR, BASE, USUARIO_BD, CONTRASENIA_BD); //Se puede llamar de la misma manera gestar?
-
-                $ActualizoProvedor_s = $gestarActProvedor_s->actualizar($this->datos);
-                $exitoActualizarProvedor_s = $ActualizoProvedor_s['inserto'];
-
-                if ($exitoActualizarProvedor_s == 1) {
-                    session_start();
-                    $_SESSION['mensaje'] = "Actualizado con èxito para ingreso al sistema";
-                    if ($this->datos['rutaSena'] == 'gestionDeActualizarProvedor') {  //si el formulario de la inserción es el de registrarse y fue exitoso se devuelve a login.php
-                        header("location:Login.php");
-                    }
-                } else {
-                    session_start();
-                    $_SESSION['IdProvedores'] = $this->datos['IdProvedores'];
-                    $_SESSION['NombreProvedor'] = $this->datos['NombreProvedor'];
-                    $_SESSION['DireccionProvedor'] = $this->datos['DireccionProvedor'];
-                    $_SESSION['TelefonoProvedor'] = $this->datos['TelefonoProvedor'];
-                    $_SESSION['mensaje'] = "La Atualizacion del provedor no se pudo insertar";
-                    if ($this->datos['rutaSena'] == 'gestionDeActualizarProvedor') {//si al insertar un usuario en el formulario de registrarse y éste ya existe a registro.php
                         header("location:Login.php");
                     }
                 }
@@ -119,8 +92,29 @@ class ProvedorControlador {
                 $insertoUsuario_s = $gestarTablas_s->seleccionarTodos($this->datos);
                 session_start(); //se abre sesión para almacenar en ella el mensaje de inserción
                 $_SESSION['mensaje'] = "Se entontraron datos para esta tabla";
-                $_SESSION['datosProveedorTabla'] = $insertoUsuario_s;
-                header("location:vistasAdmin/FormRegistroVenta.php");
+                $_SESSION['datos'] = $insertoUsuario_s;
+                header("location:vistasAdmin/fromVistaProveedor.php");
+                break;
+            case "actualizarProvedor":
+                $gestarProvedor = new Proveedor_Dao(SERVIDOR, BASE, USUARIO_BD, CONTRASENIA_BD);
+                $consultaDeProvedor = $gestarProvedor->seleccionarId(array($this->datos['idAct'])); //Se consulta el libro para traer los datos.
+                session_start();
+//                $_SESSION['actualizarDatosLibro'] = $actualizarDatosProvedor;
+//                $_SESSION['registroCategoriasLibros'] = $registroCategoriasLibros;
+                $_SESSION['mensaje'] = "Se entontraron datos para esta tabla";
+                $_SESSION['datos'] = $consultaDeProvedor;
+
+                header("location:vistasAdmin/vistaActualizarProveedor.php");
+
+//                header("location:principal.php?contenido=vistas/vistasLibros/vistaActualizarLibro.php");
+//                break;
+            case "confirmaActualizarProvedor":
+                $gestarProvedor = new Proveedor_Dao(SERVIDOR, BASE, USUARIO_BD, CONTRASENIA_BD);
+                $actualizarProvedor = $gestarProvedor->actualizar(array($this->datos)); //Se envía datos del libro para actualizar.                
+
+                session_start();
+                $_SESSION['mensaje'] = "Actualización realizada.";
+                header("location:Controlador.php?rutaSena=gestionDeTablasproveedor");
                 break;
 
             default:

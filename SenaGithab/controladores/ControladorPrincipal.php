@@ -91,16 +91,35 @@ class ControladorPrincipal {
             case "selectProductoInfo":
                 $VentaControlador = new VentaControlador($this->datos);
                 break;
-            
+
             case "gestionDeTablasproveedor":
                 $ProvedorControlador = new ProvedorControlador($this->datos);
                 break;
-                
+
             case "gestionDeTablasproducto":
                 $ProductoControlador = new ProductoControlador($this->datos);
+                break;
+            case "actualizarProvedor":
+                $ProvedorControlador = new ProvedorControlador($this->datos);
+
+                break;
+            case "confirmaActualizarProvedor":
+                
+                if ($this->datos['rutaSena'] == "confirmaActualizarProvedor") {
+                    $validarRegistro = new ValidadorProvedor();
+                    $erroresValidacion = $validarRegistro->ValidadorFormularioProvedor($this->datos);
+                }
+                if (isset($erroresValidacion) && $erroresValidacion != FALSE) {
+                    session_start();
+                    $_SESSION['erroresValidacion'] = $erroresValidacion;
+                    header("location:vistas/vistasAdmin/vistaActualizarProveedor.php");
+                } else {
+                    $ProvedorControlador = new ProvedorControlador($this->datos);
+                }
                 break;
             default:
                 break;
         }
     }
+
 }

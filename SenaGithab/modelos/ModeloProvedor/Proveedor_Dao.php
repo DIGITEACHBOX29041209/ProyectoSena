@@ -9,23 +9,17 @@ class Proveedor_Dao extends ConBdMySql {
         parent::__construct($servidor, $base, $loginBD, $passwordBD);
     }
 
-        public function seleccionarId($IdProvedores) {
+    public function seleccionarId($IdProvedores) {
         try {
-            if (!isset($IdProvedores[2])) {
-                $planConsulta = "SELECT * FROM `provedores` WHERE empDocumentoEmpleado = $IdProvedores[0] ";
-                $listar = $this->conexion->prepare($planConsulta);
-                $listar->execute();
-            }
+            $planConsulta = "SELECT * FROM provedores WHERE provIdProvedores = $IdProvedores[0]";
+            $listar = $this->conexion->prepare($planConsulta);
+            $listar->execute();
+
             $registroEncontrado = array();
             while ($registro = $listar->fetch(PDO::FETCH_OBJ)) {
                 $registroEncontrado[] = $registro;
             }
-            if (count($registroEncontrado) == 0) {
-                
-                return ['exitoSeleccionId' => 1, 'registroEncontrado' => $registroEncontrado]; /* 1 exitoso */
-            } else {
-                return ['exitoSeleccionId' => 0, 'registroEncontrado' => $registroEncontrado];/* 0 pailas */
-            }
+            return $registroEncontrado;
         } catch (Exception $exc) {
             return ['exitoSeleccionId' => 2, 'registroEncontrado' => $exc->getTraceAsString()];
         }
@@ -42,21 +36,21 @@ class Proveedor_Dao extends ConBdMySql {
             while ($registro = $listar->fetch(PDO::FETCH_OBJ)) {
                 $registroEncontrado[] = $registro;
             }
-             return $registroEncontrado;
+            return $registroEncontrado;
         } catch (Exception $exc) {
             return ['exitoSeleccionId' => 2, 'registroEncontrado' => $exc->getTraceAsString()];
         }
     }
 
     public function insertar($registro) {
-        try {   
+        try {
             $NombreProvedor = $registro['NombreProvedor'];
             $DireccionProvedor = $registro['DireccionProvedor'];
             $TelefonoProvedor = $registro['TelefonoProvedor'];
-            $inserta = $this->conexion->prepare("INSERT INTO `provedores` ( `provNombreProvedor`, `provDireccionProvedor`, `provTelefonoProvedor`, `prov_Estado`) VALUES ($NombreProvedor, $DireccionProvedor, $TelefonoProvedor,'1')");
+            $inserta = $this->conexion->prepare("INSERT INTO `provedores` ( `provNombreProvedor`, `provDireccionProvedor`, `provTelefonoProvedor`, `prov_Estado`) "
+                    . "VALUES ('$NombreProvedor', '$DireccionProvedor', $TelefonoProvedor,'1')");
             $inserta->execute();
             $clavePrimariaConQueInserto = $this->ultimoInsertId();
-        exit();
             return ['inserto' => 1, 'resultado' => $clavePrimariaConQueInserto];
         } catch (Exception $exc) {
             return ['inserto' => 2, 'resultado' => $exc->getTraceAsString()];
@@ -65,18 +59,19 @@ class Proveedor_Dao extends ConBdMySql {
 
     public function actualizar($registro) {
         try {
-            $IdProvedores = $registro['id'];
+            $IdProvedores = $registro['idAct'];
+            echo print_r($IdProvedores);
+            exit();
             $NombreProvedor = $registro['nombre'];
             $DireccionProvedor = $registro['direccion'];
             $TelefonoProvedor = $registro['telefono'];
-            $inserta = $this->conexion->prepare("UPDATE provedores SET `provNombreProvedor`='$NombreProvedor',`provDireccionProvedor`='$DireccionProvedor',`empTelefonoEmpleado`='$TelefonoProvedor' WHERE  provIdProvedores = '$IdProvedores' ");
+            $inserta = $this->conexion->prepare("UPDATE provedores SET `provNombreProvedor`='$NombreProvedor',`provDireccionProvedor`='$DireccionProvedor',`provTelefonoProvedor`='$TelefonoProvedor' WHERE  provIdProvedores = '$IdProvedores' ");
             $inserta->execute();
             return ['inserto' => 1, 'resultado' => 'Actualizo correctamente'];
         } catch (Exception $exc) {
             return ['inserto' => 2, 'resultado' => $exc->getTraceAsString()];
         }
     }
-
 
     public function ultimoInsertId() {
         try {
@@ -88,9 +83,9 @@ class Proveedor_Dao extends ConBdMySql {
                 $registroEncontrado[] = $registro;
             }
             if (count($registroEncontrado) == 0) {
-                return ['exitoSeleccionId' => 0, 'registroEncontrado' => $registroEncontrado]; /*Pailas */
+                return ['exitoSeleccionId' => 0, 'registroEncontrado' => $registroEncontrado]; /* Pailas */
             } else {
-                return ['exitoSeleccionId' => 1, 'registroEncontrado' => $registroEncontrado];/* todo bien */
+                return ['exitoSeleccionId' => 1, 'registroEncontrado' => $registroEncontrado]; /* todo bien */
             }
         } catch (Exception $exc) {
             return ['exitoSeleccionId' => 2, 'registroEncontrado' => $exc->getTraceAsString()];
@@ -106,7 +101,7 @@ class Proveedor_Dao extends ConBdMySql {
             return ['inserto' => 2, 'resultado' => $exc->getTraceAsString()];
         }
     }
-    
+
     public function Eliminadobd($IdProvedores) {
         try {
             $inserta = $this->conexion->prepare("DELETE FROM `provedores` WHERE provIdProvedores = '$IdProvedores'");
@@ -116,7 +111,5 @@ class Proveedor_Dao extends ConBdMySql {
             return ['inserto' => 2, 'resultado' => $exc->getTraceAsString()];
         }
     }
-    
+
 }
-
-
