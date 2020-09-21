@@ -6,6 +6,7 @@ include_once 'ProvedorControlador.php';
 include_once 'VentaControlador.php';
 include_once '../modelos/ModeloProvedor/ValidadorProvedor.php';
 include_once 'ProductoControlador.php';
+include_once 'LoginControlador.php';
 
 class ControladorPrincipal {
 
@@ -104,7 +105,7 @@ class ControladorPrincipal {
 
                 break;
             case "confirmaActualizarProvedor":
-                
+
                 if ($this->datos['rutaSena'] == "confirmaActualizarProvedor") {
                     $validarRegistro = new ValidadorProvedor();
                     $erroresValidacion = $validarRegistro->ValidadorFormularioProvedor($this->datos);
@@ -124,16 +125,18 @@ class ControladorPrincipal {
             case "actualizarEmpleado":
                 $EmpleadoControlador = new EmpleadoControlador($this->datos);
                 break;
-            
+
             case "confirmaActualizarEmpleado":
-                $EmpleadoControlador = new EmpleadoControlador($this->datos);               
-                break;
-                
-            case "eliminarEmpleado": 
                 $EmpleadoControlador = new EmpleadoControlador($this->datos);
                 break;
-            default:
 
+            case "eliminarEmpleado":
+                $EmpleadoControlador = new EmpleadoControlador($this->datos);
+                break;
+            case "gestionDeAccesoLogin":
+                $LoginControlador = new LoginControlador($this->datos);
+                break;
+            default:
                 break;
         }
     }
