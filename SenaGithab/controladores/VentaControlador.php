@@ -129,35 +129,27 @@ class VentaControlador {
                 session_start(); //se abre sesión para almacenar en ella el mensaje de inserción
                 $_SESSION['mensaje'] = "Se entontraron datos para esta tabla";
                 $_SESSION['datosProducto'] = $insertoUsuario_s;
-                header("location:vistasAdmin/vistaFacturaVenta.php");
+                  header("location: vistasAdmin/VistaPrincipalAdmin.php?contenido=vistas/vistasAdmin/vistaFacturaVenta.php");
+              //  header("location: vistasAdmin/VistaPrincipalAdmin.php?contenido=vistasAdmin/vistaFacturaVenta.php");
+           //     header("Location: principal.php?contenido=vistas/vistasLibros/vistaInsertarLibro.php");
                 break;
 
             case "selectProductoInfo":
-                
-                $gestarTablas_s = new Venta_Dao(SERVIDOR, BASE, USUARIO_BD, CONTRASENIA_BD);
-                $insertoUsuario_s = $gestarTablas_s->seleccionarIdProd(($this->datos));
-                session_start(); //se abre sesión para almacenar en ella el mensaje de inserción
-                $_SESSION['mensaje'] = "Se entontraron datos para esta tabla";
-                $_SESSION['datosProducto'] = $insertoUsuario_s;
-                header("location:vistasAdmin/FormRegistroVenta.php");
-                break;
-             case "gestionDeTablasFacturaVenta":
-                $gestarTablas_s = new Venta_Dao(SERVIDOR, BASE, USUARIO_BD, CONTRASENIA_BD);
-                $insertoUsuario_s = $gestarTablas_s->seleccionarTodos();
-                session_start(); //se abre sesión para almacenar en ella el mensaje de inserción
-                $_SESSION['mensaje'] = "Se entontraron datos para esta tabla";
-                $_SESSION['datosProducto'] = $insertoUsuario_s;
-                header("location:vistasAdmin/vistaFacturaVenta.php");
-                break;
 
-            case "selectProductoInfo":
-                
                 $gestarTablas_s = new Venta_Dao(SERVIDOR, BASE, USUARIO_BD, CONTRASENIA_BD);
                 $insertoUsuario_s = $gestarTablas_s->seleccionarIdProd(($this->datos));
-                session_start(); //se abre sesión para almacenar en ella el mensaje de inserción
-                $_SESSION['mensaje'] = "Se entontraron datos para esta tabla";
-                $_SESSION['datosProducto'] = $insertoUsuario_s;
-                header("location:vistasAdmin/FormRegistroVenta.php");
+                try {
+                    session_start(); //se abre sesión para almacenar en ella el mensaje de inserción
+                    $_SESSION['msmAux'] = "0";
+                    $_SESSION['datosProducto'] = $insertoUsuario_s[0];
+                    header("location:vistasAdmin/FormRegistroVenta.php");
+                } catch (Exception $ex) {
+                    session_start(); //se abre sesión para almacenar en ella el mensaje de inserción
+                    $_SESSION['msmAux'] = "1";
+                    $_SESSION['mensaje'] = "No se encontro ninfun producto cn ese codigo";
+                    header("location:vistasAdmin/FormRegistroVenta.php");
+                }
+
                 break;
             default:
                 break;

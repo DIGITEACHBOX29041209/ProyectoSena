@@ -1,19 +1,23 @@
-<<?php
+<?php
 session_start();
-if (isset($_SESSION['mensaje'])) {
-    $mensaje = $_SESSION['mensaje'];
-    echo "<script languaje='javascript'>alert('$mensaje')</script>";
-    unset($_SESSION['mensaje']);
-}
+
+$datosproducto = NULL;
+
 if (isset($_SESSION['erroresValidacion'])) {
     $erroresValidacion = $_SESSION['erroresValidacion'];
     unset($_SESSION['erroresValidacion']);
 }
-
-if (isset($_SESSION['datosProducto'])) {
-    $datosProducto = $_SESSION['datosProducto'];
-} else {
-    $datosProducto = array();
+if (isset($_SESSION['msmAux'])) {
+    if (($_SESSION['msmAux']) == 0) {
+        if (isset($_SESSION['datosProducto'])) {
+            $datosproducto = ($_SESSION['datosProducto']);
+            print_r($datosproducto);
+        }
+    } else {
+        if (isset($_SESSION['mensaje'])) {
+            
+        }
+    }
 }
 ?>
 
@@ -40,7 +44,7 @@ if (isset($_SESSION['datosProducto'])) {
                 <div class="card-body p-0">
                     <!-- Nested Row within Card Body -->
                     <div class="row">
-                        <div class="col-lg-5 d-none d-lg-block bg-register-image"></div>
+                        <div class="col-lg-5 d-none d-lg-block "></div>
                         <div class="col-lg-7">
                             <div class="p-5">
                                 <div class="text-center">
@@ -52,77 +56,44 @@ if (isset($_SESSION['datosProducto'])) {
                                                value=<?php
                                                if (isset($erroresValidacion['datosViejos']['prodidProducto']))
                                                    echo "\"" . $erroresValidacion['datosViejos']['prodidProducto'] . "\"";
-                                               if (isset($_SESSION['prodidProducto'])) {
-                                                   echo "\"" . $_SESSION['prodidProducto'] . "\"";
-                                                   unset($_SESSION['prodidProducto']);
+                                               if ($datosproducto != null) {
+                                                   echo "\"" . $datosproducto->prodidProducto . "\"";
                                                }
-                                               ?>
-                                               >
-                                        <div>
-                                            <?php
-                                            if (isset($erroresValidacion['marcaCampo']['prodidProducto']))
-                                                echo "<font color='red'>" . $erroresValidacion['marcaCampo']['prodidProducto'] . "</font>";
-                                            ?>                                        
-                                            <?php
-                                            if (isset($erroresValidacion['mensajesError']['prodidProducto']))
-                                                echo "<font color='red'>" . $erroresValidacion['mensajesError']['prodidProducto'] . "</font>";
-                                            ?>
-                                        </div>
-                                    </div>
+                                               ?> >
+                                    </div><br>
                                     <input type="hidden" name="rutaSena" value="selectProductoInfo">
-                                    <button type="submit" class="btn btn-primary btn-user btn-block">Traer Producto</button>
+                                    <button type="submit" class="btn btn-primary btn-user btn- w-25">Traer Producto</button>
                                 </form>
                                 <form class="user" method="GET" action="../Controlador.php" id="formRegistroVenta">
-                                    <div>
-                                        <input placeholder="Cantidad Producto" name="venCantidadProducto" type="text"   required="required"
-                                               value=<?php
-                                               if (isset($erroresValidacion['datosViejos']['venCantidadProducto']))
-                                                   echo "\"" . $erroresValidacion['datosViejos']['venCantidadProducto'] . "\"";
-                                               if (isset($_SESSION['venCantidadProductoe'])) {
-                                                   echo "\"" . $_SESSION['venCantidadProducto'] . "\"";
-                                                   unset($_SESSION['venCantidadProducto']);
-                                               }if($datosProducto != NULL){
-                                                   if(count($datosProducto) > 0){
-                                                       echo "\"" . $datosProducto['prodNombreProducto'] . "\"";
-                                                   }
-                                               }
-                                               ?>
-                                               >
-                                        <div>
-                                            <?php
-                                            if (isset($erroresValidacion['marcaCampo']['venCantidadProducto']))
-                                                echo "<font color='red'>" . $erroresValidacion['marcaCampo']['venCantidadProducto'] . "</font>";
-                                            ?>                                        
-                                            <?php
-                                            if (isset($erroresValidacion['mensajesError']['venCantidadProducto']))
-                                                echo "<font color='red'>" . $erroresValidacion['mensajesError']['venCantidadProducto'] . "</font>";
+                                    <div>                        
+                                        <label>
+                                            Nombre Producto: <?php
+                                            if ($datosproducto != null) {
+                                                echo "\"" . $datosproducto->prodNombreProducto . "\"";
+                                            }
                                             ?>
-                                        </div>
+                                        </label>
+                                    </div>
+                                    <div>                        
+                                        <label>
+                                            Descripción Producto: <?php
+                                            if ($datosproducto != null) {
+                                                echo "\"" . $datosproducto->prodDescripcionProducto . "\"";
+                                            }
+                                            ?>
+                                        </label>
+                                    </div>
+                                    <div>                        
+                                        <label id="PrecioProd">
+                                            Precio Producto: <?php
+                                            if ($datosproducto != null) {
+                                                echo "\"" . $datosproducto->prodPrecioProducto . "\"";
+                                            }
+                                            ?>
+                                        </label>
                                     </div>
                                     <div>
-                                        <input placeholder="Precio Unidad" name="venPrecioUnidad" type="number"  required="required"
-                                               value=<?php
-                                               if (isset($erroresValidacion['datosViejos']['venPrecioUnidad']))
-                                                   echo "\"" . $erroresValidacion['datosViejos']['venPrecioUnidad'] . "\"";
-                                               if (isset($_SESSION['venPrecioUnidad'])) {
-                                                   echo "\"" . $_SESSION['venPrecioUnidad'] . "\"";
-                                                   unset($_SESSION['venPrecioUnidad']);
-                                               }
-                                               ?>
-                                               >
-                                        <div>
-                                            <?php
-                                            if (isset($erroresValidacion['marcaCampo']['venPrecioUnidad']))
-                                                echo "<font color='red'>" . $erroresValidacion['marcaCampo']['venPrecioUnidad'] . "</font>";
-                                            ?>
-                                            <?php
-                                            if (isset($erroresValidacion['mensajesError']['venPrecioUnidad']))
-                                                echo "<font color='red'>" . $erroresValidacion['mensajesError']['venPrecioUnidad'] . "</font>";
-                                            ?>
-                                        </div>
-                                    </div>
-                                    <div>
-                                        <input id="InputCorreo" placeholder="Descuento Realizado" name="venDescuentoRealizado" type="number"  required="required"
+                                        <input id="descuento" placeholder="Descuento Realizado" name="venDescuentoRealizado" type="number"  required="required"
                                                value=<?php
                                                if (isset($erroresValidacion['datosViejos']['venDescuentoRealizado']))
                                                    echo "\"" . $erroresValidacion['datosViejos']['venDescuentoRealizado'] . "\"";
@@ -132,40 +103,7 @@ if (isset($_SESSION['datosProducto'])) {
                                                }
                                                ?>
                                                >
-                                        <div>
-                                            <?php
-                                            if (isset($erroresValidacion['marcaCampo']['venDescuentoRealizado']))
-                                                echo "<font color='red'>" . $erroresValidacion['marcaCampo']['venDescuentoRealizado'] . "</font>";
-                                            ?>
-                                            <?php
-                                            if (isset($erroresValidacion['mensajesError']['venDescuentoRealizado']))
-                                                echo "<font color='red'>" . $erroresValidacion['mensajesError']['venDescuentoRealizado'] . "</font>";
-                                            ?>
-                                        </div>
-                                    </div>
-                                    <div>
-                                        <input placeholder="Precio Final" name="venPrecioFinal" type="number"   required="required"
-                                               value=<?php
-                                               if (isset($erroresValidacion['datosViejos']['venPrecioFinal']))
-                                                   echo "\"" . $erroresValidacion['datosViejos']['venPrecioFinal'] . "\"";
-                                               if (isset($_SESSION['venPrecioFinal'])) {
-                                                   echo "\"" . $_SESSION['venPrecioFinal'] . "\"";
-                                                   unset($_SESSION['venPrecioFinal']);
-                                               }
-                                               ?>
-                                               >
-                                        <div>
-                                            <?php
-                                            if (isset($erroresValidacion['marcaCampo']['venPrecioFinal']))
-                                                echo "<font color='red'>" . $erroresValidacion['marcaCampo']['venPrecioFinal'] . "</font>";
-                                            ?>                                        
-                                            <?php
-                                            if (isset($erroresValidacion['mensajesError']['venPrecioFinal']))
-                                                echo "<font color='red'>" . $erroresValidacion['mensajesError']['venPrecioFinal'] . "</font>";
-                                            ?>
-                                        </div>
-                                    </div>
-
+                                    </div> <br>
                                     <input type="hidden" name="rutaSena" value="gestionDeRegistroVenta">
                                     <button onclick="validar_registroventa()" class="btn btn-primary btn-user btn-block">Registrar Venta</button>
                                 </form>
@@ -187,5 +125,4 @@ if (isset($_SESSION['datosProducto'])) {
         <script src="../../Recursos/js/sb-admin-2.min.js"></script>
 
     </body>
-
 </html>
