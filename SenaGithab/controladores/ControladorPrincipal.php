@@ -120,7 +120,20 @@ class ControladorPrincipal {
             case "eliminarProvedor":
                 $ProvedorControlador = new ProvedorControlador($this->datos);
                 break;
+
+            case "actualizarEmpleado":
+                $EmpleadoControlador = new EmpleadoControlador($this->datos);
+                break;
+            
+            case "confirmaActualizarEmpleado":
+                $EmpleadoControlador = new EmpleadoControlador($this->datos);               
+                break;
+                
+            case "eliminarEmpleado": 
+                $EmpleadoControlador = new EmpleadoControlador($this->datos);
+                break;
             default:
+
                 break;
         }
     }

@@ -25,9 +25,10 @@ if (isset($_SESSION['datos'])) {
     </head>
     <body>
         <div class="container">
-            <a href="FormRegistroEmpleado.php">Crear Cuenta</a><br/>
+            <br/><br/>
+            <a href="FormRegistroEmpleado.php">Crear Cuenta</a><br/><br/><br/>
 
-            <table id="example" class="table-responsive table-hover table-bordered table-striped" style="width:100%">
+            <table id="example" class="table-responsive-lg table-hover table-bordered table-striped" style="width:100%">
                 <thead>
                     <tr>
                         <th>Id</th> 
@@ -35,6 +36,7 @@ if (isset($_SESSION['datos'])) {
                         <th>Nombre</th> 
                         <th>Apellido</th> 
                         <th>Correo</th> 
+                        <th>Telefono</th> 
                         <th>Edit</th> 
                         <th>Delete</th> 
                     </tr>
@@ -45,13 +47,14 @@ if (isset($_SESSION['datos'])) {
                     foreach ($listaDeEmpleado as $key => $value) {
                         ?>
                         <tr>
-                            <td><?php echo $listaDeEmpleado[$i]->empIdEmpleado ?></td>  
+                            <td><?php echo $listaDeEmpleado[$i]->empIdEmpleado; ?></td>  
                             <td><?php echo $listaDeEmpleado[$i]->empDocumentoEmpleado; ?></td>  
                             <td><?php echo $listaDeEmpleado[$i]->empNombreEmpleado; ?></td>  
                             <td><?php echo $listaDeEmpleado[$i]->empApellidoEmpleado; ?></td>  
-                            <td><?php echo $listaDeEmpleado[$i]->empCorreo; ?></td>  
-                            <td><a href="Controlador.php?rutaSena=actualizarLibro&idAct=<?php echo $listaDeEmpleado[$i]->empIdEmpleado; ?>">Actualizar</a></td>  
-                            <td><a href="Controlador.php?rutaSena=eliminarLibro&idAct=<?php echo $listaDeEmpleado[$i]->empIdEmpleados; ?>" onclick="return confirm('Está seguro de eliminar el registro?')">Eliminar</a></td>  
+                            <td><?php echo $listaDeEmpleado[$i]->empCorreo; ?></td> 
+                            <td><?php echo $listaDeEmpleado[$i]->empTelefonoEmpleado; ?></td> 
+                            <td><a href="../Controlador.php?rutaSena=actualizarEmpleado&idAct=<?php echo $listaDeEmpleado[$i]->empIdEmpleado; ?>">Actualizar</a></td>  
+                            <td><a href="../Controlador.php?rutaSena=eliminarEmpleado&idAct=<?php echo $listaDeEmpleado[$i]->empIdEmpleado; ?>" onclick="return confirm('Está seguro de eliminar el registro?')">Eliminar</a></td>  
                         </tr>   
                         <?php
                         $i++;

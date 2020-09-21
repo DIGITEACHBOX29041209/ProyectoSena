@@ -66,6 +66,40 @@ class EmpleadoControlador {
                 header("location:vistasAdmin/visaEmpleado.php");
 
                 break;
+            
+           case "actualizarEmpleado":
+                $gestarEmpleado = new Empleado_Dao(SERVIDOR, BASE, USUARIO_BD, CONTRASENIA_BD);
+                $consultaDeEmpleado = $gestarEmpleado->seleccionarrId(array($this->datos['idAct'])); //Se consulta el libro para traer los datos.
+                session_start();
+//                $_SESSION['actualizarDatosLibro'] = $actualizarDatosProvedor;
+//                $_SESSION['registroCategoriasLibros'] = $registroCategoriasLibros;
+                $_SESSION['mensaje'] = "Se entontraron datos para esta tabla";
+                $_SESSION['datos'] = $consultaDeEmpleado;
+
+                header("location:vistasAdmin/VistaActualizarEmpleado.php");
+
+//                header("location:principal.php?contenido=vistas/vistasLibros/vistaActualizarLibro.php");
+                break;
+            
+            case "confirmaActualizarEmpleado":             
+                $gestarEmpleado = new Empleado_Dao(SERVIDOR, BASE, USUARIO_BD, CONTRASENIA_BD);
+                $actualizarEmpleado = $gestarEmpleado->actualizar(array($this->datos)); //Se envía datos del libro para actualizar.                
+                
+                session_start();
+                $_SESSION['mensaje'] = "Actualización realizada.";
+                header("location:Controlador.php?rutaSena=gestionDeTablasEmpeladoo");
+                break;
+            
+            case "eliminarEmpleado":
+                $gestarEmpleado = new Empleado_Dao(SERVIDOR, BASE, USUARIO_BD, CONTRASENIA_BD);
+                $gestarEmpleado->Eliminadobd(array($this->datos['idAct'])); // BORRADO FÍSICO
+//                $gestarLibros->eliminarLogico(array($this->datos['idAct']));// BORRADO LÓGICO
+
+                session_start();
+                $_SESSION['mensaje'] = "   Borrado exitoso!!! ";
+                header("location:Controlador.php?rutaSena=gestionDeTablasEmpeladoo");
+                break;
+               
             default :
                 break;
         }

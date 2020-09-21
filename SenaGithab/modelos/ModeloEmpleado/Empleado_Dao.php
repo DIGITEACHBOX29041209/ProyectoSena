@@ -30,6 +30,22 @@ class Empleado_Dao extends ConBdMySql {
         }
     }
 
+    public function seleccionarrId($Id) {
+        try {
+            $planConsulta = "SELECT * FROM empleado WHERE empIdEmpleado = $Id[0]";
+            $listar = $this->conexion->prepare($planConsulta);
+            $listar->execute();
+
+            $registroEncontrado = array();
+            while ($registro = $listar->fetch(PDO::FETCH_OBJ)) {
+                $registroEncontrado[] = $registro;
+            }
+            return $registroEncontrado;
+        } catch (Exception $exc) {
+            return ['exitoSeleccionId' => 2, 'registroEncontrado' => $exc->getTraceAsString()];
+        }
+    }
+
     public function seleccionarTodos() {
         try {
 
@@ -40,8 +56,8 @@ class Empleado_Dao extends ConBdMySql {
             $registroEncontrado = array();
             while ($registro = $listar->fetch(PDO::FETCH_OBJ)) {
                 $registroEncontrado[] = $registro;
-            }            
-           return $registroEncontrado;
+            }
+            return $registroEncontrado;
         } catch (Exception $exc) {
             return ['exitoSeleccionId' => 2, 'registroEncontrado' => $exc->getTraceAsString()];
         }
@@ -67,17 +83,19 @@ class Empleado_Dao extends ConBdMySql {
 
     public function actualizar($registro) {
         try {
-            $Id = $registro['idEmpleado'];
-            $email = $registro['email'];
-            $clave = $registro['password'];
-            $documento = $registro['documento'];
-            $nombre = $registro['nombre'];
-            $apellido = $registro['apellidos'];
-            $telefono = $registro['telefono'];
-            $tipoEmpleado = $registro['tipoEmpleado'];
-            $inserta = $this->conexion->prepare("UPDATE empleado SET `empDocumentoEmpleado`='$documento',`empNombreEmpleado`='$nombre',`empApellidoEmpleado`='$apellido',`empTelefonoEmpleado`='$telefono',`empCargoEmpleado`='$tipoEmpleado',`empCorreo`='$email' WHERE  empIdEmpleado = '$Id' ");
-            $inserta->execute();
-            return ['inserto' => 1, 'resultado' => 'Actualizo correctamente'];
+            $Id = $registro[0]['idEmpleado'];
+            $email = $registro[0]['email'];
+            $clave = $registro[0]['password'];
+            $documento = $registro[0]['documento'];
+            $nombre = $registro[0]['nombre'];
+            $apellido = $registro[0]['apellidos'];
+            $telefono = $registro[0]['telefono'];
+            $tipoEmpleado = $registro[0]['tipoEmpleado'];
+            if (isset($Id)) {
+                $inserta = $this->conexion->prepare("UPDATE `empleado` SET `empDocumentoEmpleado`=$documento,`empNombreEmpleado`='$nombre',`empApellidoEmpleado`='$apellido',`empTelefonoEmpleado`=$telefono,`empCargoEmpleado`='$tipoEmpleado',`empCorreo`='$email' WHERE  empIdEmpleado = $Id ");
+                $inserta->execute();
+                return ['inserto' => 1, 'resultado' => 'Actualizo correctamente'];
+            }
         } catch (Exception $exc) {
             return ['inserto' => 2, 'resultado' => $exc->getTraceAsString()];
         }
@@ -127,16 +145,19 @@ class Empleado_Dao extends ConBdMySql {
         }
     }
 
-    public function Eliminadobd($Id) {
-        try {
-            $inserta = $this->conexion->prepare("DELETE FROM `empleado` WHERE empIdEmpleado = '$Id'");
+    public function Eliminadobd($registro) {
+        try {           
+            $Id = $registro[0]['idEmpleado'];
+            $inserta = $this->conexion->prepare("DELETE FROM `empleado` WHERE empIdEmpleado = $Id");
+//            echo print_r($registro);
+//            exit();
             $inserta->execute();
-            return ['inserto' => 1, 'resultado' => 'Borro correctamente'];
+            return ['inserta' => 1, 'resultado' => 'Borro correctamente'];
         } catch (Exception $exc) {
-            return ['inserto' => 2, 'resultado' => $exc->getTraceAsString()];
+            return ['inserta' => 2, 'resultado' => $exc->getTraceAsString()];
         }
+            
     }
-
 }
 
 //        echo "<pre>";

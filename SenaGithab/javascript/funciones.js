@@ -100,4 +100,11 @@ function valida_ActualizarProveedor() {
         document.getElementById('vistaActualizarProveedor').submit();
     }
 }
+function valida_ActualizarEmpleado() {
+    if (/^([0-9])*$/.test(document.getElementById('InputTelefono').value)) {
+        alert("Debe ingresar telefono");
+        return(false);
+        document.getElementById('VistaActualizarEmpleado').submit();
+    } 
+}
     
