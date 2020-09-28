@@ -26,7 +26,7 @@ if (isset($_SESSION['datos'])) {
     </head>
     <body>
         <div class="container">
-            <a href="FormRegistroVenta.php">Nueva Venta</a><br/>
+            <a href="VistaPrincipalAdmin.php?contenido=FormRegistroVenta.php">Nueva Venta</a><br/>
 
             <table id="example" class="table-responsive table-hover table-bordered table-striped" style="width:100%">
                 <thead>

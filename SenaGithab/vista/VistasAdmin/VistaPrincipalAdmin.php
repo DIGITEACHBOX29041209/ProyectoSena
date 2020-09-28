@@ -23,7 +23,7 @@ if (isset($_SESSION['mensaje'])) {
         <meta name="description" content="">
         <meta name="author" content="">
 
-        <title>SB Admin 2 - 404</title>
+        <title>DigiteachBox</title>
 
         <!-- Custom fonts for this template-->
         <link href="../../Recursos/vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css">
@@ -85,7 +85,7 @@ if (isset($_SESSION['mensaje'])) {
                     <a class="nav-link" href="#">
                         <form class="user" method="GET" action="../Controlador.php" id="formVistaFacturaVenta">
                             <input type="hidden" name="rutaSena" value="gestionDeTablasFacturaVenta">
-                            <button Type="submit" class="btn btn-primary btn-user btn-block">Ventas</button>
+                            <button Type="submit" class="btn btn-primary w-100"> <i class="fas fa-piggy-bank"></i><small> Ventas</small></button>
                         </form>
                     </a>
                 </li>
