@@ -37,7 +37,7 @@ if (isset($_SESSION['erroresValidacion'])) {
                 <div class="card-body p-0">
                     <!-- Nested Row within Card Body -->
                     <div class="row">
-                        <div class="col-lg-5 d-none d-lg-block bg-register-image"></div>
+                        <div class="col-lg-5 d-none d-lg-block bg-register-imageEmpleado"></div>
                         <div class="col-lg-7">
                             <div class="p-5">
                                 <div class="text-center">
@@ -140,7 +140,7 @@ if (isset($_SESSION['erroresValidacion'])) {
                                             <button type="reset" name="rutaSena" value="cancelarActualizarProvedor" class="btn btn-primary btn-user btn-block">Cancelar</button>
                                             <br>
                                             <input type="hidden" name="rutaSena" value="confirmaActualizarEmpleado">
-                                            <button type="submit" class="btn btn-primary btn-user btn-block"> Actualizar Empleado</button>
+                                            <button type="submit" class="btn btn-primary btn-block"> Actualizar Empleado</button>
                                         </td>
                                     </tr>             
                                     </table>
