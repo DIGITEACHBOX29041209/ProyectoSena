@@ -1,5 +1,4 @@
 <?php
-session_start();
 if (isset($_SESSION['mensaje'])) {
     $mensaje = $_SESSION['mensaje'];
     echo "<script languaje='javascript'>alert('$mensaje')</script>";
@@ -20,12 +19,12 @@ if (isset($_SESSION['erroresValidacion'])) {
         <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
         <meta name="description" content="">
         <meta name="author" content="">
-        <title>SB Admin 2 - Register</title>
-        <!-- Custom fonts for this template-->
-        <link href="../../Recursos/vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css"/>
-        <link href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i" rel="stylesheet">
-        <!-- Custom styles for this template-->
-        <link href="../../Recursos/css/sb-admin-2.min.css" rel="stylesheet">
+        <title>Producto</title>
+        <style>
+            .textRed{
+                color: #d40a18;
+            }
+        </style>
     </head>
 
     <body class="bg-gradient-primary">
@@ -38,11 +37,11 @@ if (isset($_SESSION['erroresValidacion'])) {
                         <div class="col-lg-7">
                             <div class="p-5">
                                 <div class="text-center">
-                                    <h1 class="h4 text-gray-900 mb-4">Crear Producto!</h1>
+                                    <h3 class="mb-4 textRed">Crear Nuevo Producto!</h3>
                                 </div>
                                 <form class="user" method="GET" action="../Controlador.php" id="formRegistroProducto">
                                     <div>
-                                        <input placeholder="Nombre" name="nombre" type="text" required="required" autofocus
+                                        <input class="form-control" placeholder="Nombre" name="nombre" type="text" required="required" autofocus
                                                value=<?php
                                                if (isset($erroresValidacion['datosViejos']['nombre']))
                                                    echo "\"" . $erroresValidacion['datosViejos']['nombre'] . "\"";
@@ -61,18 +60,18 @@ if (isset($_SESSION['erroresValidacion'])) {
                                                 echo "<font color='red'>" . $erroresValidacion['mensajesError']['nombre'] . "</font>";
                                             ?>  
                                         </div>
-                                    </div>
+                                    </div> <br>
                                     <div>
-                                        <input placeholder="Descripcion" name="descripcion" type="text"   required="required"
-                                               value=<?php
-                                               if (isset($erroresValidacion['datosViejos']['descripcion']))
-                                                   echo "\"" . $erroresValidacion['datosViejos']['descripcion'] . "\"";
-                                               if (isset($_SESSION['descripcion'])) {
-                                                   echo "\"" . $_SESSION['descripcion'] . "\"";
-                                                   unset($_SESSION['descripcion']);
-                                               }
-                                               ?>
-                                               >
+                                        <input  class="form-control" placeholder="Descripcion" name="descripcion" type="text"   required="required"
+                                                value=<?php
+                                                if (isset($erroresValidacion['datosViejos']['descripcion']))
+                                                    echo "\"" . $erroresValidacion['datosViejos']['descripcion'] . "\"";
+                                                if (isset($_SESSION['descripcion'])) {
+                                                    echo "\"" . $_SESSION['descripcion'] . "\"";
+                                                    unset($_SESSION['descripcion']);
+                                                }
+                                                ?>
+                                                >
                                         <div>
                                             <?php
                                             if (isset($erroresValidacion['marcaCampo']['descripcion']))
@@ -83,9 +82,9 @@ if (isset($_SESSION['erroresValidacion'])) {
                                                 echo "<font color='red'>" . $erroresValidacion['mensajesError']['descripcion'] . "</font>";
                                             ?>
                                         </div>
-                                    </div>
+                                    </div><br>
                                     <div>
-                                        <input placeholder="Cantidad" name="cantidad" type="number"  required="required"
+                                        <input class="form-control" placeholder="Cantidad" name="cantidad" type="number"  required="required"
                                                value=<?php
                                                if (isset($erroresValidacion['datosViejos']['cantidad']))
                                                    echo "\"" . $erroresValidacion['datosViejos']['cantidad'] . "\"";
@@ -105,9 +104,9 @@ if (isset($_SESSION['erroresValidacion'])) {
                                                 echo "<font color='red'>" . $erroresValidacion['mensajesError']['cantidad'] . "</font>";
                                             ?>
                                         </div>
-                                    </div>
+                                    </div><br>
                                     <div>
-                                        <input placeholder="Precio Neto" name="precioNeto" type="number"  required="required"
+                                        <input class="form-control" placeholder="Precio Neto" name="precioNeto" type="number"  required="required"
                                                value=<?php
                                                if (isset($erroresValidacion['datosViejos']['precioNeto']))
                                                    echo "\"" . $erroresValidacion['datosViejos']['precioNeto'] . "\"";
@@ -127,10 +126,10 @@ if (isset($_SESSION['erroresValidacion'])) {
                                                 echo "<font color='red'>" . $erroresValidacion['mensajesError']['precioNeto'] . "</font>";
                                             ?>
                                         </div>
-                                       
-                                    </div>
+
+                                    </div><br>
                                     <div>
-                                        <input placeholder="Precio Producto" name="precioProducto" type="number"   required="required"
+                                        <input class="form-control" placeholder="Precio Producto" name="precioProducto" type="number"   required="required"
                                                value=<?php
                                                if (isset($erroresValidacion['datosViejos']['precioProducto']))
                                                    echo "\"" . $erroresValidacion['datosViejos']['precioProducto'] . "\"";
@@ -150,10 +149,10 @@ if (isset($_SESSION['erroresValidacion'])) {
                                                 echo "<font color='red'>" . $erroresValidacion['mensajesError']['telefonoprecioProducto'] . "</font>";
                                             ?>
                                         </div>
-                                    </div>
-                                    
+                                    </div><br>
+                                    <a class="btn btn-primary btn-block" style="color:white;" href="../Controlador.php?rutaSena=gestionDeTablasproducto">Cancelar </a><br>
                                     <input type="hidden" name="rutaSena" value="gestionarRegistroProducto">
-                                    <button onclick="valida_registroProducto()" class="btn btn-primary btn-user btn-block">Registrar Producto</button>
+                                    <button onclick="valida_registroProducto()" class="btn btn-primary btn-block">Registrar Producto</button>
                                 </form>
                             </div>
                         </div>
@@ -161,17 +160,6 @@ if (isset($_SESSION['erroresValidacion'])) {
                 </div>
             </div>
         </div>
-
-        <!-- Bootstrap core JavaScript-->
-        <script src="../../Recursos/vendor/jquery/jquery.min.js"></script>
-        <script src="../../Recursos/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
-
-        <!-- Core plugin JavaScript-->
-        <script src="../../Recursos/vendor/jquery-easing/jquery.easing.min.js"></script>
-
-        <!-- Custom scripts for all pages-->
-        <script src="../../Recursos/js/sb-admin-2.min.js"></script>
-
     </body>
 
 </html>

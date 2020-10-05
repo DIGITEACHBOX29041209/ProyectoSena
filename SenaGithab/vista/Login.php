@@ -30,10 +30,21 @@ if (isset($_SESSION['mensaje'])) {
                 background-size: cover;
 
             }
+            .FondoLogin{
+                   background-color: #192d36;
+            }
+            .FondoLateral{
+                   background-color: #d40a18;
+            }
+            .ColorAmarillo{
+                background-color: #9d1515;
+                border: 0px;
+                color: white;
+            }
         </style>
     </head>
 
-    <body>
+    <body class="FondoLogin">
         <div class="container">
             <!-- Outer Row -->
             <div class="row justify-content-center">
@@ -42,23 +53,21 @@ if (isset($_SESSION['mensaje'])) {
                         <div class="card-body p-0">
                             <!-- Nested Row within Card Body -->
                             <div class="row">
-                                <div class="col-lg-6 d-none d-lg-block imagenLateral"></div>
+                                <div class="col-lg-6 d-none d-lg-block FondoLateral"></div>
                                 <div class="col-lg-6">
                                     <div class="p-5">
                                         <div class="text-center">
                                             <h1 class="h4 text-gray-900 mb-4">Bienvenido a MacroOfertas!</h1>
                                         </div>
                                         <form role="form" method="POST" action="Controlador.php" name="formLogin" class="user">
-                                            <input id="InputCorreo" class="form-control" placeholder="Correo Electrónico" name="email" type="email" autofocus>
-                                            <input id="InputPassword" class="form-control" placeholder="Password" name="password" type="password" value="">
+                                            <input id="InputCorreo" class="form-control" placeholder="Correo Electrónico" name="email" type="email" autofocus required="required">
+                                            <br>
+                                            <input id="InputPassword" class="form-control" placeholder="Password" name="password" type="password" required="required">
+                                            <br>
                                             <input type="hidden" name="rutaSena" value="gestionDeAccesoLogin">
-                                            <input type="submit" class="btn btn-lg btn-success btn-block" value="Ingresar">
+                                            <input type="button" class="ColorAmarillo btn-lg btn-block" value="Ingresar" onclick="validar_logueo()">
                                         </form>
                                         <hr>
-                                        <div class="text-center">
-                                            <a class="small" href="forgot-password.html">Forgot Password?</a>
-                                        </div>
-                                        <a href="VistasGenerales.php">Vista Generales</a>
                                     </div>
                                 </div>
                             </div>
@@ -67,12 +76,10 @@ if (isset($_SESSION['mensaje'])) {
                 </div>
             </div>
         </div
-        <!-- Bootstrap core JavaScript-->
         <script src="../Recursos/vendor/jquery/jquery.min.js"></script>
         <script src="../Recursos/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
-        <!-- Core plugin JavaScript-->
         <script src="../Recursos/vendor/jquery-easing/jquery.easing.min.js"></script>
-        <!-- Custom scripts for all pages-->
         <script src="../Recursos/js/sb-admin-2.min.js"></script>
+        <script src="../javascript/funciones.js"></script>
     </body>
 </html>

@@ -8,35 +8,28 @@ class Producto_Dao extends ConBdMySql {
         parent::__construct($servidor, $base, $loginBD, $passwordBD);
     }
 
-    public function seleccionarId($Id) {
+    public function seleccionarId($IdProducto) {
         try {
-            if (!isset($Id[2])) {
-                $planConsulta = "SELECT * FROM `producto` WHERE proidProducto = $Id[0] or empCorreo = '$Id[1]' ";
-                $listar = $this->conexion->prepare($planConsulta);
-                $listar->execute();
-            }
+            $planConsulta = "SELECT * FROM producto WHERE prodidProducto = $IdProducto[0]";
+            $listar = $this->conexion->prepare($planConsulta);
+            $listar->execute();
+
             $registroEncontrado = array();
             while ($registro = $listar->fetch(PDO::FETCH_OBJ)) {
                 $registroEncontrado[] = $registro;
             }
-            if (count($registroEncontrado) == 0) {
-                
-                return ['exitoSeleccionId' => 1, 'registroEncontrado' => $registroEncontrado]; /* 1 exitoso */
-            } else {
-                return ['exitoSeleccionId' => 0, 'registroEncontrado' => $registroEncontrado];/* 0 pailas */
-            }
+            return $registroEncontrado;
         } catch (Exception $exc) {
             return ['exitoSeleccionId' => 2, 'registroEncontrado' => $exc->getTraceAsString()];
         }
     }
-    
 
     public function insertar($registro) {
         try {
             $clavePrimariaConQueInserto = $this->ultimoInsertId();
-            
+
             $idProducto = $clavePrimariaConQueInserto[0]->prodidProducto;
-            $idProducto2 = $idProducto+1;
+            $idProducto2 = $idProducto + 1;
             $nombre = $registro['nombre'];
             $descripcion = $registro['descripcion'];
             $cantidad = $registro['cantidad'];
@@ -45,10 +38,10 @@ class Producto_Dao extends ConBdMySql {
             $inserta = $this->conexion->prepare("INSERT INTO `producto`(prodidProducto, prodNombreProducto, prodDescripcionProducto, prodCantidadProducto, prodPrecioNeto, prodPrecioProducto, prod_Estado) VALUES ('$idProducto2', '$nombre', '$descripcion', '$cantidad', '$precioNeto', '$precioProducto','1')");
             $inserta->execute();
             $clavePrimariaConQueInserto = $this->ultimoInsertId();
-            
+
             return ['inserto' => 1, 'resultado' => $clavePrimariaConQueInserto];
         } catch (Exception $exc) {
-            
+
             return ['inserto' => 2, 'resultado' => $exc->getTraceAsString()];
         }
     }
@@ -67,7 +60,7 @@ class Producto_Dao extends ConBdMySql {
             return ['exitoListar' => 2, 'resultado' => $exc->getTraceAsString()];
         }
     }
-    
+
     public function eliminarId($Id) {
         try {
             $inserta = $this->conexion->prepare("DELETE FROM `producto` WHERE proidProducto = '$Id'");
@@ -78,23 +71,23 @@ class Producto_Dao extends ConBdMySql {
         }
     }
 
-
-
-    public function actualizarId($registro) {
-    try {
-        $nombre = $registro['nombre'];
-        $descripcion = $registro['descripcion'];
-        $cantidad = $registro['cantidad'];
-        $precioNeto = $registro['precioNeto'];
-        $precioProducto = $registro['precioProducto'];
-        $inserta = $this->conexion->prepare("UPDATE `producto` SET `prodNombreProducto`='$nombre',`prodDescripcionProducto`='$descripcion',`prodCantidadProducto`='$cantidad'`prodPrecioNeto`='$precioNeto',`prodPrecioProducto`='$precioProducto' WHERE prodidProducto = '$Id' ");
-        $insercion = $inserta->execute();
-        $clavePrimariaConQueInserto = "0";
-        return ['inserto' => 1, 'resultado' => 'Actualizo correctamente'];
-    } catch (Exception $exc) {
-            return ['inserto' => 2, 'resultado' => $exc->getTraceAsString()];
+    public function actualizar($registro) {
+        try {
+            $Id = $registro[0]['idProducto'];
+            $nombre = $registro[0]['nombre'];
+            $descripcion = $registro[0]['descripcion'];
+            $cantidad = $registro[0]['cantidad'];
+            $precioNeto = $registro[0]['precioNeto'];
+            $precioProducto = $registro[0]['precioProducto'];
+            if (isset($Id)) {
+                $actualizar = $this->conexion->prepare("UPDATE `producto` SET `prodNombreProducto`='$nombre',`prodDescripcionProducto`='$descripcion',`prodCantidadProducto`=$cantidad,`prodPrecioNeto`=$precioNeto,`prodPrecioProducto`=$precioProducto WHERE `prodidProducto`=$Id");
+                $actualizar->execute();
+                return ['actualizar' => 1, 'mensaje' => "Actualizo correctamente"];
+            }
+        } catch (Exception $exc) {
+            return ['actualizar' => 2, 'resultado' => $exc->getTraceAsString()];
         }
-}
+    }
 
     public function ultimoInsertId() {
         try {
@@ -105,12 +98,12 @@ class Producto_Dao extends ConBdMySql {
             while ($registro = $listar->fetch(PDO::FETCH_OBJ)) {
                 $registroEncontrado[] = $registro;
             }
-            return $registroEncontrado;        } catch (Exception $exc) {
+            return $registroEncontrado;
+        } catch (Exception $exc) {
             return ['exitoSeleccionId' => 2, 'registroEncontrado' => $exc->getTraceAsString()];
         }
     }
-    
-    
+
     public function EliminadoLogico($Id) {
         try {
             $inserta = $this->conexion->prepare("UPDATE producto SET prod_Estado='3' WHERE prodidProducto = '$Id'");
@@ -120,5 +113,33 @@ class Producto_Dao extends ConBdMySql {
             return ['inserto' => 2, 'resultado' => $exc->getTraceAsString()];
         }
     }
-}
 
+    public function seleccionarTodos() {
+        try {
+
+            $planConsulta = "SELECT * FROM producto";
+            $listar = $this->conexion->prepare($planConsulta);
+            $listar->execute();
+
+            $registroEncontrado = array();
+            while ($registro = $listar->fetch(PDO::FETCH_OBJ)) {
+                $registroEncontrado[] = $registro;
+            }
+            return $registroEncontrado;
+        } catch (Exception $exc) {
+            return ['exitoSeleccionId' => 2, 'registroEncontrado' => $exc->getTraceAsString()];
+        }
+    }
+
+    public function Eliminadobd($registro) {
+        try {
+            $IdProducto = $registro[0]['prodidProducto'];
+            $inserta = $this->conexion->prepare("DELETE FROM `producto` WHERE prodidProducto = '$IdProducto'");
+            $inserta->execute();
+            return ['inserta' => 1, 'resultado' => 'Borro correctamente'];
+        } catch (Exception $exc) {
+            return ['inserta' => 2, 'resultado' => $exc->getTraceAsString()];
+        }
+    }
+
+}

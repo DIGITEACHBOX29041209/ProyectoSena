@@ -12,8 +12,8 @@ class login_Dao extends ConBdMySql {
 
         try {
             $mail = $Id['email'];
-            $clave = ':' . $Id['password'];
-            $planConsulta = "SELECT * FROM `empleado` WHERE empCorreo = '$mail'";
+            $clave = $Id['password'];
+            $planConsulta = "SELECT * FROM `empleado` WHERE empCorreo = '$mail' AND empPassword = '$clave' ";
             $listar = $this->conexion->prepare($planConsulta);
             $listar->execute();
 
@@ -24,22 +24,12 @@ class login_Dao extends ConBdMySql {
 
             if (count($registroEncontrado) > 0) {
 
-                $clave2 = $registroEncontrado[0]->empPassword;
-                $estado = $registroEncontrado[0]->emp_Estado;
                 $cargo = $registroEncontrado[0]->empCargoEmpleado;
 
-                if ($clave == $clave2 && $estado == '1') {
-                    if ($cargo == '1') {
-                        return ['exitoSeleccionId' => 0, 'registroEncontrado' => $registroEncontrado];
-                    } else {
-                        if ($cargo == '2') {
-                            return ['exitoSeleccionId' => 1, 'registroEncontrado' => $registroEncontrado];
-                        } else {
-                            return ['exitoSeleccionId' => 2, 'registroEncontrado' => $registroEncontrado];
-                        }
-                    }
+                if ($cargo == '1') {
+                    return ['exitoSeleccionId' => 0, 'registroEncontrado' => $registroEncontrado];
                 } else {
-                    return ['exitoSeleccionId' => 2, 'registroEncontrado' => $registroEncontrado];
+                    return ['exitoSeleccionId' => 1, 'registroEncontrado' => $registroEncontrado];
                 }
             } else {
                 return ['exitoSeleccionId' => 2, 'registroEncontrado' => $registroEncontrado];

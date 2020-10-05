@@ -210,16 +210,4 @@ function rescata() {
         }
     }
 }
-//*******************************
-//***********************************************
-//Valida correo
-function valida_correo(correo) {
-    if (/^\w+([\.-]?\w+)@\w+([\.-]?\w+)(\.\w{2,3})+$/.test(correo)) {
-
-        return (true)
-    } else {
-
-        return (false);
-    }
-}
 

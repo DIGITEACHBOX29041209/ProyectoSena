@@ -1,5 +1,4 @@
 <?php
-session_start();
 if (isset($_SESSION['mensaje'])) {
     $mensaje = $_SESSION['mensaje'];
     echo "<script languaje='javascript'>alert('$mensaje')</script>";
@@ -20,29 +19,29 @@ if (isset($_SESSION['erroresValidacion'])) {
         <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
         <meta name="description" content="">
         <meta name="author" content="">
-        <title>SB Admin 2 - Register</title>
-        <!-- Custom fonts for this template-->
-        <link href="../../Recursos/vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css"/>
-        <link href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i" rel="stylesheet">
-        <!-- Custom styles for this template-->
-        <link href="../../Recursos/css/sb-admin-2.min.css" rel="stylesheet">
+        <title>Registro Empleado</title>
+        <style>
+            .textRed{
+                color: #d40a18;
+            }
+        </style>
     </head>
-
     <body class="bg-gradient-primary">
         <div class="container">
             <div class="card o-hidden border-0 shadow-lg my-5">
                 <div class="card-body p-0">
                     <!-- Nested Row within Card Body -->
                     <div class="row">
-                        <div class="col-lg-5 d-none d-lg-block bg-register-image"></div>
+                        <div class="col-lg-5 d-none d-lg-block bg-register-image">
+                        </div>
                         <div class="col-lg-7">
                             <div class="p-5">
                                 <div class="text-center">
-                                    <h1 class="h4 text-gray-900 mb-4">Crear cuenta empleado!</h1>
+                                    <h3 class="mb-4 textRed">Crear cuenta empleado!</h3>
                                 </div>
                                 <form class="user" method="GET" action="../Controlador.php" id="formRegistro">
                                     <div>
-                                        <input placeholder="Documento" name="documento" type="number" required="required" autofocus
+                                        <input placeholder="Documento" name="documento" maxlength="10" max="999999999999" type="number" required="required" class="form-control" autofocus
                                                value=<?php
                                                if (isset($erroresValidacion['datosViejos']['documento']))
                                                    echo "\"" . $erroresValidacion['datosViejos']['documento'] . "\"";
@@ -61,9 +60,9 @@ if (isset($_SESSION['erroresValidacion'])) {
                                                 echo "<font color='red'>" . $erroresValidacion['mensajesError']['documento'] . "</font>";
                                             ?>  
                                         </div>
-                                    </div>
+                                    </div> <br>
                                     <div>
-                                        <input placeholder="Nombres" name="nombre" type="text"   required="required"
+                                        <input placeholder="Nombres" name="nombre" type="text"   required="required" class="form-control"
                                                value=<?php
                                                if (isset($erroresValidacion['datosViejos']['nombre']))
                                                    echo "\"" . $erroresValidacion['datosViejos']['nombre'] . "\"";
@@ -83,9 +82,9 @@ if (isset($_SESSION['erroresValidacion'])) {
                                                 echo "<font color='red'>" . $erroresValidacion['mensajesError']['nombre'] . "</font>";
                                             ?>
                                         </div>
-                                    </div>
+                                    </div><br>
                                     <div>
-                                        <input placeholder="Apellidos" name="apellidos" type="text"  required="required"
+                                        <input placeholder="Apellidos" name="apellidos" type="text"  required="required" class="form-control"
                                                value=<?php
                                                if (isset($erroresValidacion['datosViejos']['apellidos']))
                                                    echo "\"" . $erroresValidacion['datosViejos']['apellidos'] . "\"";
@@ -105,9 +104,9 @@ if (isset($_SESSION['erroresValidacion'])) {
                                                 echo "<font color='red'>" . $erroresValidacion['mensajesError']['apellidos'] . "</font>";
                                             ?>
                                         </div>
-                                    </div>
+                                    </div><br>
                                     <div>
-                                        <input id="InputCorreo" placeholder="Correo Electrónico" name="email" type="email"  required="required"
+                                        <input id="InputCorreo" placeholder="Correo Electrónico" name="email" type="email"  required="required" class="form-control"
                                                value=<?php
                                                if (isset($erroresValidacion['datosViejos']['email']))
                                                    echo "\"" . $erroresValidacion['datosViejos']['email'] . "\"";
@@ -127,10 +126,10 @@ if (isset($_SESSION['erroresValidacion'])) {
                                                 echo "<font color='red'>" . $erroresValidacion['mensajesError']['email'] . "</font>";
                                             ?>
                                         </div>
-                                        
-                                    </div>
+
+                                    </div><br>
                                     <div>
-                                        <input placeholder="Telefono" name="telefono" type="number"   required="required"
+                                        <input placeholder="Telefono" name="telefono" type="number"   required="required" class="form-control"
                                                value=<?php
                                                if (isset($erroresValidacion['datosViejos']['telefono']))
                                                    echo "\"" . $erroresValidacion['datosViejos']['telefono'] . "\"";
@@ -150,13 +149,15 @@ if (isset($_SESSION['erroresValidacion'])) {
                                                 echo "<font color='red'>" . $erroresValidacion['mensajesError']['telefono'] . "</font>";
                                             ?>
                                         </div>
-                                    </div>
+                                    </div><br>
                                     <div>
-                                        <input id="InputPassword" placeholder="Password" name="password" type="password" value=""  required="required">
+                                        <input id="InputPassword" placeholder="Password" name="password" type="password" value=""  required="required" class="form-control"> 
                                     </div>
-                                    <div>
-                                        <input id="InputPassword2"  placeholder="Confirmar Password" name="password2" type="password" value="" required="required">
-                                    </div>
+                                    <div><br>
+                                        <input id="InputPassword2"  placeholder="Confirmar Password" name="password2" type="password" value="" required="required" class="form-control">
+                                    </div><br>
+                                    <a class="btn btn-primary btn-block" style="color:white;" href="../Controlador.php?rutaSena=gestionDeTablasEmpeladoo">Cancelar </a>
+                                    <br>
                                     <input type="hidden" name="rutaSena" value="gestionDeRegistro">
                                     <button onclick="valida_registroEmpleado()" class="btn btn-primary btn-block">Registrar Empleado</button>
                                 </form>
@@ -166,17 +167,6 @@ if (isset($_SESSION['erroresValidacion'])) {
                 </div>
             </div>
         </div>
-
-        <!-- Bootstrap core JavaScript-->
-        <script src="../../Recursos/vendor/jquery/jquery.min.js"></script>
-        <script src="../../Recursos/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
-
-        <!-- Core plugin JavaScript-->
-        <script src="../../Recursos/vendor/jquery-easing/jquery.easing.min.js"></script>
-
-        <!-- Custom scripts for all pages-->
-        <script src="../../Recursos/js/sb-admin-2.min.js"></script>
-
     </body>
 
 </html>

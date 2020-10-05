@@ -1,5 +1,4 @@
 <?php
-session_start();
 if (isset($_SESSION['mensaje'])) {
     $mensaje = $_SESSION['mensaje'];
     echo "<script languaje='javascript'>alert('$mensaje')</script>";
@@ -14,7 +13,7 @@ if (isset($_SESSION['erroresValidacion'])) {
     unset($_SESSION['erroresValidacion']);
 }
 ?>
-<<!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="en">
 
     <head>
@@ -23,12 +22,12 @@ if (isset($_SESSION['erroresValidacion'])) {
         <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
         <meta name="description" content="">
         <meta name="author" content="">
-        <title>SB Admin 2 - Register</title>
-        <!-- Custom fonts for this template-->
-        <link href="../../Recursos/vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css"/>
-        <link href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i" rel="stylesheet">
-        <!-- Custom styles for this template-->
-        <link href="../../Recursos/css/sb-admin-2.min.css" rel="stylesheet">
+        <title>Proveedor</title>
+        <style>
+            .textRed{
+                color: #d40a18;
+            }
+        </style>
     </head>
 
     <body class="bg-gradient-primary">
@@ -41,7 +40,7 @@ if (isset($_SESSION['erroresValidacion'])) {
                         <div class="col-lg-7">
                             <div class="p-5">
                                 <div class="text-center">
-                                    <h1 class="h4 text-gray-900 mb-4">Actualizar Provedor</h1>
+                                    <h3 class="mb-4 textRed">Actualizar Proveedor!</h3>
                                 </div>
                                 <form class="user" method="GET" action="../Controlador.php" id="formRegistroProvedor">
                                     <div>
@@ -54,84 +53,49 @@ if (isset($_SESSION['erroresValidacion'])) {
                                                if (isset($_SESSION['provIdProvedores']))
                                                    echo $_SESSION['provIdProvedores'];
                                                unset($_SESSION['provIdProvedores']);
-                                               ?>">                         
-                                    <!--<p class="help-block">Example block-level help text here.</p>-->
-                                        </td>
-                                        </tr>
-                                        <tr>
-                                            <td>                
-                                                <input class="form-control" placeholder="Nombre" name="NombreProvedor" type="text"   required="required" 
-                                                       value="<?php
-                                                       if (isset($actualizarDatosProvedor[0]->provNombreProvedor))
-                                                           echo $actualizarDatosProvedor[0]->provNombreProvedor;
-                                                       if (isset($erroresValidacion['datosViejos']['NombreProvedor']))
-                                                           echo $erroresValidacion['datosViejos']['NombreProvedor'];
-                                                       if (isset($_SESSION['NombreProvedor']))
-                                                           echo $_SESSION['NombreProvedor'];
-                                                       unset($_SESSION['NombreProvedor']);
-                                                       ?>">                                     
-                                            <!--<p class="help-block">Example block-level help text here.</p>-->                      
-                                            </td>
-                                        </tr>
-                                        <tr>
-                                            <td>                  
-                                                <input class="form-control" placeholder="Direccion" name="DireccionProvedor" type="text"  required="required" 
-                                                       value="<?php
-                                                       if (isset($actualizarDatosProvedor[0]->provDireccionProvedor))
-                                                           echo $actualizarDatosProvedor[0]->provDireccionProvedor;
-                                                       if (isset($erroresValidacion['datosViejos']['DireccionProvedor']))
-                                                           echo $erroresValidacion['datosViejos']['DireccionProvedor'];
-                                                       if (isset($_SESSION['DireccionProvedor']))
-                                                           echo $_SESSION['DireccionProvedor'];
-                                                       unset($_SESSION['DireccionProvedor']);
-                                                       ?>">  
-                                                        <!--<p class="help-block">Example block-level help text here.</p>-->                                               
-                                            </td>
-                                        </tr>                  
-                                        <tr>
-                                            <td>                  
-                                                <input class="form-control" placeholder="Telefono" name="TelefonoProvedor" type="number"  required="required" 
-                                                       value="<?php
-                                                       if (isset($actualizarDatosProvedor[0]->provTelefonoProvedor))
-                                                           echo $actualizarDatosProvedor[0]->provTelefonoProvedor;
-                                                       if (isset($erroresValidacion['datosViejos']['TelefonoProvedor']))
-                                                           echo $erroresValidacion['datosViejos']['TelefonoProvedor'];
-                                                       if (isset($_SESSION['TelefonoProvedor']))
-                                                           echo $_SESSION['TelefonoProvedor'];
-                                                       unset($_SESSION['TelefonoProvedor']);
-                                                       ?>">                                
-
-<!--<p class="help-block">Example block-level help text here.</p>-->                          
-                                            </td>
-                                        </tr>
-                                         <br>
-                                        <tr>            
-                                            <td>            
-                                                <button type="reset" name="rutaSena" value="cancelarActualizarProvedor" class="btn btn-primary btn-user btn-block">Cancelar</button>
-                                                <br>
-                                                <input type="hidden" name="rutaSena" value="confirmaActualizarProvedor">
-                                                <button type="submit" class="btn btn-primary btn-user btn-block"> Actualizar Provedor</button>
-                                            </td>
-                                        </tr>             
-                                        </table>
+                                               ?>"> <br/>                                    
+                                        <input class="form-control" placeholder="Nombre" name="NombreProvedor" type="text"   required="required" 
+                                               value="<?php
+                                               if (isset($actualizarDatosProvedor[0]->provNombreProvedor))
+                                                   echo $actualizarDatosProvedor[0]->provNombreProvedor;
+                                               if (isset($erroresValidacion['datosViejos']['NombreProvedor']))
+                                                   echo $erroresValidacion['datosViejos']['NombreProvedor'];
+                                               if (isset($_SESSION['NombreProvedor']))
+                                                   echo $_SESSION['NombreProvedor'];
+                                               unset($_SESSION['NombreProvedor']);
+                                               ?>"> <br/>                                                   
+                                        <input class="form-control" placeholder="Direccion" name="DireccionProvedor" type="text"  required="required" 
+                                               value="<?php
+                                               if (isset($actualizarDatosProvedor[0]->provDireccionProvedor))
+                                                   echo $actualizarDatosProvedor[0]->provDireccionProvedor;
+                                               if (isset($erroresValidacion['datosViejos']['DireccionProvedor']))
+                                                   echo $erroresValidacion['datosViejos']['DireccionProvedor'];
+                                               if (isset($_SESSION['DireccionProvedor']))
+                                                   echo $_SESSION['DireccionProvedor'];
+                                               unset($_SESSION['DireccionProvedor']);
+                                               ?>">   <br/>             
+                                        <input class="form-control" placeholder="Telefono" name="TelefonoProvedor" type="number"  required="required" 
+                                               value="<?php
+                                               if (isset($actualizarDatosProvedor[0]->provTelefonoProvedor))
+                                                   echo $actualizarDatosProvedor[0]->provTelefonoProvedor;
+                                               if (isset($erroresValidacion['datosViejos']['TelefonoProvedor']))
+                                                   echo $erroresValidacion['datosViejos']['TelefonoProvedor'];
+                                               if (isset($_SESSION['TelefonoProvedor']))
+                                                   echo $_SESSION['TelefonoProvedor'];
+                                               unset($_SESSION['TelefonoProvedor']);
+                                               ?>">   <br/>                                      
+                                        <br>
+                                        <a class="btn btn-primary btn-block" style="color:white;" href="../Controlador.php?rutaSena=gestionDeTablasproveedor">Cancelar </a>
+                                        <br>
+                                        <input type="hidden" name="rutaSena" value="confirmaActualizarProvedor">
+                                        <button type="submit" class="btn btn-primary btn-block"> Actualizar Provedor</button>
                                 </form>
-                                </fieldset>
                             </div>
                         </div>
                     </div>
                 </div>
             </div>
         </div>
-
-        <!-- Bootstrap core JavaScript-->
-        <script src="../../Recursos/vendor/jquery/jquery.min.js"></script>
-        <script src="../../Recursos/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
-
-        <!-- Core plugin JavaScript-->
-        <script src="../../Recursos/vendor/jquery-easing/jquery.easing.min.js"></script>
-
-        <!-- Custom scripts for all pages-->
-        <script src="../../Recursos/js/sb-admin-2.min.js"></script>
 
     </body>
 

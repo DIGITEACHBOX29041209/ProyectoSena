@@ -20,6 +20,7 @@ if (!empty($_POST)) {
             $consulta = "SELECT * FROM `producto` WHERE prodidProducto = $CodProd ";
             $query = mysqli_query( $conexion, $consulta );
             mysqli_close($conexion);
+            
             $result = mysqli_num_rows($query);
             
             if($result > 0){
@@ -27,7 +28,7 @@ if (!empty($_POST)) {
             }else{
                 $data = 0;
             }
-            echo print_r($data);
+            echo json_encode($data);
         }
         exit;
     }

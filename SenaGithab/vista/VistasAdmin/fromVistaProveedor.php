@@ -1,5 +1,4 @@
 <?php
-session_start();
 if (isset($_SESSION['datos'])) {
     $listaDeProvedores = $_SESSION['datos'];
 //    echo "<pre>";
@@ -17,16 +16,16 @@ if (isset($_SESSION['datos'])) {
         <meta name="description" content="">
         <meta name="author" content="">
         <title>SB Admin 2 - Register</title>
-        <!-- Custom fonts for this template-->
-        <link href="../../Recursos/vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css"/>
-        <link href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i" rel="stylesheet">
-        <!-- Custom styles for this template-->
-        <link href="../../Recursos/css/sb-admin-2.min.css" rel="stylesheet">
+        <style>
+            .coloTextRed{
+                color:#d40a18;
+            }
+        </style>
     </head>
     <body>
         <div class="container">
-            <a href="FormResgistroProvedor.php">Agregar Proveedor</a><br/>
-
+            <h2 class="coloTextRed">Proveedor</h2>
+            <a href="VistaPrincipalAdmin.php?contenido=FormResgistroProvedor.php">Agregar Nuevo Proveedor</a><br/><br/>
             <table id="example" class="table-responsive-lg table-hover table-bordered table-striped" style="width:100%">
                 <thead>
                     <tr>
