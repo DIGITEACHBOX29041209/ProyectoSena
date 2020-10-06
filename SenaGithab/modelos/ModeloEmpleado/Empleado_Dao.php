@@ -49,7 +49,7 @@ class Empleado_Dao extends ConBdMySql {
     public function seleccionarTodos() {
         try {
 
-            $planConsulta = "SELECT * FROM empleado";
+            $planConsulta = "SELECT * FROM empleado where emp_Estado = '1'";
             $listar = $this->conexion->prepare($planConsulta);
             $listar->execute();
 
@@ -137,7 +137,7 @@ class Empleado_Dao extends ConBdMySql {
 
     public function EliminadoLogico($Id) {
         try {
-            $inserta = $this->conexion->prepare("UPDATE empleado SET emp_Estado='3' where empIdEmpleado = '$Id'");
+            $inserta = $this->conexion->prepare("UPDATE empleado SET emp_Estado='2' where empIdEmpleado = '$Id[0]'");
             $inserta->execute();
             return ['inserto' => 1, 'resultado' => 'Actualizo correctamente'];
         } catch (Exception $exc) {

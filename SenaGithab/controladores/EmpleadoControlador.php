@@ -29,7 +29,7 @@ class EmpleadoControlador {
                         session_start(); //se abre sesión para almacenar en ella el mensaje de inserción
                         $_SESSION['mensaje'] = "Registrado con èxito para ingreso al sistema"; //mensaje de inserción
                         if ($this->datos['rutaSena'] == 'gestionDeRegistro') {//si el formulario de la inserción es el de registrarse y fue exitoso se devuelve a login.php
-                            header("location:vistasAdmin/FormRegistroEmpleado.php");
+                            header("location:Controlador.php?rutaSena=gestionDeTablasEmpeladoo");
                         }
                     } else {
                         session_start();
@@ -41,7 +41,7 @@ class EmpleadoControlador {
                         $_SESSION['tipoEmpleado'] = $this->datos['tipoEmpleado'];
                         $_SESSION['mensaje'] = $exitoInsercionUsuario_s;
                         if ($this->datos['rutaSena'] == 'gestionDeRegistro') {//si al insertar un usuario en el formulario de registrarse y éste ya existe a registro.php
-                            header("location:vistasAdmin/FormRegistroEmpleado.php");
+                            header("location: vistasAdmin/VistaPrincipalAdmin.php?contenido=FormRegistroEmpleado.php");
                         }
                     }
                 } else {//Si la persona ya existe se abre sesión para almacenar en ella el mensaje de NO inserción y devolver datos al formulario por medio de la sesión
@@ -53,7 +53,7 @@ class EmpleadoControlador {
                     $_SESSION['telefono'] = $this->datos['telefono'];
                     $_SESSION['mensaje'] = "El usuario ya existe en el sistema.";
                     if ($this->datos['rutaSena'] == 'gestionDeRegistro') {//si al insertar un usuario en el formulario de registrarse y éste ya existe a registro.php
-                        header("location:vistasAdmin/FormRegistroEmpleado.php");
+                        header("location: vistasAdmin/VistaPrincipalAdmin.php?contenido=FormRegistroEmpleado.php");
                     }
                 }
                 break;
@@ -61,45 +61,37 @@ class EmpleadoControlador {
                 $gestarTablas_s = new Empleado_Dao(SERVIDOR, BASE, USUARIO_BD, CONTRASENIA_BD);
                 $insertoUsuario_s = $gestarTablas_s->seleccionarTodos();
                 session_start(); //se abre sesión para almacenar en ella el mensaje de inserción
-//                $_SESSION['mensaje'] = "Se entontraron datos para esta tabla";
                 $_SESSION['datos'] = $insertoUsuario_s;
-                header("location:vistasAdmin/visaEmpleado.php");
-
+                header("location: vistasAdmin/VistaPrincipalAdmin.php?contenido=visaEmpleado.php");
                 break;
-            
-           case "actualizarEmpleado":
+
+            case "actualizarEmpleado":
                 $gestarEmpleado = new Empleado_Dao(SERVIDOR, BASE, USUARIO_BD, CONTRASENIA_BD);
                 $consultaDeEmpleado = $gestarEmpleado->seleccionarrId(array($this->datos['idAct'])); //Se consulta el libro para traer los datos.
                 session_start();
-//                $_SESSION['actualizarDatosLibro'] = $actualizarDatosProvedor;
-//                $_SESSION['registroCategoriasLibros'] = $registroCategoriasLibros;
-                $_SESSION['mensaje'] = "Se entontraron datos para esta tabla";
                 $_SESSION['datos'] = $consultaDeEmpleado;
-
-                header("location:vistasAdmin/VistaActualizarEmpleado.php");
-
-//                header("location:principal.php?contenido=vistas/vistasLibros/vistaActualizarLibro.php");
+                header("location: vistasAdmin/VistaPrincipalAdmin.php?contenido=VistaActualizarEmpleado.php");
                 break;
-            
-            case "confirmaActualizarEmpleado":             
+
+            case "confirmaActualizarEmpleado":
                 $gestarEmpleado = new Empleado_Dao(SERVIDOR, BASE, USUARIO_BD, CONTRASENIA_BD);
                 $actualizarEmpleado = $gestarEmpleado->actualizar(array($this->datos)); //Se envía datos del libro para actualizar.                
-                
+
                 session_start();
                 $_SESSION['mensaje'] = "Actualización realizada.";
                 header("location:Controlador.php?rutaSena=gestionDeTablasEmpeladoo");
                 break;
-            
+
             case "eliminarEmpleado":
                 $gestarEmpleado = new Empleado_Dao(SERVIDOR, BASE, USUARIO_BD, CONTRASENIA_BD);
-                $gestarEmpleado->Eliminadobd(array($this->datos['idAct'])); // BORRADO FÍSICO
+                $gestarEmpleado->EliminadoLogico(array($this->datos['idAct'])); // BORRADO FÍSICO
 //                $gestarLibros->eliminarLogico(array($this->datos['idAct']));// BORRADO LÓGICO
 
                 session_start();
                 $_SESSION['mensaje'] = "   Borrado exitoso!!! ";
                 header("location:Controlador.php?rutaSena=gestionDeTablasEmpeladoo");
                 break;
-               
+
             default :
                 break;
         }

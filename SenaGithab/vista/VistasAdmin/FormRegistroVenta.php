@@ -144,7 +144,6 @@ if (isset($_SESSION['erroresValidacion'])) {
                                                 dataType: 'json',
                                                 data: {action: action, producto: prodidProducto},
                                                 success: function (e) {
-                                                    console.log(e);
                                                     document.getElementById('nombreProd').innerHTML = e.prodNombreProducto;
                                                     document.getElementById('DesProducto').innerHTML = e.prodDescripcionProducto;
                                                     document.getElementById('PrecioProd').innerHTML = e.prodPrecioProducto;

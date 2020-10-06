@@ -39,6 +39,9 @@ class Producto_Dao extends ConBdMySql {
             $inserta->execute();
             $clavePrimariaConQueInserto = $this->ultimoInsertId();
 
+            $inserta2 = $this->conexion->prepare("INSERT INTO `producto_proveedores`(proEstado, provIdProvedores, prodidProducto) VALUES ('1', '$idprpoveedor', '$idProducto2')");
+            $inserta2->execute();
+
             return ['inserto' => 1, 'resultado' => $clavePrimariaConQueInserto];
         } catch (Exception $exc) {
 
