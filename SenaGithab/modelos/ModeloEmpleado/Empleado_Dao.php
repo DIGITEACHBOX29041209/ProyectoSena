@@ -11,7 +11,7 @@ class Empleado_Dao extends ConBdMySql {
     public function seleccionarId($Id) {
         try {
             if (!isset($Id[2])) {
-                $planConsulta = "SELECT * FROM `empleado` WHERE empDocumentoEmpleado = $Id[0] or empCorreo = '$Id[1]' ";
+                $planConsulta = "SELECT * FROM `empleado` WHERE empDocumentoEmpleado = $Id[0] or empCorreo = '$Id[1]' and emp_Estado = '1' ";
                 $listar = $this->conexion->prepare($planConsulta);
                 $listar->execute();
             }
@@ -21,9 +21,20 @@ class Empleado_Dao extends ConBdMySql {
             }
             if (count($registroEncontrado) == 0) {
 
-                return ['exitoSeleccionId' => 1, 'registroEncontrado' => $registroEncontrado]; /* 1 exitoso */
+                $planConsulta2 = "SELECT * FROM `empleado` WHERE empDocumentoEmpleado = $Id[0] or empCorreo = '$Id[1]' and emp_Estado = '2' ";
+                $listar2 = $this->conexion->prepare($planConsulta);
+                $listar2->execute();
+                $registroEncontrado2 = array();
+                while ($registro2 = $listar2->fetch(PDO::FETCH_OBJ)) {
+                    $registroEncontrado2[] = $registro2;
+                }
+                if (count($registroEncontrado2) == 0) {
+                    return ['exitoSeleccionId' => 1, 'registroEncontrado' => $registroEncontrado]; /* 1 exitoso */
+                }else{
+                    return ['exitoSeleccionId' => 3, 'registroEncontrado' => $registroEncontrado];  // existe desactivado
+                }
             } else {
-                return ['exitoSeleccionId' => 0, 'registroEncontrado' => $registroEncontrado]; /* 0 pailas */
+                return ['exitoSeleccionId' => 0, 'registroEncontrado' => $registroEncontrado]; /* 0 existe ACTIVO */
             }
         } catch (Exception $exc) {
             return ['exitoSeleccionId' => 2, 'registroEncontrado' => $exc->getTraceAsString()];
@@ -146,7 +157,7 @@ class Empleado_Dao extends ConBdMySql {
     }
 
     public function Eliminadobd($registro) {
-        try {           
+        try {
             $Id = $registro[0]['idEmpleado'];
             $inserta = $this->conexion->prepare("DELETE FROM `empleado` WHERE empIdEmpleado = $Id");
 //            echo print_r($registro);
@@ -156,8 +167,8 @@ class Empleado_Dao extends ConBdMySql {
         } catch (Exception $exc) {
             return ['inserta' => 2, 'resultado' => $exc->getTraceAsString()];
         }
-            
     }
+
 }
 
 //        echo "<pre>";

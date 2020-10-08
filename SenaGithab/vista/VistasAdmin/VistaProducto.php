@@ -20,7 +20,11 @@ if (isset($_SESSION['datos'])) {
     <body>
         <div class="container">
             <h2 class="coloTextRed">Producto</h2>
-            <a href="VistaPrincipalAdmin.php?contenido=FormRegistroProducto.php">Crear Producto</a><br/><br/>
+            <br><br>
+            <form class="user" method="GET" action="../Controlador.php">
+                <input type="hidden" name="rutaSena" value="gestionderegistroPorducto">
+                <button type="submit"class="btn btn-primary btn-block">Crear Nuevo Producto!! </button>
+            </form>
             <table id="example" class="table-responsive-lg table-hover table-bordered table-striped" style="width:100%">
                 <thead>
                     <tr>

@@ -80,6 +80,14 @@ class ProductoControlador {
                 $_SESSION['mensaje'] = "Actualización realizada.";
                  header("location:Controlador.php?rutaSena=gestionDeTablasproducto");
                 break;
+            
+             case "gestionderegistroPorducto":
+                $gestarProducto = new Producto_Dao(SERVIDOR, BASE, USUARIO_BD, CONTRASENIA_BD);
+                $tabalaPoroveedro= $gestarProducto->selectTablasProveedor(); //Se envía datos del libro para actualizar.               
+                session_start();
+                $_SESSION['arrayProveedor'] = $tabalaPoroveedro;
+                header("location: vistasAdmin/VistaPrincipalAdmin.php?contenido=FormRegistroProducto.php");
+                break;
             default :
                 break;
         }

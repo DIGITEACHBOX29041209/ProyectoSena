@@ -146,6 +146,10 @@ class ControladorPrincipal {
             case "confirmaActualizarProducto":
                 $ProductoControlador = new ProductoControlador($this->datos);
                 break;
+            
+            case "gestionderegistroPorducto":
+                $ProductoControlador = new ProductoControlador($this->datos);
+                break;
             default:
                 break;
         }

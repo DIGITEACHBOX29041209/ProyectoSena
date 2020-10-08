@@ -27,7 +27,6 @@ class Producto_Dao extends ConBdMySql {
     public function insertar($registro) {
         try {
             $clavePrimariaConQueInserto = $this->ultimoInsertId();
-
             $idProducto = $clavePrimariaConQueInserto[0]->prodidProducto;
             $idProducto2 = $idProducto + 1;
             $nombre = $registro['nombre'];
@@ -35,13 +34,12 @@ class Producto_Dao extends ConBdMySql {
             $cantidad = $registro['cantidad'];
             $precioNeto = $registro['precioNeto'];
             $precioProducto = $registro['precioProducto'];
+            $Proveedor = $registro['Proveedor'];
             $inserta = $this->conexion->prepare("INSERT INTO `producto`(prodidProducto, prodNombreProducto, prodDescripcionProducto, prodCantidadProducto, prodPrecioNeto, prodPrecioProducto, prod_Estado) VALUES ('$idProducto2', '$nombre', '$descripcion', '$cantidad', '$precioNeto', '$precioProducto','1')");
             $inserta->execute();
             $clavePrimariaConQueInserto = $this->ultimoInsertId();
-
-            $inserta2 = $this->conexion->prepare("INSERT INTO `producto_proveedores`(proEstado, provIdProvedores, prodidProducto) VALUES ('1', '$idprpoveedor', '$idProducto2')");
+            $inserta2 = $this->conexion->prepare("INSERT INTO `producto_proveedores`( `proEstado`, `provIdProvedores`, `prodidProducto`) VALUES ('1','$Proveedor','$idProducto2')");
             $inserta2->execute();
-
             return ['inserto' => 1, 'resultado' => $clavePrimariaConQueInserto];
         } catch (Exception $exc) {
 
@@ -140,6 +138,22 @@ class Producto_Dao extends ConBdMySql {
             $inserta = $this->conexion->prepare("DELETE FROM `producto` WHERE prodidProducto = '$IdProducto'");
             $inserta->execute();
             return ['inserta' => 1, 'resultado' => 'Borro correctamente'];
+        } catch (Exception $exc) {
+            return ['inserta' => 2, 'resultado' => $exc->getTraceAsString()];
+        }
+    }
+
+    public function selectTablasProveedor() {
+        try {
+            $consulta = $this->conexion->prepare("SELECT * FROM `provedores` ");
+            $consulta->execute();
+
+            $registroEncontrado = array();
+
+            while ($registro = $consulta->fetch(PDO::FETCH_OBJ)) {
+                $registroEncontrado[] = $registro;
+            }
+            return $registroEncontrado;
         } catch (Exception $exc) {
             return ['inserta' => 2, 'resultado' => $exc->getTraceAsString()];
         }

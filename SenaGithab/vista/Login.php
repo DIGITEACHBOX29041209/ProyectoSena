@@ -34,12 +34,15 @@ if (isset($_SESSION['mensaje'])) {
                    background-color: #192d36;
             }
             .FondoLateral{
-                   background-color: #d40a18;
+                   background-color: #3a778a;
             }
             .ColorAmarillo{
                 background-color: #9d1515;
                 border: 0px;
                 color: white;
+            }
+            .ImagenLogo{
+                width: 100%;
             }
         </style>
     </head>
@@ -53,8 +56,10 @@ if (isset($_SESSION['mensaje'])) {
                         <div class="card-body p-0">
                             <!-- Nested Row within Card Body -->
                             <div class="row">
-                                <div class="col-lg-6 d-none d-lg-block FondoLateral"></div>
-                                <div class="col-lg-6">
+                                <div class="col-lg-6 d-none d-lg-block  bg-white">
+                                    <image src="logo.jpeg" class="ImagenLogo" />
+                                </div>
+                                <div class="col-lg-6 FondoLateral">
                                     <div class="p-5">
                                         <div class="text-center">
                                             <h1 class="h4 text-gray-900 mb-4">Bienvenido a MacroOfertas!</h1>
