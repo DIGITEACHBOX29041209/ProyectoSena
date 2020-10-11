@@ -41,13 +41,58 @@ if (isset($_SESSION['erroresValidacion'])) {
                                 </div>
                                 <form class="user" method="GET" action="../Controlador.php" id="formRegistroProvedor">
                                     <div>
+                                        <input class="form-control" placeholder="Nit" name="IdProvedores" type="int" required="required" autofocus
+                                               value=<?php
+                                               if (isset($erroresValidacion['datosViejos']['IdProvedores']))
+                                                   echo "\"" . $erroresValidacion['datosViejos']['IdProvedores'] . "\"";
+                                               if (isset($_SESSION['IdProvedores'])){
+                                                   echo "\"" . $_SESSION['IdProvedores'] . "\"";
+                                               unset($_SESSION['IdProvedores']);
+                                               }
+                                               ?>
+                                               >
+                                        <div>
+                                            <?php
+                                            if (isset($erroresValidacion['marcaCampo']['IdProvedores']))
+                                                echo "<font color='red'>" . $erroresValidacion['marcaCampo']['IdProvedores'] . "</font>";
+                                            ?>
+                                            <?php
+                                            if (isset($erroresValidacion['mensajesError']['IdProvedores']))
+                                                echo "<font color='red'>" . $erroresValidacion['mensajesError']['IdProvedores'] . "</font>";
+                                            ?>  
+                                        </div>
+                                    </div><br/>
+                                    <div>
+                                        <input class="form-control" placeholder="Empresa" name="NombreEmpresa" type="int" required="required" autofocus
+                                               value=<?php
+                                               if (isset($erroresValidacion['datosViejos']['NombreEmpresa']))
+                                                   echo "\"" . $erroresValidacion['datosViejos']['NombreEmpresa'] . "\"";
+                                               if (isset($_SESSION['NombreEmpresa'])){
+                                                   echo "\"" . $_SESSION['NombreEmpresa'] . "\"";
+                                               unset($_SESSION['NombreEmpresa']);
+                                               }
+                                               ?>
+                                               >
+                                        <div>
+                                            <?php
+                                            if (isset($erroresValidacion['marcaCampo']['NombreEmpresa']))
+                                                echo "<font color='red'>" . $erroresValidacion['marcaCampo']['NombreEmpresa'] . "</font>";
+                                            ?>
+                                            <?php
+                                            if (isset($erroresValidacion['mensajesError']['NombreEmpresa']))
+                                                echo "<font color='red'>" . $erroresValidacion['mensajesError']['NombreEmpresa'] . "</font>";
+                                            ?>  
+                                        </div>
+                                    </div><br/>
+                                    <div>
                                         <input class="form-control" placeholder="Nombre" name="NombreProvedor" type="int" required="required" autofocus
                                                value=<?php
                                                if (isset($erroresValidacion['datosViejos']['NombreProvedor']))
                                                    echo "\"" . $erroresValidacion['datosViejos']['NombreProvedor'] . "\"";
-                                               if (isset($_SESSION['NombreProvedor']))
+                                               if (isset($_SESSION['NombreProvedor'])) {
                                                    echo "\"" . $_SESSION['NombreProvedor'] . "\"";
                                                unset($_SESSION['NombreProvedor']);
+                                               }
                                                ?>
                                                >
                                         <div>

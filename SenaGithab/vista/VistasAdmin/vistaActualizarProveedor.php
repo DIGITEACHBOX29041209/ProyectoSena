@@ -53,7 +53,17 @@ if (isset($_SESSION['erroresValidacion'])) {
                                                if (isset($_SESSION['provIdProvedores']))
                                                    echo $_SESSION['provIdProvedores'];
                                                unset($_SESSION['provIdProvedores']);
-                                               ?>"> <br/>                                    
+                                               ?>"> <br/>  
+                                        <input class="form-control" placeholder="Empresa" name="NombreEmpresa" type="text"   required="required" 
+                                               value="<?php
+                                               if (isset($actualizarDatosProvedor[0]->provEmpresa))
+                                                   echo $actualizarDatosProvedor[0]->provEmpresa;
+                                               if (isset($erroresValidacion['datosViejos']['NombreEmpresa']))
+                                                   echo $erroresValidacion['datosViejos']['NombreEmpresa'];
+                                               if (isset($_SESSION['NombreEmpresa']))
+                                                   echo $_SESSION['NombreEmpresa'];
+                                               unset($_SESSION['NombreEmpresa']);
+                                               ?>"> <br/>                                        
                                         <input class="form-control" placeholder="Nombre" name="NombreProvedor" type="text"   required="required" 
                                                value="<?php
                                                if (isset($actualizarDatosProvedor[0]->provNombreProvedor))

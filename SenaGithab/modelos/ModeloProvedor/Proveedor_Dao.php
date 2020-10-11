@@ -44,11 +44,13 @@ class Proveedor_Dao extends ConBdMySql {
 
     public function insertar($registro) {
         try {
+            $IdProvedores = $registro['IdProvedores'];
+            $NombreEmpresa = $registro['NombreEmpresa'];
             $NombreProvedor = $registro['NombreProvedor'];
             $DireccionProvedor = $registro['DireccionProvedor'];
             $TelefonoProvedor = $registro['TelefonoProvedor'];
-            $inserta = $this->conexion->prepare("INSERT INTO `provedores` ( `provNombreProvedor`, `provDireccionProvedor`, `provTelefonoProvedor`, `prov_Estado`) "
-                    . "VALUES ('$NombreProvedor', '$DireccionProvedor', $TelefonoProvedor,'1')");
+            $inserta = $this->conexion->prepare("INSERT INTO `provedores` ( `provIdProvedores`, `provEmpresa`, `provNombreProvedor`, `provDireccionProvedor`, `provTelefonoProvedor`, `prov_Estado`) "
+                    . "VALUES ('$IdProvedores','$NombreEmpresa','$NombreProvedor', '$DireccionProvedor', $TelefonoProvedor,'1')");
             $inserta->execute();
             $clavePrimariaConQueInserto = $this->ultimoInsertId();
             return ['inserto' => 1, 'resultado' => $clavePrimariaConQueInserto];
@@ -58,13 +60,14 @@ class Proveedor_Dao extends ConBdMySql {
     }
 
     public function actualizar($registro) {
-                try {
+        try {    
+            $NombreEmpresa = $registro[0]['NombreEmpresa'];
             $NombreProvedor = $registro[0]['NombreProvedor'];
             $DireccionProvedor = $registro[0]['DireccionProvedor'];
             $TelefonoProvedor = $registro[0]['TelefonoProvedor'];
             $IdProvedores = $registro[0]['provIdProvedores'];
             if (isset($IdProvedores)) {
-                $actualizacion = $this->conexion->prepare("UPDATE `provedores` SET `provNombreProvedor`='$NombreProvedor',`provDireccionProvedor`='$DireccionProvedor',`provTelefonoProvedor`=$TelefonoProvedor WHERE provIdProvedores = $IdProvedores ");
+                $actualizacion = $this->conexion->prepare("UPDATE `provedores` SET `provEmpresa`='$NombreEmpresa', `provNombreProvedor`='$NombreProvedor',`provDireccionProvedor`='$DireccionProvedor',`provTelefonoProvedor`=$TelefonoProvedor WHERE provIdProvedores = $IdProvedores ");
                 $actualizacion->execute();
                 return ['actualizacion' => 1, 'mensaje' => "Actualización realizada."];
             }
@@ -104,7 +107,7 @@ class Proveedor_Dao extends ConBdMySql {
 
     public function Eliminadobd($registro) {
         try {
-            $IdProvedores = $registro[0]['provIdProvedores'];
+            $IdProvedores = $registro[0]['IdProvedores'];
             $inserta = $this->conexion->prepare("DELETE FROM `provedores` WHERE provIdProvedores = '$IdProvedores'");
             $inserta->execute();
             return ['inserta' => 1, 'resultado' => 'Borro correctamente'];

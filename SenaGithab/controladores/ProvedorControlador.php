@@ -28,6 +28,8 @@ class ProvedorControlador {
                     }
                 } else {
                     session_start();
+                    $_SESSION['IdProvedores'] = $this->datos['IdProvedores'];
+                    $_SESSION['NombreEmpresa'] = $this->datos['NombreEmpresa'];
                     $_SESSION['NombreProvedor'] = $this->datos['NombreProvedor'];
                     $_SESSION['DireccionProvedor'] = $this->datos['DireccionProvedor'];
                     $_SESSION['TelefonoProvedor'] = $this->datos['TelefonoProvedor'];
@@ -53,6 +55,7 @@ class ProvedorControlador {
                 } else {
                     session_start();
                     $_SESSION['IdProvedores'] = $this->datos['IdProvedores'];
+                    $_SESSION['NombreEmpresa'] = $this->datos['NombreEmpresa'];
                     $_SESSION['NombreProvedor'] = $this->datos['NombreProvedor'];
                     $_SESSION['DireccionProvedor'] = $this->datos['DireccionProvedor'];
                     $_SESSION['TelefonoProvedor'] = $this->datos['TelefonoProvedor'];
@@ -78,6 +81,7 @@ class ProvedorControlador {
                 } else {
                     session_start();
                     $_SESSION['IdProvedores'] = $this->datos['IdProvedores'];
+                    $_SESSION['NombreEmpresa'] = $this->datos['NombreEmpresa'];
                     $_SESSION['NombreProvedor'] = $this->datos['NombreProvedor'];
                     $_SESSION['DireccionProvedor'] = $this->datos['DireccionProvedor'];
                     $_SESSION['TelefonoProvedor'] = $this->datos['TelefonoProvedor'];

@@ -29,13 +29,14 @@ if (isset($_SESSION['datos'])) {
             <table id="example" class="table-responsive-lg table-hover table-bordered table-striped" style="width:100%">
                 <thead>
                     <tr>
-                        <th>Id</th> 
+                        <th>Id</th>
+                        <th>Empresa</th>
                         <th>Nombre</th> 
                         <th>Direccion</th> 
                         <th>Telefono</th> 
                         <th>Creacion</th>
-                        <th>Edit</th> 
-                        <th>Delete</th>
+                        <th>Editar</th> 
+                        <th>Borrar</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -44,7 +45,8 @@ if (isset($_SESSION['datos'])) {
                     foreach ($listaDeProvedores as $key => $value) {
                         ?>
                         <tr>
-                            <td><?php echo $listaDeProvedores[$i]->provIdProvedores; ?></td>  
+                            <td><?php echo $listaDeProvedores[$i]->provIdProvedores; ?></td> 
+                            <td><?php echo $listaDeProvedores[$i]->provEmpresa; ?></td>
                             <td><?php echo $listaDeProvedores[$i]->provNombreProvedor; ?></td>  
                             <td><?php echo $listaDeProvedores[$i]->provDireccionProvedor; ?></td>  
                             <td><?php echo $listaDeProvedores[$i]->provTelefonoProvedor; ?></td>  
