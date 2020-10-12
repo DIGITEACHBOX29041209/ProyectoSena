@@ -8,6 +8,10 @@ if (isset($_SESSION['erroresValidacion'])) {
     $erroresValidacion = $_SESSION['erroresValidacion'];
     unset($_SESSION['erroresValidacion']);
 }
+if (isset($_SESSION['arrayEmpleado'])) {
+    $tablaTipoEmpleado = $_SESSION['arrayEmpleado'];
+}
+
 ?>
 
 <!DOCTYPE html>
@@ -149,6 +153,20 @@ if (isset($_SESSION['erroresValidacion'])) {
                                                 echo "<font color='red'>" . $erroresValidacion['mensajesError']['telefono'] . "</font>";
                                             ?>
                                         </div>
+                                    </div><br>
+                                    <div>
+                                        <select class="form-control" name="TipoEmpleado" required="required">
+                                            <option value="">Tipo de Empleado</option>
+                                            <<?php
+                                            $i = 0;
+                                            foreach ($tablaTipoEmpleado as $key => $value) {
+                                                ?>
+                                                <option value="<?php echo $tablaTipoEmpleado[$i]->tipValorEmpleado; ?>"> <?php echo $tablaTipoEmpleado[$i]->tipDescripcion; ?></option><?php
+                                                $i++;
+                                            }
+                                            ?>
+                                        </select>   
+
                                     </div><br>
                                     <div>
                                         <input id="InputPassword" placeholder="Password" name="password" type="password" value=""  required="required" class="form-control"> 

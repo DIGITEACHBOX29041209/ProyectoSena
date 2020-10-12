@@ -50,7 +50,7 @@ if (isset($_SESSION['erroresValidacion'])) {
                                            unset($_SESSION['empIdEmpleado']);
                                            ?>">                         
                                     <br>
-                                    <input class="form-control" placeholder="Documento" name="documento" type="number"  required="required" 
+                                    <input class="form-control" placeholder="Documento" name="documento" type="number"  required="required"  autofocus readonly="readonly"
                                            value="<?php
                                            if (isset($actualizarDatosEmpleado[0]->empDocumentoEmpleado))
                                                echo $actualizarDatosEmpleado[0]->empDocumentoEmpleado;
@@ -83,7 +83,7 @@ if (isset($_SESSION['erroresValidacion'])) {
                                            unset($_SESSION['empApellidoEmpleado']);
                                            ?>">                                
                                     <br>
-                                    <input class="form-control" placeholder="Correo" name="email" type="text"  required="required" 
+                                    <input class="form-control" placeholder="Correo" name="email" type="text"  required="required" autofocus readonly="readonly"
                                            value="<?php
                                            if (isset($actualizarDatosEmpleado[0]->empCorreo))
                                                echo $actualizarDatosEmpleado[0]->empCorreo;

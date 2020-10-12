@@ -1,15 +1,15 @@
 <?php
 if (isset($_SESSION['mensaje'])) {
-$mensaje = $_SESSION['mensaje'];
-echo "<script languaje='javascript'>alert('$mensaje')</script>";
-unset($_SESSION['mensaje']);
+    $mensaje = $_SESSION['mensaje'];
+    echo "<script languaje='javascript'>alert('$mensaje')</script>";
+    unset($_SESSION['mensaje']);
 }
 if (isset($_SESSION['erroresValidacion'])) {
-$erroresValidacion = $_SESSION['erroresValidacion'];
-unset($_SESSION['erroresValidacion']);
+    $erroresValidacion = $_SESSION['erroresValidacion'];
+    unset($_SESSION['erroresValidacion']);
 }
 if (isset($_SESSION['arrayProveedor'])) {
-$tablaProveedor = $_SESSION['arrayProveedor'];
+    $tablaProveedor = $_SESSION['arrayProveedor'];
 }
 ?>
 
@@ -47,56 +47,56 @@ $tablaProveedor = $_SESSION['arrayProveedor'];
                                         <input class="form-control" placeholder="Nombre" name="nombre" type="text" required="required" autofocus
                                                value=<?php
                                                if (isset($erroresValidacion['datosViejos']['nombre']))
-                                               echo "\"" . $erroresValidacion['datosViejos']['nombre'] . "\"";
+                                                   echo "\"" . $erroresValidacion['datosViejos']['nombre'] . "\"";
                                                if (isset($_SESSION['nombre']))
-                                               echo "\"" . $_SESSION['nombre'] . "\"";
+                                                   echo "\"" . $_SESSION['nombre'] . "\"";
                                                unset($_SESSION['nombre']);
                                                ?>
                                                >
                                         <div>
                                             <?php
                                             if (isset($erroresValidacion['marcaCampo']['nombre']))
-                                            echo "<font color='red'>" . $erroresValidacion['marcaCampo']['nombre'] . "</font>";
+                                                echo "<font color='red'>" . $erroresValidacion['marcaCampo']['nombre'] . "</font>";
                                             ?>
                                             <?php
                                             if (isset($erroresValidacion['mensajesError']['nombre']))
-                                            echo "<font color='red'>" . $erroresValidacion['mensajesError']['nombre'] . "</font>";
+                                                echo "<font color='red'>" . $erroresValidacion['mensajesError']['nombre'] . "</font>";
                                             ?>  
                                         </div>
                                     </div> <br>
                                     <div>
                                         <select class="form-control" name="Proveedor" required="required">
                                             <option value="">Seleccione</option>
-                                         <?php
+                                            <?php
                                             $i = 0;
                                             foreach ($tablaProveedor as $key => $value) {
-                                            ?>
-                                            <option value="<?php echo $tablaProveedor[$i]->provIdProvedores; ?>"> <?php echo $tablaProveedor[$i]->provNombreProvedor; ?></option><?php
-                                            $i++;
+                                                ?>
+                                                <option value="<?php echo $tablaProveedor[$i]->provIdProvedores; ?>"> <?php echo $tablaProveedor[$i]->provNombreProvedor; ?></option><?php
+                                                $i++;
                                             }
                                             ?>
                                         </select>   
-                                           
-                                        </div><br>
-                                        <div>
+
+                                    </div><br>
+                                    <div>
                                         <input class = "form-control" placeholder = "Descripcion" name = "descripcion" type = "text" required = "required"
-                                        value = <?php
-                                        if (isset($erroresValidacion['datosViejos']['descripcion']))
-                                        echo "\"" . $erroresValidacion['datosViejos']['descripcion'] . "\"";
-                                        if (isset($_SESSION['descripcion'])) {
-                                        echo "\"" . $_SESSION['descripcion'] . "\"";
-                                        unset($_SESSION['descripcion']);
-                                        }
-                                        ?>
-                                        >
+                                               value = <?php
+                                               if (isset($erroresValidacion['datosViejos']['descripcion']))
+                                                   echo "\"" . $erroresValidacion['datosViejos']['descripcion'] . "\"";
+                                               if (isset($_SESSION['descripcion'])) {
+                                                   echo "\"" . $_SESSION['descripcion'] . "\"";
+                                                   unset($_SESSION['descripcion']);
+                                               }
+                                               ?>
+                                               >
                                         <div>
                                             <?php
                                             if (isset($erroresValidacion['marcaCampo']['descripcion']))
-                                            echo "<font color='red'>" . $erroresValidacion['marcaCampo']['descripcion'] . "</font>";
+                                                echo "<font color='red'>" . $erroresValidacion['marcaCampo']['descripcion'] . "</font>";
                                             ?>                                        
                                             <?php
                                             if (isset($erroresValidacion['mensajesError']['descripcion']))
-                                            echo "<font color='red'>" . $erroresValidacion['mensajesError']['descripcion'] . "</font>";
+                                                echo "<font color='red'>" . $erroresValidacion['mensajesError']['descripcion'] . "</font>";
                                             ?>
                                         </div>
                                     </div><br>
@@ -104,21 +104,21 @@ $tablaProveedor = $_SESSION['arrayProveedor'];
                                         <input class="form-control" placeholder="Cantidad" name="cantidad" type="number"  maxlength="6" required="required"
                                                value=<?php
                                                if (isset($erroresValidacion['datosViejos']['cantidad']))
-                                               echo "\"" . $erroresValidacion['datosViejos']['cantidad'] . "\"";
+                                                   echo "\"" . $erroresValidacion['datosViejos']['cantidad'] . "\"";
                                                if (isset($_SESSION['cantidad'])) {
-                                               echo "\"" . $_SESSION['cantidad'] . "\"";
-                                               unset($_SESSION['cantidad']);
+                                                   echo "\"" . $_SESSION['cantidad'] . "\"";
+                                                   unset($_SESSION['cantidad']);
                                                }
                                                ?>
                                                >
                                         <div>
                                             <?php
                                             if (isset($erroresValidacion['marcaCampo']['cantidad']))
-                                            echo "<font color='red'>" . $erroresValidacion['marcaCampo']['cantidad'] . "</font>";
+                                                echo "<font color='red'>" . $erroresValidacion['marcaCampo']['cantidad'] . "</font>";
                                             ?>
                                             <?php
                                             if (isset($erroresValidacion['mensajesError']['cantidad']))
-                                            echo "<font color='red'>" . $erroresValidacion['mensajesError']['cantidad'] . "</font>";
+                                                echo "<font color='red'>" . $erroresValidacion['mensajesError']['cantidad'] . "</font>";
                                             ?>
                                         </div>
                                     </div><br>
@@ -126,21 +126,21 @@ $tablaProveedor = $_SESSION['arrayProveedor'];
                                         <input class="form-control" placeholder="Precio Neto" name="precioNeto" type="number"  required="required"
                                                value=<?php
                                                if (isset($erroresValidacion['datosViejos']['precioNeto']))
-                                               echo "\"" . $erroresValidacion['datosViejos']['precioNeto'] . "\"";
+                                                   echo "\"" . $erroresValidacion['datosViejos']['precioNeto'] . "\"";
                                                if (isset($_SESSION['precioNeto'])) {
-                                               echo "\"" . $_SESSION['precioNeto'] . "\"";
-                                               unset($_SESSION['precioNeto']);
+                                                   echo "\"" . $_SESSION['precioNeto'] . "\"";
+                                                   unset($_SESSION['precioNeto']);
                                                }
                                                ?>
                                                >
                                         <div>
                                             <?php
                                             if (isset($erroresValidacion['marcaCampo']['precioNeto']))
-                                            echo "<font color='red'>" . $erroresValidacion['marcaCampo']['precioNeto'] . "</font>";
+                                                echo "<font color='red'>" . $erroresValidacion['marcaCampo']['precioNeto'] . "</font>";
                                             ?>
                                             <?php
                                             if (isset($erroresValidacion['mensajesError']['precioNeto']))
-                                            echo "<font color='red'>" . $erroresValidacion['mensajesError']['precioNeto'] . "</font>";
+                                                echo "<font color='red'>" . $erroresValidacion['mensajesError']['precioNeto'] . "</font>";
                                             ?>
                                         </div>
 
@@ -149,21 +149,21 @@ $tablaProveedor = $_SESSION['arrayProveedor'];
                                         <input class="form-control" placeholder="Precio Producto" name="precioProducto" type="number"   required="required"
                                                value=<?php
                                                if (isset($erroresValidacion['datosViejos']['precioProducto']))
-                                               echo "\"" . $erroresValidacion['datosViejos']['precioProducto'] . "\"";
+                                                   echo "\"" . $erroresValidacion['datosViejos']['precioProducto'] . "\"";
                                                if (isset($_SESSION['precioProducto'])) {
-                                               echo "\"" . $_SESSION['precioProducto'] . "\"";
-                                               unset($_SESSION['precioProducto']);
+                                                   echo "\"" . $_SESSION['precioProducto'] . "\"";
+                                                   unset($_SESSION['precioProducto']);
                                                }
                                                ?>
                                                >
                                         <div>
                                             <?php
                                             if (isset($erroresValidacion['marcaCampo']['precioProducto']))
-                                            echo "<font color='red'>" . $erroresValidacion['marcaCampo']['precioProducto'] . "</font>";
+                                                echo "<font color='red'>" . $erroresValidacion['marcaCampo']['precioProducto'] . "</font>";
                                             ?>                                        
                                             <?php
                                             if (isset($erroresValidacion['mensajesError']['precioProducto']))
-                                            echo "<font color='red'>" . $erroresValidacion['mensajesError']['telefonoprecioProducto'] . "</font>";
+                                                echo "<font color='red'>" . $erroresValidacion['mensajesError']['telefonoprecioProducto'] . "</font>";
                                             ?>
                                         </div>
                                     </div><br>

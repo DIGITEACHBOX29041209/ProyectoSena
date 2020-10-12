@@ -160,10 +160,24 @@ class Empleado_Dao extends ConBdMySql {
         try {
             $Id = $registro[0]['idEmpleado'];
             $inserta = $this->conexion->prepare("DELETE FROM `empleado` WHERE empIdEmpleado = $Id");
-//            echo print_r($registro);
-//            exit();
             $inserta->execute();
             return ['inserta' => 1, 'resultado' => 'Borro correctamente'];
+        } catch (Exception $exc) {
+            return ['inserta' => 2, 'resultado' => $exc->getTraceAsString()];
+        }
+    }
+    
+    public function selectTablasTipodeEmpleado() {
+        try {
+            $consulta = $this->conexion->prepare("SELECT * FROM `tipoempleado` ");
+            $consulta->execute();
+            
+            $registroEncontrado = array();
+
+            while ($registro = $consulta->fetch(PDO::FETCH_OBJ)) {
+                $registroEncontrado[] = $registro;
+            }           
+            return $registroEncontrado;  
         } catch (Exception $exc) {
             return ['inserta' => 2, 'resultado' => $exc->getTraceAsString()];
         }

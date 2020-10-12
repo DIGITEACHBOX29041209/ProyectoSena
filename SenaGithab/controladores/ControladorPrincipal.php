@@ -150,6 +150,10 @@ class ControladorPrincipal {
             case "gestionderegistroPorducto":
                 $ProductoControlador = new ProductoControlador($this->datos);
                 break;
+            
+            case "gestionderegistroEmpleado":
+                $EmpleadoControlador = new EmpleadoControlador($this->datos);
+                break;
             default:
                 break;
         }

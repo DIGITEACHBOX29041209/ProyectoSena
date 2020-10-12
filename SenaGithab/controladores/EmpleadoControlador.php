@@ -17,7 +17,7 @@ class EmpleadoControlador {
             case "gestionDeRegistro":
                 $gestarUsuario_s = new Empleado_Dao(SERVIDOR, BASE, USUARIO_BD, CONTRASENIA_BD);
                 $existeUsuario_s = $gestarUsuario_s->seleccionarId(array($this->datos["documento"], $this->datos['email']));
-                
+
                 if (1 == $existeUsuario_s['exitoSeleccionId']) {
                     $insertoUsuario_s = $gestarUsuario_s->insertar($this->datos);
                     $exitoInsercionUsuario_s = $insertoUsuario_s['inserto'];
@@ -40,32 +40,32 @@ class EmpleadoControlador {
                             header("location: vistasAdmin/VistaPrincipalAdmin.php?contenido=FormRegistroEmpleado.php");
                         }
                     }
-                } 
-                if (0 == $existeUsuario_s['exitoSeleccionId']) {
-                 session_start();
-                        $_SESSION['documento'] = $this->datos['documento'];
-                        $_SESSION['nombre'] = $this->datos['nombre'];
-                        $_SESSION['apellidos'] = $this->datos['apellidos'];
-                        $_SESSION['email'] = $this->datos['email'];
-                        $_SESSION['telefono'] = $this->datos['telefono'];
-                        $_SESSION['tipoEmpleado'] = $this->datos['tipoEmpleado'];
-                        $_SESSION['mensaje'] = 'Usuario inactivo ';
-                        if ($this->datos['rutaSena'] == 'gestionDeRegistro') {//si al insertar un usuario en el formulario de registrarse y éste ya existe a registro.php
-                            header("location: vistasAdmin/VistaPrincipalAdmin.php?contenido=FormRegistroEmpleado.php");
-                        }
                 }
-                 if (3 == $existeUsuario_s['exitoSeleccionId']) {
-                 session_start();
-                        $_SESSION['documento'] = $this->datos['documento'];
-                        $_SESSION['nombre'] = $this->datos['nombre'];
-                        $_SESSION['apellidos'] = $this->datos['apellidos'];
-                        $_SESSION['email'] = $this->datos['email'];
-                        $_SESSION['telefono'] = $this->datos['telefono'];
-                        $_SESSION['tipoEmpleado'] = $this->datos['tipoEmpleado'];
-                        $_SESSION['mensaje'] = 'Usuario Activo en el sistema';
-                        if ($this->datos['rutaSena'] == 'gestionDeRegistro') {//si al insertar un usuario en el formulario de registrarse y éste ya existe a registro.php
-                            header("location: vistasAdmin/VistaPrincipalAdmin.php?contenido=FormRegistroEmpleado.php");
-                        }
+                if (0 == $existeUsuario_s['exitoSeleccionId']) {
+                    session_start();
+                    $_SESSION['documento'] = $this->datos['documento'];
+                    $_SESSION['nombre'] = $this->datos['nombre'];
+                    $_SESSION['apellidos'] = $this->datos['apellidos'];
+                    $_SESSION['email'] = $this->datos['email'];
+                    $_SESSION['telefono'] = $this->datos['telefono'];
+                    $_SESSION['tipoEmpleado'] = $this->datos['tipoEmpleado'];
+                    $_SESSION['mensaje'] = 'Usuario inactivo ';
+                    if ($this->datos['rutaSena'] == 'gestionDeRegistro') {//si al insertar un usuario en el formulario de registrarse y éste ya existe a registro.php
+                        header("location: vistasAdmin/VistaPrincipalAdmin.php?contenido=FormRegistroEmpleado.php");
+                    }
+                }
+                if (3 == $existeUsuario_s['exitoSeleccionId']) {
+                    session_start();
+                    $_SESSION['documento'] = $this->datos['documento'];
+                    $_SESSION['nombre'] = $this->datos['nombre'];
+                    $_SESSION['apellidos'] = $this->datos['apellidos'];
+                    $_SESSION['email'] = $this->datos['email'];
+                    $_SESSION['telefono'] = $this->datos['telefono'];
+                    $_SESSION['tipoEmpleado'] = $this->datos['tipoEmpleado'];
+                    $_SESSION['mensaje'] = 'Usuario Activo en el sistema';
+                    if ($this->datos['rutaSena'] == 'gestionDeRegistro') {//si al insertar un usuario en el formulario de registrarse y éste ya existe a registro.php
+                        header("location: vistasAdmin/VistaPrincipalAdmin.php?contenido=FormRegistroEmpleado.php");
+                    }
                 }
 
                 break;
@@ -102,6 +102,14 @@ class EmpleadoControlador {
                 session_start();
                 $_SESSION['mensaje'] = "   Borrado exitoso!!! ";
                 header("location:Controlador.php?rutaSena=gestionDeTablasEmpeladoo");
+                break;
+
+            case "gestionderegistroEmpleado":
+                $gestarEmpleado = new Empleado_Dao(SERVIDOR, BASE, USUARIO_BD, CONTRASENIA_BD);
+                $tablaTipoEmpleado = $gestarEmpleado->selectTablasTipodeEmpleado(); //Se envía datos del libro para actualizar.               
+                session_start();
+                $_SESSION['arrayEmpleado'] = $tablaTipoEmpleado;            
+                header("location: vistasAdmin/VistaPrincipalAdmin.php?contenido=FormRegistroEmpleado.php");         
                 break;
 
             default :
