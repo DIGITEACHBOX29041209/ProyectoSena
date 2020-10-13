@@ -66,7 +66,7 @@ if (isset($_SESSION['arrayProveedor'])) {
                                     </div> <br>
                                     <div>
                                         <select class="form-control" name="Proveedor" required="required">
-                                            <option value="">Seleccione</option>
+                                            <option value="">Seleccione Proveedor</option>
                                             <?php
                                             $i = 0;
                                             foreach ($tablaProveedor as $key => $value) {

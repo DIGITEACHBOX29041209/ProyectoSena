@@ -35,7 +35,7 @@ class Producto_Dao extends ConBdMySql {
             $precioNeto = $registro['precioNeto'];
             $precioProducto = $registro['precioProducto'];
             $Proveedor = $registro['Proveedor'];
-            $inserta = $this->conexion->prepare("INSERT INTO `producto`(prodidProducto, prodNombreProducto, prodDescripcionProducto, prodCantidadProducto, prodPrecioNeto, prodPrecioProducto, prod_Estado) VALUES ('$idProducto2', '$nombre', '$descripcion', '$cantidad', '$precioNeto', '$precioProducto','1')");
+            $inserta = $this->conexion->prepare("INSERT INTO `producto`(prodidProducto, prodNombreProducto, prodDescripcionProducto, prodCantidadProducto, prodPrecioNeto, prodPrecioProducto, prod_Estado, prodProveedor) VALUES ('$idProducto2', '$nombre', '$descripcion', '$cantidad', '$precioNeto', '$precioProducto','1', '$Proveedor')");
             $inserta->execute();
             $clavePrimariaConQueInserto = $this->ultimoInsertId();
             $inserta2 = $this->conexion->prepare("INSERT INTO `producto_proveedores`( `proEstado`, `provIdProvedores`, `prodidProducto`) VALUES ('1','$Proveedor','$idProducto2')");
@@ -80,8 +80,9 @@ class Producto_Dao extends ConBdMySql {
             $cantidad = $registro[0]['cantidad'];
             $precioNeto = $registro[0]['precioNeto'];
             $precioProducto = $registro[0]['precioProducto'];
+            $Proveedor = $registro[0]['Proveedor'];
             if (isset($Id)) {
-                $actualizar = $this->conexion->prepare("UPDATE `producto` SET `prodNombreProducto`='$nombre',`prodDescripcionProducto`='$descripcion',`prodCantidadProducto`=$cantidad,`prodPrecioNeto`=$precioNeto,`prodPrecioProducto`=$precioProducto WHERE `prodidProducto`=$Id");
+                $actualizar = $this->conexion->prepare("UPDATE `producto` SET `prodNombreProducto`='$nombre',`prodDescripcionProducto`='$descripcion',`prodCantidadProducto`=$cantidad,`prodPrecioNeto`=$precioNeto,`prodPrecioProducto`=$precioProducto, `prodProveedor`=$Proveedor WHERE `prodidProducto`=$Id");
                 $actualizar->execute();
                 return ['actualizar' => 1, 'mensaje' => "Actualizo correctamente"];
             }

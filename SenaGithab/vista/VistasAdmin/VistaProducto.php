@@ -31,11 +31,12 @@ if (isset($_SESSION['datos'])) {
                         <th>Id</th>  
                         <th>Nombre</th> 
                         <th>Descripcion</th> 
+                        <th>Proveedor</th>
                         <th>Cantidad</th> 
                         <th>Precio Neto</th>
                         <th>Precio Producto</th>               
-                        <th>Edit</th> 
-                        <th>Delete</th> 
+                        <th>Editar</th> 
+                        <th>Eliminar</th> 
                     </tr>
                 </thead>
                 <tbody>
@@ -46,7 +47,8 @@ if (isset($_SESSION['datos'])) {
                         <tr>
                             <td><?php echo $listaDeProducto[$i]->prodidProducto; ?></td>  
                             <td><?php echo $listaDeProducto[$i]->prodNombreProducto; ?></td>  
-                            <td><?php echo $listaDeProducto[$i]->prodDescripcionProducto; ?></td>  
+                            <td><?php echo $listaDeProducto[$i]->prodDescripcionProducto; ?></td>
+                            <td><?php echo $listaDeProducto[$i]->prodProveedor; ?></td>
                             <td><?php echo $listaDeProducto[$i]->prodCantidadProducto; ?></td>  
                             <td><?php echo $listaDeProducto[$i]->prodPrecioNeto; ?></td> 
                             <td><?php echo $listaDeProducto[$i]->prodPrecioProducto; ?></td> 
