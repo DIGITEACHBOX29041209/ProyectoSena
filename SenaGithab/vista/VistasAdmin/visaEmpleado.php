@@ -33,7 +33,8 @@ if (isset($_SESSION['datos'])) {
                         <th>Nombre</th> 
                         <th>Apellido</th> 
                         <th>Correo</th> 
-                        <th>Telefono</th>         
+                        <th>Telefono</th> 
+                        <th>Tipo Empleado</th>
                         <th>Editar</th> 
                         <th>Eliminar</th> 
                     </tr>
@@ -49,7 +50,8 @@ if (isset($_SESSION['datos'])) {
                             <td><?php echo $listaDeEmpleado[$i]->empNombreEmpleado; ?></td>  
                             <td><?php echo $listaDeEmpleado[$i]->empApellidoEmpleado; ?></td>  
                             <td><?php echo $listaDeEmpleado[$i]->empCorreo; ?></td> 
-                            <td><?php echo $listaDeEmpleado[$i]->empTelefonoEmpleado; ?></td>  
+                            <td><?php echo $listaDeEmpleado[$i]->empTelefonoEmpleado; ?></td> 
+                            <td  align="center"><?php echo $listaDeEmpleado[$i]->empCargoEmpleado; ?></td> 
                             <td><a href="../Controlador.php?rutaSena=actualizarEmpleado&idAct=<?php echo $listaDeEmpleado[$i]->empIdEmpleado; ?>">Actualizar</a></td>  
                             <td><a href="../Controlador.php?rutaSena=eliminarEmpleado&idAct=<?php echo $listaDeEmpleado[$i]->empIdEmpleado; ?>" onclick="return confirm('Está seguro de eliminar el registro?')">Eliminar</a></td>  
                         </tr>   

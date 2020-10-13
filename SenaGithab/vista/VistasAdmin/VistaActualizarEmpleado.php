@@ -7,6 +7,9 @@ if (isset($_SESSION['erroresValidacion'])) {
     $erroresValidacion = $_SESSION['erroresValidacion'];
     unset($_SESSION['erroresValidacion']);
 }
+if (isset($_SESSION['arrayEmpleado'])) {
+    $tablaTipoEmpleado = $_SESSION['arrayEmpleado'];
+}
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -72,7 +75,7 @@ if (isset($_SESSION['erroresValidacion'])) {
                                            unset($_SESSION['empNombreEmpleado']);
                                            ?>">  
                                     <br>
-                                    <input class="form-control" placeholder="apellido" name="apellidos" type="text"  required="required" 
+                                    <input class="form-control" placeholder="Apellido" name="apellidos" type="text"  required="required" 
                                            value="<?php
                                            if (isset($actualizarDatosEmpleado[0]->empApellidoEmpleado))
                                                echo $actualizarDatosEmpleado[0]->empApellidoEmpleado;
@@ -104,6 +107,18 @@ if (isset($_SESSION['erroresValidacion'])) {
                                                echo $_SESSION['empTelefonoEmpleado'];
                                            unset($_SESSION['empTelefonoEmpleado']);
                                            ?>">  
+                                    <br>
+                                    <select class="form-control" name="tipoEmpleado" required="required">
+                                        <option value="">Tipo de Empleado</option>
+                                        <<?php
+                                        $i = 0;
+                                        foreach ($tablaTipoEmpleado as $key => $value) {
+                                            ?>
+                                            <option value="<?php echo $tablaTipoEmpleado[$i]->tipValorEmpleado; ?>"> <?php echo $tablaTipoEmpleado[$i]->tipDescripcion; ?></option><?php
+                                            $i++;
+                                        }
+                                        ?>
+                                    </select>
                                     <br>
                                     <a class="btn btn-primary btn-block" style="color:white;" href="../Controlador.php?rutaSena=gestionDeTablasEmpeladoo">Cancelar </a>
                                     <br>

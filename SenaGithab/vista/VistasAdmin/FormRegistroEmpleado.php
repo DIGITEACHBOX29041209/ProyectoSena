@@ -155,7 +155,7 @@ if (isset($_SESSION['arrayEmpleado'])) {
                                         </div>
                                     </div><br>
                                     <div>
-                                        <select class="form-control" name="TipoEmpleado" required="required">
+                                        <select class="form-control" name="tipoEmpleado" required="required">
                                             <option value="">Tipo de Empleado</option>
                                             <<?php
                                             $i = 0;

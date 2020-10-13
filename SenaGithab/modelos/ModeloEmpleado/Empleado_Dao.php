@@ -22,15 +22,15 @@ class Empleado_Dao extends ConBdMySql {
             if (count($registroEncontrado) == 0) {
 
                 $planConsulta2 = "SELECT * FROM `empleado` WHERE empDocumentoEmpleado = $Id[0] or empCorreo = '$Id[1]' and emp_Estado = '2' ";
-                $listar2 = $this->conexion->prepare($planConsulta);
+                $listar2 = $this->conexion->prepare($planConsulta2);
                 $listar2->execute();
                 $registroEncontrado2 = array();
                 while ($registro2 = $listar2->fetch(PDO::FETCH_OBJ)) {
                     $registroEncontrado2[] = $registro2;
                 }
                 if (count($registroEncontrado2) == 0) {
-                    return ['exitoSeleccionId' => 1, 'registroEncontrado' => $registroEncontrado]; /* 1 exitoso */
-                }else{
+                    return ['exitoSeleccionId' => 1, 'registroEncontrado' => $registroEncontrado]; /* 1 exitoso registrar */
+                } else {
                     return ['exitoSeleccionId' => 3, 'registroEncontrado' => $registroEncontrado];  // existe desactivado
                 }
             } else {
@@ -166,18 +166,18 @@ class Empleado_Dao extends ConBdMySql {
             return ['inserta' => 2, 'resultado' => $exc->getTraceAsString()];
         }
     }
-    
+
     public function selectTablasTipodeEmpleado() {
         try {
             $consulta = $this->conexion->prepare("SELECT * FROM `tipoempleado` ");
             $consulta->execute();
-            
+
             $registroEncontrado = array();
 
             while ($registro = $consulta->fetch(PDO::FETCH_OBJ)) {
                 $registroEncontrado[] = $registro;
-            }           
-            return $registroEncontrado;  
+            }
+            return $registroEncontrado;
         } catch (Exception $exc) {
             return ['inserta' => 2, 'resultado' => $exc->getTraceAsString()];
         }
